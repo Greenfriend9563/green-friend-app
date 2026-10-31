@@ -35,8 +35,9 @@ https://github.com/Greenfriend9563/green-friend-app/releases/latest/download/Gre
 
 ## 📞 যোগাযোগ
 
-- WhatsApp: `01XXXXXXXXX`
-- ইমেইল: `your-email@example.com`
+- WhatsApp: [**+91 95632 05299**](https://wa.me/919563205299)
+- ইমেইল: **mobasserhoque@gmail.com**
+- অর্ডার / সাপোর্ট: সকাল ৯টা – রাত ৯টা
 
 ---
 
