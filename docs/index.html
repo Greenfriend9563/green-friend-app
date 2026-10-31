@@ -834,6 +834,21 @@
     setTimeout(function () { el.style.opacity = "0"; el.style.transition = "opacity .3s"; setTimeout(function () { el.remove(); }, 320); }, 1400);
   }
 
+  // Expose handlers used by inline onclick attributes (they live in this IIFE scope).
+  window.addToCart = addToCart;
+  window.buyNow = buyNow;
+  window.openCart = openCart;
+  window.closeCart = closeCart;
+  window.setQty = setQty;
+  window.removeFromCart = removeFromCart;
+  window.openCheckout = openCheckout;
+  window.closeCheckout = closeCheckout;
+  window.setAuthMode = setAuthMode;
+  window.doAuth = doAuth;
+  window.signOutWeb = signOutWeb;
+  window.selectPay = selectPay;
+  window.submitOrder = submitOrder;
+
   boot();
   updateCartBadge();
 })();
