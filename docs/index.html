@@ -103,10 +103,14 @@
   .p-price b{font-size:16px;color:var(--green);font-weight:900}
   .p-price s{font-size:12px;color:#9AA793}
   .p-actions{display:flex;gap:7px;margin-top:9px}
-  .p-order,.p-cart{flex:1;border-radius:12px;font-weight:900;font-size:12.5px;padding:9px;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;justify-content:center;gap:5px}
+  .p-order,.p-cart,.p-buy{flex:1;border-radius:12px;font-weight:900;font-size:12.5px;padding:9px;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;justify-content:center;gap:5px;border:0}
   .p-order{border:1px solid #CFDCC5;background:#F5FAF0;color:var(--green)}
-  .p-cart{border:0;background:var(--green);color:#fff}
-  .p-cart:disabled,.p-order:disabled{opacity:.45;cursor:not-allowed}
+  .p-cart{background:var(--green);color:#fff}
+  .p-buy{background:var(--gold-2);color:#243018}
+  .p-wa{display:block;text-align:center;margin-top:7px;font-size:12px;font-weight:800;color:var(--green)}
+  .p-cart:disabled,.p-order:disabled,.p-buy:disabled{opacity:.45;cursor:not-allowed}
+  .cartfab.bump{animation:bump .35s ease}
+  @keyframes bump{0%{transform:scale(1)}50%{transform:scale(1.12)}100%{transform:scale(1)}}
 
   .offers{display:grid;grid-template-columns:1fr;gap:14px}
   @media(min-width:720px){.offers{grid-template-columns:1fr 1fr}}
@@ -418,7 +422,7 @@
       note: 'Play Protect "Unsafe app blocked" দেখালে More details → Install anyway চাপুন। অ্যাপে কোনো বিজ্ঞাপন নেই, টাকা কাটে না।',
       fTag: "মালদা ও মুর্শিদাবাদের আমের গাছ — ৮ ফুট, কম দামে, গ্যারান্টি সহ।",
       fContact: "যোগাযোগ", fHours: "🕘 সকাল ৯টা – রাত ৯টা", fApp: "অ্যাপ",
-      order: "WhatsApp-এ অর্ডার", add: "কার্টে যোগ", all: "সব", out: "স্টক শেষ", low: "মাত্র {0}টি বাকি", off: "{0}% ছাড়",
+      order: "WhatsApp-এ অর্ডার", add: "কার্টে যোগ", buyNow: "এখনই কিনুন", all: "সব", out: "স্টক শেষ", low: "মাত্র {0}টি বাকি", off: "{0}% ছাড়",
       cart: "কার্ট", cartTitle: "আপনার কার্ট", total: "মোট", checkout: "চেকআউট",
       cartEmptyT: "কার্ট খালি", cartEmptyS: "একটা গাছ যোগ করুন।",
       checkoutTitle: "অর্ডার সম্পন্ন করুন", signin: "সাইন ইন", signup: "অ্যাকাউন্ট তৈরি",
@@ -453,7 +457,7 @@
       note: 'If Play Protect says "Unsafe app blocked", tap More details → Install anyway. No ads, no charges.',
       fTag: "Mango plants across Malda & Murshidabad — 8 ft, lower price, guaranteed.",
       fContact: "Contact", fHours: "🕘 9 AM – 9 PM", fApp: "App",
-      order: "Order on WhatsApp", add: "Add to cart", all: "All", out: "Out of stock", low: "Only {0} left", off: "{0}% off",
+      order: "Order on WhatsApp", add: "Add to cart", buyNow: "Buy now", all: "All", out: "Out of stock", low: "Only {0} left", off: "{0}% off",
       cart: "Cart", cartTitle: "Your cart", total: "Total", checkout: "Checkout",
       cartEmptyT: "Cart is empty", cartEmptyS: "Add a plant to get started.",
       checkoutTitle: "Complete your order", signin: "Sign in", signup: "Create account",
@@ -496,6 +500,12 @@
     if (ex) ex.qty += 1; else cart.push({ product: p, qty: 1 });
     saveCart();
     toast(t("add") + " ✓");
+    var fab = document.getElementById("cartFab");
+    if (fab) { fab.classList.remove("bump"); void fab.offsetWidth; fab.classList.add("bump"); }
+  }
+  function buyNow(p) {
+    addToCart(p);
+    setTimeout(function () { openCheckout(); }, 260);
   }
   function removeFromCart(id) { cart = cart.filter(function (c) { return c.product.id !== id; }); saveCart(); }
   function setQty(id, q) {
@@ -766,9 +776,10 @@
           '<div class="p-name">' + esc(productName(p)) + "</div>" +
           '<div class="p-price"><b>' + money(price) + "</b>" + (hasOffer ? "<s>" + money(listPrice) + "</s>" : "") + "</div>" +
           '<div class="p-actions">' +
-            '<a class="p-order" href="' + wa(msg) + '">💬 ' + esc(t("order")) + "</a>" +
             '<button class="p-cart" ' + (out ? "disabled" : "") + ' onclick=\'addToCart(' + JSON.stringify(p).replace(/'/g, "&#39;") + ')\'>+ ' + esc(t("add")) + "</button>" +
+            '<button class="p-buy" ' + (out ? "disabled" : "") + ' onclick=\'buyNow(' + JSON.stringify(p).replace(/'/g, "&#39;") + ')\'>⚡ ' + esc(t("buyNow")) + "</button>" +
           "</div>" +
+          '<a class="p-wa" href="' + wa(msg) + '">💬 ' + esc(t("order")) + "</a>" +
         "</div></article>";
     }).join("");
   }
