@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Green Friend — মালদার গাছের দোকান | ঘরে ডেলিভারি</title>
+<meta name="description" content="Green Friend — ১০০% অরিজিনাল ইনডোর গাছ, ফুল, ফল, টব ও অর্গানিক কেয়ার। মালদা ও আশেপাশে ঘরে ডেলিভারি, ক্যাশ অন ডেলিভারি ও UPI। WhatsApp-এ অর্ডার করুন।">
+<meta name="theme-color" content="#1F5F3E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Green Friend — মালদার গাছের দোকান">
+<meta property="og:description" content="১০০% অরিজিনাল গাছ, ঘরে ডেলিভারি। অ্যাপে অর্ডার করলে বাড়তি ছাড় ও কুপন।">
+<meta property="og:image" content="https://github.com/Greenfriend9563/green-friend-app/raw/main/docs/og.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🌿%3C/text%3E%3C/svg%3E">
+<style>
+  :root{
+    --green:#1F5F3E; --green-2:#2C7A50; --green-3:#EAF3DE;
+    --gold:#B8862B; --gold-2:#E7B74C; --cream:#FBF7EC;
+    --ink:#23301F; --muted:#6C7A66; --line:#E4E9DC; --card:#FFFFFF;
+    --shadow:0 10px 30px rgba(31,95,62,.10);
+    --radius:20px;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:"Hind Siliguri","Noto Sans Bengali","Nirmala UI",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    color:var(--ink); background:var(--cream); line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 18px}
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(251,247,236,.92);backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .bar{display:flex;align-items:center;gap:12px;height:62px}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:900;font-size:19px;color:var(--green);letter-spacing:-.3px}
+  .brand .leaf{font-size:22px}
+  .grow{flex:1}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:7px;
+    border-radius:999px;padding:11px 18px;font-weight:800;font-size:14px;
+    border:1px solid transparent;cursor:pointer;transition:.18s transform,.18s box-shadow;
+    white-space:nowrap;
+  }
+  .btn:active{transform:scale(.97)}
+  .btn-solid{background:var(--green);color:#fff;box-shadow:0 6px 16px rgba(31,95,62,.25)}
+  .btn-gold{background:var(--gold-2);color:#243018;box-shadow:0 6px 16px rgba(184,134,43,.25)}
+  .btn-line{background:#fff;color:var(--green);border-color:#CFDCC5}
+  .btn-sm{padding:8px 13px;font-size:12.5px}
+  .lang{
+    display:flex;background:#fff;border:1px solid var(--line);border-radius:999px;overflow:hidden;
+  }
+  .lang button{
+    border:0;background:transparent;padding:7px 11px;font-size:12px;font-weight:800;color:var(--muted);cursor:pointer;
+    font-family:inherit;
+  }
+  .lang button.on{background:var(--green);color:#fff}
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;overflow:hidden;
+    background:
+      radial-gradient(900px 380px at 90% -10%, #CFE6BE 0%, transparent 60%),
+      radial-gradient(700px 340px at 0% 110%, #F3E6BE 0%, transparent 55%),
+      linear-gradient(180deg,#FBFAF1 0%, #F4F8EE 100%);
+    padding:54px 0 40px;border-bottom:1px solid var(--line);
+  }
+  .hero h1{
+    font-size:clamp(30px,7vw,52px);line-height:1.15;margin:0 0 14px;letter-spacing:-1px;color:#173D2A;
+  }
+  .hero h1 span{color:var(--gold)}
+  .hero p{font-size:clamp(14px,3.4vw,17px);color:#4F5F48;margin:0 0 24px;max-width:590px}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:26px}
+  .hero-badges{display:flex;flex-wrap:wrap;gap:8px}
+  .pill{
+    background:#fff;border:1px solid var(--line);border-radius:999px;
+    padding:7px 13px;font-size:12px;font-weight:800;color:#3E5738;
+    box-shadow:0 3px 10px rgba(31,95,62,.06);
+  }
+
+  /* ---------- app band ---------- */
+  .band{
+    background:linear-gradient(100deg,#174D35,#2C7A50 60%,#357F52);
+    color:#F6FBEF;border-radius:24px;padding:22px 24px;
+    display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+    margin:-26px auto 34px;position:relative;z-index:5;box-shadow:var(--shadow);
+    border:1px solid #E7B74C55;
+  }
+  .band .ico{
+    width:52px;height:52px;border-radius:16px;background:var(--gold-2);color:#22331F;
+    display:flex;align-items:center;justify-content:center;font-size:24px;flex:none;
+  }
+  .band b{display:block;font-size:16px;letter-spacing:-.2px}
+  .band small{display:block;color:#C9DEBD;font-size:12.5px;margin-top:3px}
+  .band .grow{min-width:180px}
+
+  /* ---------- sections ---------- */
+  section{padding:8px 0 34px}
+  .sec-head{display:flex;align-items:flex-end;gap:12px;margin:6px 0 16px}
+  .sec-head h2{font-size:clamp(20px,4.6vw,26px);margin:0;letter-spacing:-.5px}
+  .sec-head p{margin:0;color:var(--muted);font-size:13px}
+  .sec-head .grow{flex:1}
+
+  .chips{display:flex;gap:8px;overflow-x:auto;padding:4px 0 12px;scrollbar-width:none}
+  .chips::-webkit-scrollbar{display:none}
+  .chip{
+    border:1px solid var(--line);background:#fff;color:#42533C;border-radius:999px;
+    padding:8px 15px;font-size:13px;font-weight:800;white-space:nowrap;cursor:pointer;font-family:inherit;
+  }
+  .chip.on{background:var(--green);color:#fff;border-color:var(--green)}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:14px}
+  @media(min-width:720px){ .grid{grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px} }
+
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    overflow:hidden;box-shadow:0 4px 14px rgba(31,95,62,.06);
+    display:flex;flex-direction:column;transition:.2s transform,.2s box-shadow;
+  }
+  .card:active{transform:scale(.99)}
+  .thumb{
+    position:relative;aspect-ratio:1/1;background:var(--green-3);
+    display:flex;align-items:center;justify-content:center;font-size:44px;overflow:hidden;
+  }
+  .thumb img{width:100%;height:100%;object-fit:cover}
+  .badge{
+    position:absolute;top:9px;left:9px;background:#fff;color:#8A5A00;
+    font-size:10.5px;font-weight:900;border-radius:999px;padding:4px 9px;
+    box-shadow:0 2px 8px rgba(0,0,0,.10);
+  }
+  .badge.out{background:#FBEDEA;color:#9B463F}
+  .badge.low{background:#FFF6E0;color:#8A5A00}
+  .card-body{padding:11px 12px 13px;display:flex;flex-direction:column;gap:6px;flex:1}
+  .p-cat{font-size:10.5px;font-weight:900;letter-spacing:.5px;text-transform:uppercase;color:#8CA27F}
+  .p-name{font-size:14.5px;font-weight:900;line-height:1.3;letter-spacing:-.2px}
+  .p-price{display:flex;align-items:baseline;gap:7px;margin-top:auto;padding-top:2px}
+  .p-price b{font-size:16px;color:var(--green);font-weight:900}
+  .p-price s{font-size:12px;color:#9AA793}
+  .p-order{
+    margin-top:9px;width:100%;border-radius:12px;border:1px solid #CFDCC5;background:#F5FAF0;
+    color:var(--green);font-weight:900;font-size:12.5px;padding:9px;cursor:pointer;font-family:inherit;
+    display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  }
+  .p-order:disabled{opacity:.45;cursor:not-allowed}
+
+  .offers{display:grid;grid-template-columns:1fr;gap:14px}
+  @media(min-width:720px){.offers{grid-template-columns:1fr 1fr}}
+  .offer{
+    position:relative;border-radius:22px;overflow:hidden;min-height:150px;
+    display:flex;flex-direction:column;justify-content:flex-end;
+    color:#fff;box-shadow:var(--shadow);background:#2C7A50;
+  }
+  .offer img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .offer .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,30,20,.05),rgba(10,30,20,.78))}
+  .offer .txt{position:relative;padding:16px 18px}
+  .offer b{font-size:17px;display:block;letter-spacing:-.3px}
+  .offer span{font-size:12.5px;color:#E4F0DA;display:block;margin-top:3px}
+
+  .trust{
+    display:flex;gap:14px;align-items:flex-start;background:#fff;border:1px solid var(--line);
+    border-radius:var(--radius);padding:18px;box-shadow:0 4px 14px rgba(31,95,62,.05);
+  }
+  .trust .seal{
+    flex:none;width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,var(--gold-2),var(--gold));
+    display:flex;align-items:center;justify-content:center;font-size:26px;color:#243018;
+  }
+  .trust h3{margin:0 0 4px;font-size:15px}
+  .trust p{margin:0;color:var(--muted);font-size:13px}
+
+  .reviews{display:grid;grid-template-columns:1fr;gap:12px}
+  @media(min-width:720px){.reviews{grid-template-columns:1fr 1fr 1fr}}
+  .rev{background:#fff;border:1px solid var(--line);border-radius:18px;padding:15px;box-shadow:0 4px 14px rgba(31,95,62,.05)}
+  .rev .top{display:flex;align-items:center;gap:9px;margin-bottom:8px}
+  .av{width:34px;height:34px;border-radius:50%;background:var(--green-3);color:var(--green);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;overflow:hidden}
+  .av img{width:100%;height:100%;object-fit:cover}
+  .rev .nm{font-weight:900;font-size:13px}
+  .stars{color:var(--gold);font-size:12px;letter-spacing:1px}
+  .rev p{margin:0;font-size:13px;color:#44523E}
+
+  .steps{display:grid;grid-template-columns:1fr;gap:12px}
+  @media(min-width:720px){.steps{grid-template-columns:repeat(3,1fr)}}
+  .step{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px}
+  .step .n{width:26px;height:26px;border-radius:50%;background:var(--green);color:#fff;font-weight:900;font-size:13px;display:flex;align-items:center;justify-content:center;margin-bottom:8px}
+  .step b{font-size:13.5px;display:block;margin-bottom:3px}
+  .step small{color:var(--muted);font-size:12.5px}
+
+  .note{
+    background:#FFF9E9;border:1px solid #F0E0B4;color:#6E5620;border-radius:14px;
+    padding:13px 15px;font-size:12.5px;margin-top:14px;
+  }
+
+  footer{background:#123524;color:#C9DEBD;padding:34px 0 100px;margin-top:20px}
+  footer h3{color:#fff;font-size:16px;margin:0 0 10px}
+  footer a{color:#EAF3DE}
+  .frow{display:flex;flex-wrap:wrap;gap:26px;justify-content:space-between}
+  .fcol{min-width:200px}
+  .fcol p{margin:5px 0;font-size:13px}
+  .copy{border-top:1px solid #245038;margin-top:22px;padding-top:14px;font-size:12px;color:#8FAF87}
+
+  .fab{
+    position:fixed;right:16px;bottom:16px;z-index:60;
+    width:56px;height:56px;border-radius:50%;background:#25D366;color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 10px 26px rgba(37,211,102,.42);
+    font-size:27px;
+  }
+
+  .empty{background:#fff;border:1px dashed #CFDCC5;border-radius:20px;padding:28px 18px;text-align:center;color:var(--muted);font-size:13.5px}
+  .empty b{display:block;color:var(--ink);font-size:15px;margin-bottom:6px}
+
+  .skel{background:linear-gradient(90deg,#EEF3E7 25%,#F7FAF2 37%,#EEF3E7 63%);background-size:400% 100%;animation:sh 1.2s infinite linear;border-radius:var(--radius);height:230px}
+  @keyframes sh{0%{background-position:100% 0}100%{background-position:-100% 0}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="#top"><span class="leaf">🌿</span> Green Friend</a>
+    <div class="grow"></div>
+    <div class="lang" id="lang"><button data-l="bn" class="on">বাংলা</button><button data-l="en">EN</button></div>
+    <a class="btn btn-gold btn-sm" id="apkTop" href="#">⬇ <span data-t="app">অ্যাপ</span></a>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="wrap">
+      <h1 data-t="h1">ঘরে আসুক <span>সবুজের ছোঁয়া</span>।</h1>
+      <p data-t="sub">১০০% অরিজিনাল ইনডোর গাছ, ফুল, ফল, টব ও অর্গানিক কেয়ার — Malda ও আশেপাশে ঘরে ডেলিভারি। ক্যাশ অন ডেলিভারি, UPI বা ব্যাংক ট্রান্সফার।</p>
+      <div class="hero-cta">
+        <a class="btn btn-solid" href="#plants" data-t="cta1">🌱 গাছ দেখুন</a>
+        <a class="btn btn-line" id="apkHero" href="#">⬇ অ্যাপ ইনস্টল করুন</a>
+        <a class="btn btn-line" id="waHero" href="#">💬 WhatsApp</a>
+      </div>
+      <div class="hero-badges">
+        <span class="pill" data-t="b1">✅ ১০০% অরিজিনাল</span>
+        <span class="pill" data-t="b2">🚚 ঘরে ডেলিভারি</span>
+        <span class="pill" data-t="b3">💵 ক্যাশ অন ডেলিভারি</span>
+        <span class="pill" data-t="b4">🎁 বন্ধুকে পাঠিয়ে কুপন</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="band">
+      <div class="ico">↑</div>
+      <div class="grow">
+        <b data-t="bandTitle">অ্যাপে অর্ডার করলে বাড়তি সুবিধা</b>
+        <small data-t="bandSub">বন্ধুকে পাঠিয়ে কুপন, রিভিউ দিলে কুপন, আর অর্ডার ট্র্যাকিং — সব এক অ্যাপে।</small>
+      </div>
+      <a class="btn btn-gold" id="apkBand" href="#">⬇ APK ডাউনলোড</a>
+    </div>
+  </div>
+
+  <section class="wrap">
+    <div class="sec-head">
+      <div>
+        <h2 data-t="plants">আমাদের গাছ</h2>
+        <p data-t="plantsSub">দাম, ছবি ও স্টক — সব লাইভ</p>
+      </div>
+    </div>
+    <div class="chips" id="chips"></div>
+    <div class="grid" id="grid">
+      <div class="skel"></div><div class="skel"></div><div class="skel"></div><div class="skel"></div>
+    </div>
+    <div id="plantsNote"></div>
+  </section>
+
+  <section class="wrap" id="offerSec" hidden>
+    <div class="sec-head">
+      <div>
+        <h2 data-t="offers">এখনকার অফার</h2>
+        <p data-t="offersSub">সীমিত সময়ের জন্য</p>
+      </div>
+    </div>
+    <div class="offers" id="offers"></div>
+  </section>
+
+  <section class="wrap">
+    <div class="trust">
+      <div class="seal">🏅</div>
+      <div>
+        <h3 data-t="trustTitle">১০০% অরিজিনাল গ্যারান্টি</h3>
+        <p id="trustMsg" data-t="trustMsg">নকল জিনিস কিনে প্রতারিত হবেন না — আমাদের থেকে নিন ১০০% অরিজিনাল গাছ।</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" id="revSec" hidden>
+    <div class="sec-head">
+      <div>
+        <h2 data-t="reviews">কাস্টমারের কথা</h2>
+        <p data-t="reviewsSub">সত্যিকারের রিভিউ</p>
+      </div>
+    </div>
+    <div class="reviews" id="reviews"></div>
+  </section>
+
+  <section class="wrap">
+    <div class="sec-head">
+      <div>
+        <h2 data-t="howTitle">অ্যাপটি কীভাবে ইনস্টল করবেন</h2>
+        <p data-t="howSub">একবারেই হবে, ৩০ সেকেন্ড</p>
+      </div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><b data-t="s1t">APK ডাউনলোড করুন</b><small data-t="s1s">উপরের সবুজ বাটনে চাপুন — Green-Friend.apk নামবে।</small></div>
+      <div class="step"><div class="n">2</div><b data-t="s2t">ফাইলটি খুলুন</b><small data-t="s2s">ডাউনলোড শেষে ফাইলটিতে চাপ দিয়ে Install করুন।</small></div>
+      <div class="step"><div class="n">3</div><b data-t="s3t">অনুমতি দিন</b><small data-t="s3s">"Allow from this source" চালু করুন — শুধু এই একবারই লাগবে।</small></div>
+    </div>
+    <div class="note" data-t="note">Play Protect "Unsafe app blocked" দেখালে More details → Install anyway চাপুন। অ্যাপে কোনো বিজ্ঞাপন নেই, টাকা কাটে না।</div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="frow">
+      <div class="fcol">
+        <h3>🌿 Green Friend</h3>
+        <p data-t="fTag">মালদার গাছের দোকান — ১০০% অরিজিনাল, ঘরে ডেলিভারি।</p>
+      </div>
+      <div class="fcol">
+        <h3 data-t="fContact">যোগাযোগ</h3>
+        <p>💬 WhatsApp: <a href="https://wa.me/919563205299">+91 95632 05299</a></p>
+        <p>✉️ <a href="mailto:mobasserhoque@gmail.com">mobasserhoque@gmail.com</a></p>
+        <p data-t="fHours">🕘 সকাল ৯টা – রাত ৯টা</p>
+      </div>
+      <div class="fcol">
+        <h3 data-t="fApp">অ্যাপ</h3>
+        <p><a id="apkFoot" href="#">⬇ APK ডাউনলোড</a></p>
+        <p><a href="https://github.com/Greenfriend9563/green-friend-app/releases">Release notes</a></p>
+      </div>
+    </div>
+    <div class="copy">© <span id="yr"></span> Green Friend · Malda, West Bengal</div>
+  </div>
+</footer>
+
+<a class="fab" id="fab" href="#" aria-label="WhatsApp">💬</a>
+
+<script>
+(function () {
+  "use strict";
+
+  var SUPABASE_URL = "https://thiqwyltfgtluxizsaee.supabase.co";
+  var KEY = "sb_publishable_51MmOG-p1xr6nx7sh-dGkw_Es538Zli";
+  var APK = "https://github.com/Greenfriend9563/green-friend-app/releases/latest/download/Green-Friend.apk";
+  var WA = "919563205299";
+  var LANG = "bn";
+
+  var TXT = {
+    bn: {
+      app: "অ্যাপ", h1: 'ঘরে আসুক <span>সবুজের ছোঁয়া</span>।',
+      sub: "১০০% অরিজিনাল ইনডোর গাছ, ফুল, ফল, টব ও অর্গানিক কেয়ার — Malda ও আশেপাশে ঘরে ডেলিভারি। ক্যাশ অন ডেলিভারি, UPI বা ব্যাংক ট্রান্সফার।",
+      cta1: "🌱 গাছ দেখুন", b1: "✅ ১০০% অরিজিনাল", b2: "🚚 ঘরে ডেলিভারি", b3: "💵 ক্যাশ অন ডেলিভারি", b4: "🎁 বন্ধুকে পাঠিয়ে কুপন",
+      bandTitle: "অ্যাপে অর্ডার করলে বাড়তি সুবিধা",
+      bandSub: "বন্ধুকে পাঠিয়ে কুপন, রিভিউ দিলে কুপন, আর অর্ডার ট্র্যাকিং — সব এক অ্যাপে।",
+      plants: "আমাদের গাছ", plantsSub: "দাম, ছবি ও স্টক — সব লাইভ",
+      offers: "এখনকার অফার", offersSub: "সীমিত সময়ের জন্য",
+      trustTitle: "১০০% অরিজিনাল গ্যারান্টি",
+      trustMsg: "নকল জিনিস কিনে প্রতারিত হবেন না — আমাদের থেকে নিন ১০০% অরিজিনাল গাছ।",
+      reviews: "কাস্টমারের কথা", reviewsSub: "সত্যিকারের রিভিউ",
+      howTitle: "অ্যাপটি কীভাবে ইনস্টল করবেন", howSub: "একবারেই হবে, ৩০ সেকেন্ড",
+      s1t: "APK ডাউনলোড করুন", s1s: "উপরের সবুজ বাটনে চাপুন — Green-Friend.apk নামবে।",
+      s2t: "ফাইলটি খুলুন", s2s: "ডাউনলোড শেষে ফাইলটিতে চাপ দিয়ে Install করুন।",
+      s3t: "অনুমতি দিন", s3s: '"Allow from this source" চালু করুন — শুধু এই একবারই লাগবে।',
+      note: 'Play Protect "Unsafe app blocked" দেখালে More details → Install anyway চাপুন। অ্যাপে কোনো বিজ্ঞাপন নেই, টাকা কাটে না।',
+      fTag: "মালদার গাছের দোকান — ১০০% অরিজিনাল, ঘরে ডেলিভারি।",
+      fContact: "যোগাযোগ", fHours: "🕘 সকাল ৯টা – রাত ৯টা", fApp: "অ্যাপ",
+      order: "WhatsApp-এ অর্ডার", all: "সব", out: "স্টক শেষ", low: "মাত্র {0}টি বাকি", off: "{0}% ছাড়",
+      emptyT: "গাছের তালিকা এইমাত্র সাজানো হচ্ছে",
+      emptyS: "তালিকা দেখতে না পেলে সরাসরি WhatsApp করুন — আমরা ছবি ও দাম পাঠিয়ে দেব।",
+      waMsg: "নমস্কার! আমি Green Friend-এ অর্ডার করতে চাই", waProduct: "নমস্কার! আমি এই গাছটি নিতে চাই: {0} — দাম {1}"
+    },
+    en: {
+      app: "App", h1: 'Bring a little <span>green</span> home.',
+      sub: "100% original indoor plants, flowers, fruit plants, pots and organic care — delivered to your door in Malda. Cash on delivery, UPI or bank transfer.",
+      cta1: "🌱 See plants", b1: "✅ 100% original", b2: "🚚 Home delivery", b3: "💵 Cash on delivery", b4: "🎁 Share & earn coupons",
+      bandTitle: "Get more from the app",
+      bandSub: "Invite friends for coupons, review for coupons, and track every order — all in one app.",
+      plants: "Our plants", plantsSub: "Live prices, photos and stock",
+      offers: "Offers right now", offersSub: "For a limited time",
+      trustTitle: "100% original guarantee",
+      trustMsg: "No fakes, no surprises — every plant is 100% original.",
+      reviews: "What customers say", reviewsSub: "Real reviews",
+      howTitle: "How to install the app", howSub: "Once only, about 30 seconds",
+      s1t: "Download the APK", s1s: "Tap the green button above — Green-Friend.apk will download.",
+      s2t: "Open the file", s2s: "After the download, tap the file and press Install.",
+      s3t: "Allow the install", s3s: 'Turn on "Allow from this source" — you only need this once.',
+      note: 'If Play Protect says "Unsafe app blocked", tap More details → Install anyway. No ads, no charges.',
+      fTag: "Malda's plant shop — 100% original, delivered home.",
+      fContact: "Contact", fHours: "🕘 9 AM – 9 PM", fApp: "App",
+      order: "Order on WhatsApp", all: "All", out: "Out of stock", low: "Only {0} left", off: "{0}% off",
+      emptyT: "The plant list is being arranged",
+      emptyS: "If you cannot see the list, message us on WhatsApp — we will send photos and prices.",
+      waMsg: "Hello! I would like to order from Green Friend", waProduct: "Hello! I would like this plant: {0} — {1}"
+    }
+  };
+
+  function t(key) { return TXT[LANG][key] || key; }
+  function fmt(s) { var a = arguments; return String(s).replace(/\{(\d+)\}/g, function (m, i) { return a[Number(i) + 1]; }); }
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+  function money(n) {
+    var v = Number(n) || 0;
+    return "\u20B9" + v.toLocaleString("en-IN", { maximumFractionDigits: 0 });
+  }
+  function img(url) {
+    if (!url) return "";
+    return String(url).replace(/%2520/g, "%20").replace(/ /g, "%20");
+  }
+  function wa(text) { return "https://wa.me/" + WA + "?text=" + encodeURIComponent(text); }
+
+  document.getElementById("yr").textContent = new Date().getFullYear();
+  ["apkTop", "apkHero", "apkBand", "apkFoot"].forEach(function (id) {
+    var el = document.getElementById(id); if (el) el.href = APK;
+  });
+  document.getElementById("waHero").href = wa(t("waMsg"));
+  document.getElementById("fab").href = wa(t("waMsg"));
+
+  function applyLang() {
+    document.documentElement.lang = LANG;
+    document.querySelectorAll("[data-t]").forEach(function (el) {
+      var k = el.getAttribute("data-t");
+      if (TXT[LANG][k]) el.innerHTML = TXT[LANG][k];
+    });
+    document.getElementById("waHero").href = wa(t("waMsg"));
+    document.getElementById("fab").href = wa(t("waMsg"));
+    document.querySelectorAll("#lang button").forEach(function (b) {
+      b.classList.toggle("on", b.getAttribute("data-l") === LANG);
+    });
+    renderChips(); renderProducts(); renderOffers(); renderReviews();
+  }
+
+  var state = { products: [], offers: [], reviews: [], cat: null };
+
+  function api(path) {
+    return fetch(SUPABASE_URL + "/rest/v1/" + path, {
+      headers: { apikey: KEY, Authorization: "Bearer " + KEY }
+    }).then(function (r) {
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      return r.json();
+    });
+  }
+
+  function renderChips() {
+    var box = document.getElementById("chips");
+    var cats = [];
+    state.products.forEach(function (p) {
+      var c = (p.category || "").trim();
+      if (c && cats.indexOf(c) < 0) cats.push(c);
+    });
+    if (!cats.length) { box.innerHTML = ""; return; }
+    var html = '<button class="chip' + (state.cat ? "" : " on") + '" data-c="">' + esc(t("all")) + "</button>";
+    cats.forEach(function (c) {
+      html += '<button class="chip' + (state.cat === c ? " on" : "") + '" data-c="' + esc(c) + '">' + esc(c) + "</button>";
+    });
+    box.innerHTML = html;
+    box.querySelectorAll(".chip").forEach(function (b) {
+      b.onclick = function () { state.cat = b.getAttribute("data-c") || null; renderChips(); renderProducts(); };
+    });
+  }
+
+  function productName(p) {
+    if (LANG === "bn" && p.bn) return p.bn;
+    return p.name || p.bn || "Plant";
+  }
+
+  function renderProducts() {
+    var grid = document.getElementById("grid");
+    var note = document.getElementById("plantsNote");
+    note.innerHTML = "";
+    var list = state.products.filter(function (p) { return !state.cat || p.category === state.cat; });
+
+    if (!list.length) {
+      grid.innerHTML = '<div class="empty" style="grid-column:1/-1"><b>' + esc(t("emptyT")) + "</b>" + esc(t("emptyS")) +
+        '<div style="margin-top:14px"><a class="btn btn-solid" href="' + wa(t("waMsg")) + '">💬 WhatsApp</a></div></div>';
+      return;
+    }
+
+    grid.innerHTML = list.map(function (p) {
+      var price = Number(p.offer_price || p.price) || 0;
+      var listPrice = Number(p.price) || 0;
+      var hasOffer = p.offer_price && listPrice > price;
+      var stock = p.stock_quantity;
+      var out = stock === 0;
+      var low = typeof stock === "number" && stock > 0 && stock <= 5;
+      var badge = "";
+      if (out) badge = '<span class="badge out">' + esc(t("out")) + "</span>";
+      else if (low) badge = '<span class="badge low">' + esc(fmt(t("low"), stock)) + "</span>";
+      else if (hasOffer) badge = '<span class="badge">' + esc(fmt(t("off"), Math.round((1 - price / listPrice) * 100))) + "</span>";
+
+      var thumb = p.image_url
+        ? '<img loading="lazy" src="' + esc(img(p.image_url)) + '" alt="' + esc(productName(p)) + '" onerror="this.style.display=\'none\'">'
+        : esc(p.emoji || "🌱");
+
+      var msg = fmt(t("waProduct"), productName(p), money(price));
+      return '<article class="card">' +
+        '<div class="thumb" style="background:' + esc(p.tint || "#EAF3DE") + '">' + badge + thumb + "</div>" +
+        '<div class="card-body">' +
+          '<div class="p-cat">' + esc(p.category || "") + "</div>" +
+          '<div class="p-name">' + esc(productName(p)) + "</div>" +
+          '<div class="p-price"><b>' + money(price) + "</b>" + (hasOffer ? "<s>" + money(listPrice) + "</s>" : "") + "</div>" +
+          '<a class="p-order" href="' + wa(msg) + '">💬 ' + esc(t("order")) + "</a>" +
+        "</div></article>";
+    }).join("");
+  }
+
+  function renderOffers() {
+    var sec = document.getElementById("offerSec");
+    var box = document.getElementById("offers");
+    if (!state.offers.length) { sec.hidden = true; return; }
+    sec.hidden = false;
+    box.innerHTML = state.offers.map(function (o) {
+      return '<a class="offer" href="' + wa(t("waMsg") + " — " + (o.title || "")) + '">' +
+        (o.image_url ? '<img loading="lazy" src="' + esc(img(o.image_url)) + '" alt="">' : "") +
+        '<div class="veil"></div><div class="txt"><b>' + esc(o.title || "") + "</b><span>" + esc(o.message || "") + "</span></div></a>";
+    }).join("");
+  }
+
+  function renderReviews() {
+    var sec = document.getElementById("revSec");
+    var box = document.getElementById("reviews");
+    if (!state.reviews.length) { sec.hidden = true; return; }
+    sec.hidden = false;
+    box.innerHTML = state.reviews.slice(0, 6).map(function (r) {
+      var n = Number(r.rating) || 5;
+      var name = (r.customer_name || "Green Friend customer").trim();
+      var initial = name.charAt(0).toUpperCase();
+      return '<div class="rev"><div class="top"><div class="av">' +
+        (r.image_url ? '<img loading="lazy" src="' + esc(img(r.image_url)) + '" alt="">' : esc(initial)) +
+        '</div><div><div class="nm">' + esc(name) + '</div><div class="stars">' + "★".repeat(n) + "☆".repeat(5 - n) + "</div></div></div>" +
+        "<p>" + esc(r.comment || "") + "</p></div>";
+    }).join("");
+  }
+
+  async function boot() {
+    try {
+      var res = await Promise.all([
+        api("products?select=id,name,bn,category,price,offer_price,emoji,tint,image_url,stock_quantity,created_at&is_active=eq.true&order=created_at.desc&limit=60"),
+        api("shop_offers?select=id,title,message,image_url&is_active=eq.true&order=sort_order.asc&limit=4"),
+        api("review_wall?select=id,rating,comment,image_url,customer_name,created_at&order=created_at.desc&limit=6")
+      ]);
+      state.products = res[0] || [];
+      state.offers = res[1] || [];
+      state.reviews = res[2] || [];
+    } catch (e) {
+      state.products = []; state.offers = []; state.reviews = [];
+      console.warn("Green Friend website:", e.message);
+    }
+    renderChips(); renderProducts(); renderOffers(); renderReviews();
+  }
+
+  document.querySelectorAll("#lang button").forEach(function (b) {
+    b.onclick = function () { LANG = b.getAttribute("data-l"); applyLang(); };
+  });
+
+  boot();
+})();
+</script>
+</body>
+</html>
