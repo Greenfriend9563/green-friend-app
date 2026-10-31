@@ -49,6 +49,7 @@
   header{position:sticky;top:0;z-index:50;background:rgba(251,247,236,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
   .bar{display:flex;align-items:center;gap:12px;height:62px}
   .brand{display:flex;align-items:center;gap:9px;font-weight:900;font-size:19px;color:var(--green);letter-spacing:-.3px}
+  .brand .brand-logo{height:34px;width:auto;display:block}
   .brand .leaf{font-size:22px}
   .grow{flex:1}
   .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border-radius:999px;padding:11px 18px;font-weight:800;font-size:14px;border:1px solid transparent;cursor:pointer;transition:.18s transform,.18s box-shadow;white-space:nowrap;font-family:inherit}
@@ -208,7 +209,7 @@
 
 <header>
   <div class="wrap bar">
-    <a class="brand" href="#top"><span class="leaf">🌿</span> Green Friend</a>
+    <a class="brand" href="#top"><img class="brand-logo" src="logo.png" alt="Green Friend"><span>Green Friend</span></a>
     <div class="grow"></div>
     <div class="lang" id="lang"><button data-l="bn" class="on">বাংলা</button><button data-l="en">EN</button></div>
     <a class="btn btn-gold btn-sm" id="apkTop" href="#">⬇ <span data-t="app">অ্যাপ</span></a>
