@@ -258,7 +258,7 @@
       <div class="hero-badges">
         <span class="pill" data-t="b0">🥭 ৮ ফুট আমের গাছ</span>
         <span class="pill" data-t="b1">✅ ১০০% গ্যারান্টি</span>
-        <span class="pill" data-t="b2">🚚 ঘরে ডেলিভারি</span>
+        <span class="pill" data-t="b2">🚚 ₹১০০০+ অর্ডারে ফ্রি ডেলিভারি</span>
         <span class="pill" data-t="b3">💵 ক্যাশ অন ডেলিভারি</span>
         <span class="pill" data-t="b4">🎁 বন্ধুকে পাঠিয়ে কুপন</span>
       </div>
@@ -369,6 +369,7 @@
     <button class="close" onclick="closeCart()">✕</button>
     <h3>🛒 <span data-t="cartTitle">আপনার কার্ট</span></h3>
     <div id="cartItems"></div>
+    <div id="cartDelivery"></div>
     <div class="tot"><span data-t="total">মোট</span><span id="cartTotal">₹0</span></div>
     <button class="btn btn-solid" style="width:100%" onclick="openCheckout()" data-t="checkout">চেকআউট</button>
     <div id="cartEmpty" class="empty" style="display:none"><b data-t="cartEmptyT">কার্ট খালি</b><span data-t="cartEmptyS">একটা গাছ যোগ করুন।</span></div>
@@ -408,6 +409,7 @@
       <div id="payOpts"></div>
       <div id="payInfo"></div>
 
+      <div id="orderDelivery"></div>
       <div class="tot" style="border-top:1px solid var(--line);padding-top:12px"><span data-t="total">মোট</span><span id="orderTotal">₹0</span></div>
       <button class="btn btn-solid" style="width:100%" onclick="submitOrder()" id="placeBtn"><span data-t="placeOrder">অর্ডার করুন</span></button>
     </div>
@@ -439,7 +441,7 @@
     bn: {
       app: "অ্যাপ", h1: '৮ ফুট <span>আমের গাছ</span>',
       sub: "আমের গাছ — <b>মালদা ও মুর্শিদাবাদের বিখ্যাত আম গাছ</b> পাওয়া যাবে। গাছের হাইট <b>৮ ফুট</b>, <b>কম দামে</b>, <b>১০০% গ্যারান্টি</b> সহ। ইনডোর গাছ, ফুল, ফল ও টবও আছে — ঘরে ডেলিভারি, ক্যাশ অন ডেলিভারি / UPI।",
-      cta1: "🌱 গাছ দেখুন", b0: "🥭 ৮ ফুট আমের গাছ", b1: "✅ ১০০% গ্যারান্টি", b2: "🚚 ঘরে ডেলিভারি", b3: "💵 ক্যাশ অন ডেলিভারি", b4: "🎁 বন্ধুকে পাঠিয়ে কুপন",
+      cta1: "🌱 গাছ দেখুন", b0: "🥭 ৮ ফুট আমের গাছ", b1: "✅ ১০০% গ্যারান্টি", b2: "🚚 ₹১০০০+ অর্ডারে ফ্রি ডেলিভারি", b3: "💵 ক্যাশ অন ডেলিভারি", b4: "🎁 বন্ধুকে পাঠিয়ে কুপন",
       bandTitle: "অ্যাপে অর্ডার করলে বাড়তি সুবিধা",
       bandSub: "বন্ধুকে পাঠিয়ে কুপন, রিভিউ দিলে কুপন, আর অর্ডার ট্র্যাকিং — সব এক অ্যাপে।",
       plants: "আমাদের গাছ", plantsSub: "দাম, ছবি ও স্টক — সব লাইভ",
@@ -456,6 +458,7 @@
       fContact: "যোগাযোগ", fHours: "🕘 সকাল ৯টা – রাত ৯টা", fApp: "অ্যাপ",
       order: "WhatsApp-এ অর্ডার", add: "কার্টে যোগ", buyNow: "এখনই কিনুন", all: "সব", out: "স্টক শেষ", low: "মাত্র {0}টি বাকি", off: "{0}% ছাড়",
       cart: "কার্ট", cartTitle: "আপনার কার্ট", total: "মোট", checkout: "চেকআউট",
+      delivery: "ডেলিভারি", free: "ফ্রি", freeAbove: "{0} টাকার উপরে ডেলিভারি ফ্রি", freeAboveHint: "আর {0} যোগ করলেই ডেলিভারি ফ্রি",
       cartEmptyT: "কার্ট খালি", cartEmptyS: "একটা গাছ যোগ করুন।",
       checkoutTitle: "অর্ডার সম্পন্ন করুন", signin: "সাইন ইন", signup: "অ্যাকাউন্ট তৈরি",
       phone: "মোবাইল নম্বর", password: "পাসওয়ার্ড", name: "আপনার নাম", continue: "চালিয়ে যান",
@@ -474,7 +477,7 @@
     en: {
       app: "App", h1: '8 ft <span>mango plants</span>',
       sub: "Famous mango plants — available in <b>Malda and Murshidabad</b>. Trees are <b>8 feet tall</b>, at a <b>lower price</b>, with a <b>100% guarantee</b>. Indoor plants, flowers, fruit plants and pots too — home delivery, cash on delivery or UPI.",
-      cta1: "🌱 See plants", b0: "🥭 8 ft mango plants", b1: "✅ 100% guarantee", b2: "🚚 Home delivery", b3: "💵 Cash on delivery", b4: "🎁 Share & earn coupons",
+      cta1: "🌱 See plants", b0: "🥭 8 ft mango plants", b1: "✅ 100% guarantee", b2: "🚚 Free delivery above ₹1000", b3: "💵 Cash on delivery", b4: "🎁 Share & earn coupons",
       bandTitle: "Get more from the app",
       bandSub: "Invite friends for coupons, review for coupons, and track every order — all in one app.",
       plants: "Our plants", plantsSub: "Live prices, photos and stock",
@@ -491,6 +494,7 @@
       fContact: "Contact", fHours: "🕘 9 AM – 9 PM", fApp: "App",
       order: "Order on WhatsApp", add: "Add to cart", buyNow: "Buy now", all: "All", out: "Out of stock", low: "Only {0} left", off: "{0}% off",
       cart: "Cart", cartTitle: "Your cart", total: "Total", checkout: "Checkout",
+      delivery: "Delivery", free: "FREE", freeAbove: "Free delivery above {0}", freeAboveHint: "Add {0} more for free delivery",
       cartEmptyT: "Cart is empty", cartEmptyS: "Add a plant to get started.",
       checkoutTitle: "Complete your order", signin: "Sign in", signup: "Create account",
       phone: "Mobile number", password: "Password", name: "Your name", continue: "Continue",
@@ -520,13 +524,27 @@
   ["apkTop", "apkHero", "apkBand", "apkFoot"].forEach(function (id) { var el = document.getElementById(id); if (el) el.href = APK; });
   document.getElementById("waHero").href = wa(t("waMsg"));
   document.getElementById("fab").href = wa(t("waMsg"));
+  loadPaySettings();
 
   // ---------- cart ----------
   var cart = [];
   try { cart = JSON.parse(localStorage.getItem("gf_cart") || "[]"); } catch (e) { cart = []; }
   function saveCart() { try { localStorage.setItem("gf_cart", JSON.stringify(cart)); } catch (e) {} updateCartBadge(); renderCart(); }
   function cartCount() { return cart.reduce(function (a, c) { return a + c.qty; }, 0); }
-  function cartTotal() { return cart.reduce(function (a, c) { return a + (Number(c.product.offer_price || c.product.price) || 0) * c.qty; }, 0); }
+  function cartSubtotal() { return cart.reduce(function (a, c) { return a + (Number(c.product.offer_price || c.product.price) || 0) * c.qty; }, 0); }
+  function deliveryRule() {
+    var ps = paySettings || {};
+    var charge = Number(ps.delivery_charge || 0) || 0;
+    var freeAbove = ps.free_delivery_above == null ? 1000 : (Number(ps.free_delivery_above) || 0);
+    return { charge: charge, freeAbove: freeAbove };
+  }
+  function deliveryFor(sub) {
+    var r = deliveryRule();
+    if (r.charge <= 0) return { fee: 0, free: true, charge: 0, freeAbove: r.freeAbove, remaining: 0, off: false };
+    if (r.freeAbove > 0 && sub >= r.freeAbove) return { fee: 0, free: true, charge: r.charge, freeAbove: r.freeAbove, remaining: 0, off: true };
+    return { fee: r.charge, free: false, charge: r.charge, freeAbove: r.freeAbove, remaining: r.freeAbove > 0 ? r.freeAbove - sub : 0, off: false };
+  }
+  function cartTotal() { var sub = cartSubtotal(); return sub + (sub > 0 ? deliveryFor(sub).fee : 0); }
   function addToCart(p) {
     var ex = cart.find(function (c) { return c.product.id === p.id; });
     if (ex) ex.qty += 1; else cart.push({ product: p, qty: 1 });
@@ -555,7 +573,7 @@
     var empty = document.getElementById("cartEmpty");
     var total = document.getElementById("cartTotal");
     if (!box) return;
-    if (!cart.length) { box.innerHTML = ""; empty.style.display = "block"; total.textContent = money(0); return; }
+    if (!cart.length) { box.innerHTML = ""; empty.style.display = "block"; total.textContent = money(0); var cd0 = document.getElementById("cartDelivery"); if (cd0) cd0.innerHTML = ""; renderOrderSummary(); return; }
     empty.style.display = "none";
     box.innerHTML = cart.map(function (c) {
       var price = Number(c.product.offer_price || c.product.price) || 0;
@@ -569,7 +587,16 @@
         '<button class="rm" onclick="removeFromCart(\'' + c.product.id + '\')" title="মুছুন">✕</button>' +
         '</div>';
     }).join("");
+    var dRow = deliveryFor(cartSubtotal());
+    var cd = document.getElementById("cartDelivery");
+    if (cd) {
+      cd.innerHTML = '<div class="tot" style="border-top:0;padding-top:0;font-size:12.5px;font-weight:800;color:#6C7A66">' +
+        "<span>" + esc(t("delivery")) + "</span><span>" + (dRow.free ? esc(t("free")) : money(dRow.fee)) + "</span></div>" +
+        (dRow.remaining > 0 ? '<div style="font-size:11px;color:#8A9683;margin:-4px 0 8px">' + esc(fmt(t("freeAboveHint"), money(dRow.remaining))) + "</div>" : "") +
+        (dRow.off ? '<div style="font-size:11px;color:#2E7D4F;margin:-4px 0 8px;font-weight:800">✓ ' + esc(fmt(t("freeAbove"), money(dRow.freeAbove))) + "</div>" : "");
+    }
     total.textContent = money(cartTotal());
+    renderOrderSummary();
   }
   function openCart() { document.getElementById("cartOverlay").classList.add("on"); renderCart(); }
   function closeCart() { document.getElementById("cartOverlay").classList.remove("on"); }
@@ -687,7 +714,20 @@
     } else {
       box.innerHTML = "";
     }
-    document.getElementById("orderTotal").textContent = money(cartTotal());
+    renderOrderSummary();
+  }
+
+  function renderOrderSummary() {
+    var totalEl = document.getElementById("orderTotal");
+    if (!totalEl) return;
+    totalEl.textContent = money(cartTotal());
+    var od = deliveryFor(cartSubtotal());
+    var odBox = document.getElementById("orderDelivery");
+    if (odBox) {
+      odBox.innerHTML = '<div class="tot" style="border-top:1px solid var(--line);padding-top:10px;font-size:13px;font-weight:800;color:#6C7A66">' +
+        "<span>" + esc(t("delivery")) + "</span><span>" + (od.free ? esc(t("free")) : money(od.fee)) + "</span></div>" +
+        (od.remaining > 0 ? '<div style="font-size:11.5px;color:#8A9683;margin-bottom:6px">' + esc(fmt(t("freeAboveHint"), money(od.remaining))) + "</div>" : "");
+    }
   }
 
   async function submitOrder() {
