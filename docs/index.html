@@ -95,6 +95,12 @@
   .card:active{transform:scale(.99)}
   .thumb{position:relative;aspect-ratio:1/1;background:var(--green-3);display:flex;align-items:center;justify-content:center;font-size:44px;overflow:hidden}
   .thumb img{width:100%;height:100%;object-fit:cover}
+  .slides{position:absolute;inset:0}
+  .slides .slide{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .7s ease}
+  .slides .slide.on{opacity:1}
+  .p-dots{position:absolute;bottom:8px;left:0;right:0;display:flex;gap:4px;justify-content:center;z-index:3;pointer-events:none}
+  .p-dots i{width:5px;height:5px;border-radius:999px;background:rgba(255,255,255,.6);box-shadow:0 0 0 1px rgba(31,95,62,.25);transition:width .3s ease}
+  .p-dots i.on{width:15px;background:#fff}
   .badge{position:absolute;top:9px;left:9px;background:#fff;color:#8A5A00;font-size:10.5px;font-weight:900;border-radius:999px;padding:4px 9px;box-shadow:0 2px 8px rgba(0,0,0,.10)}
   .badge.out{background:#FBEDEA;color:#9B463F}
   .badge.low{background:#FFF6E0;color:#8A5A00}
@@ -771,7 +777,20 @@
       if (out) badge = '<span class="badge out">' + esc(t("out")) + "</span>";
       else if (low) badge = '<span class="badge low">' + esc(fmt(t("low"), stock)) + "</span>";
       else if (hasOffer) badge = '<span class="badge">' + esc(fmt(t("off"), Math.round((1 - price / listPrice) * 100))) + "</span>";
-      var thumb = p.image_url ? '<img loading="lazy" src="' + esc(img(p.image_url)) + '" alt="' + esc(productName(p)) + '" onerror="this.style.display=\'none\'">' : esc(p.emoji || "🌱");
+      var photos = (Array.isArray(p.image_urls) && p.image_urls.length ? p.image_urls : (p.image_url ? [p.image_url] : [])).filter(Boolean);
+      var thumb;
+      if (photos.length) {
+        thumb = '<div class="slides" data-i="0">' + photos.map(function (u, i) {
+          return '<img class="slide' + (i === 0 ? " on" : "") + '" loading="lazy" src="' + esc(img(u)) + '" alt="' + esc(productName(p)) + '" onerror="this.style.display=\'none\'">';
+        }).join("") + "</div>";
+        if (photos.length > 1) {
+          thumb += '<div class="p-dots">' + photos.map(function (_, i) {
+            return "<i" + (i === 0 ? ' class="on"' : "") + "></i>";
+          }).join("") + "</div>";
+        }
+      } else {
+        thumb = esc(p.emoji || "🌱");
+      }
       var msg = fmt(t("waProduct"), productName(p), money(price));
       return '<article class="card">' +
         '<div class="thumb" style="background:' + esc(p.tint || "#EAF3DE") + '">' + badge + thumb + "</div>" +
@@ -787,6 +806,29 @@
         "</div></article>";
     }).join("");
   }
+  function advanceSlide(box) {
+    var imgs = box.querySelectorAll(".slide");
+    if (imgs.length < 2) return;
+    var cur = parseInt(box.getAttribute("data-i"), 10);
+    if (isNaN(cur)) cur = 0;
+    var next = (cur + 1) % imgs.length;
+    box.setAttribute("data-i", String(next));
+    for (var i = 0; i < imgs.length; i++) imgs[i].classList.toggle("on", i === next);
+    var card = box.parentNode;
+    var dots = card ? card.querySelectorAll(".p-dots i") : [];
+    for (var d = 0; d < dots.length; d++) dots[d].classList.toggle("on", d === next);
+  }
+  var slideTickN = 0;
+  function slideTickAll() {
+    slideTickN++;
+    var boxes = document.querySelectorAll(".slides");
+    for (var b = 0; b < boxes.length; b++) {
+      if (b % 2 !== slideTickN % 2) continue;
+      advanceSlide(boxes[b]);
+    }
+  }
+  setInterval(slideTickAll, 3000);
+
   function renderOffers() {
     var sec = document.getElementById("offerSec");
     var box = document.getElementById("offers");
@@ -816,7 +858,7 @@
   async function boot() {
     try {
       var res = await Promise.all([
-        fetch(SUPABASE_URL + "/rest/v1/products?select=id,name,bn,category,price,offer_price,emoji,tint,image_url,stock_quantity,created_at&is_active=eq.true&order=created_at.desc&limit=60", { headers: { apikey: KEY, Authorization: "Bearer " + KEY } }).then(function (r) { return r.json(); }),
+        fetch(SUPABASE_URL + "/rest/v1/products?select=id,name,bn,category,price,offer_price,emoji,tint,image_url,image_urls,stock_quantity,created_at&is_active=eq.true&order=created_at.desc&limit=60", { headers: { apikey: KEY, Authorization: "Bearer " + KEY } }).then(function (r) { return r.json(); }),
         fetch(SUPABASE_URL + "/rest/v1/shop_offers?select=id,title,message,image_url&is_active=eq.true&order=sort_order.asc&limit=4", { headers: { apikey: KEY, Authorization: "Bearer " + KEY } }).then(function (r) { return r.json(); }),
         fetch(SUPABASE_URL + "/rest/v1/review_wall?select=id,rating,comment,image_url,customer_name,created_at&order=created_at.desc&limit=6", { headers: { apikey: KEY, Authorization: "Bearer " + KEY } }).then(function (r) { return r.json(); })
       ]);
