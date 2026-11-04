@@ -762,7 +762,8 @@
         p_coupon_code: null,
         p_payment_method: selectedMethod,
         p_payment_reference: ref || null,
-        p_pincode: pin
+        p_pincode: pin,
+        p_delivery_charge: deliveryFor(cartSubtotal()).fee
       });
       if (r.error) throw r.error;
       var num = r.data;
@@ -960,6 +961,31 @@
   window.selectPay = selectPay;
   window.submitOrder = submitOrder;
 
+  // One visit per browser session. The row is written through a Supabase RPC
+  // (the website has no login) and the admin app shows the totals.
+  function trackVisit() {
+    try {
+      if (sessionStorage.getItem("gf_visit_sent")) return;
+      sessionStorage.setItem("gf_visit_sent", "1");
+      var visitor = localStorage.getItem("gf_visitor");
+      if (!visitor) {
+        visitor = "v" + Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
+        localStorage.setItem("gf_visitor", visitor);
+      }
+      fetch(SUPABASE_URL + "/rest/v1/rpc/track_site_visit", {
+        method: "POST",
+        headers: { apikey: KEY, Authorization: "Bearer " + KEY, "Content-Type": "application/json" },
+        body: JSON.stringify({
+          p_visitor: visitor,
+          p_page: location.pathname || "/",
+          p_referrer: document.referrer || ""
+        }),
+        keepalive: true
+      }).catch(function () {});
+    } catch (e) {}
+  }
+
+  trackVisit();
   boot();
   updateCartBadge();
 })();
