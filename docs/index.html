@@ -111,6 +111,7 @@
   .chip.on{background:var(--green);color:#fff;border-color:var(--green)}
 
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:14px}
+  .more-wrap{display:flex;justify-content:center;margin:20px 0 4px}
   @media(min-width:720px){.grid{grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px}}
   .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:0 4px 14px rgba(31,95,62,.06);display:flex;flex-direction:column;transition:.2s transform,.2s box-shadow}
   .card:active{transform:scale(.99)}
@@ -456,7 +457,7 @@
       note: 'Play Protect "Unsafe app blocked" দেখালে More details → Install anyway চাপুন। অ্যাপে কোনো বিজ্ঞাপন নেই, টাকা কাটে না।',
       fTag: "মালদা ও মুর্শিদাবাদের বিখ্যাত আম গাছ — ৮ ফুট, কম দামে, গ্যারান্টি সহ।",
       fContact: "যোগাযোগ", fHours: "🕘 সকাল ৯টা – রাত ৯টা", fApp: "অ্যাপ",
-      order: "WhatsApp-এ অর্ডার", add: "কার্টে যোগ", buyNow: "এখনই কিনুন", all: "সব", out: "স্টক শেষ", low: "মাত্র {0}টি বাকি", off: "{0}% ছাড়",
+      order: "WhatsApp-এ অর্ডার", add: "কার্টে যোগ", buyNow: "এখনই কিনুন", all: "সব", out: "স্টক শেষ", low: "মাত্র {0}টি বাকি", off: "{0}% ছাড়", more: "আরও দেখুন",
       cart: "কার্ট", cartTitle: "আপনার কার্ট", total: "মোট", checkout: "চেকআউট",
       delivery: "ডেলিভারি", free: "ফ্রি", freeAbove: "{0} টাকার উপরে ডেলিভারি ফ্রি", freeAboveHint: "আর {0} যোগ করলেই ডেলিভারি ফ্রি",
       cartEmptyT: "কার্ট খালি", cartEmptyS: "একটা গাছ যোগ করুন।",
@@ -492,7 +493,7 @@
       note: 'If Play Protect says "Unsafe app blocked", tap More details → Install anyway. No ads, no charges.',
       fTag: "Mango plants across Malda & Murshidabad — 8 ft, lower price, guaranteed.",
       fContact: "Contact", fHours: "🕘 9 AM – 9 PM", fApp: "App",
-      order: "Order on WhatsApp", add: "Add to cart", buyNow: "Buy now", all: "All", out: "Out of stock", low: "Only {0} left", off: "{0}% off",
+      order: "Order on WhatsApp", add: "Add to cart", buyNow: "Buy now", all: "All", out: "Out of stock", low: "Only {0} left", off: "{0}% off", more: "Load more",
       cart: "Cart", cartTitle: "Your cart", total: "Total", checkout: "Checkout",
       delivery: "Delivery", free: "FREE", freeAbove: "Free delivery above {0}", freeAboveHint: "Add {0} more for free delivery",
       cartEmptyT: "Cart is empty", cartEmptyS: "Add a plant to get started.",
@@ -797,7 +798,7 @@
 
   // ---------- render ----------
   function productName(p) { if (LANG === "bn" && p.bn) return p.bn; return p.name || p.bn || "Plant"; }
-  var state = { products: [], offers: [], reviews: [], cat: null };
+  var state = { products: [], offers: [], reviews: [], cat: null, shown: 40 };
   function applyLang() {
     document.documentElement.lang = LANG;
     document.querySelectorAll("[data-t]").forEach(function (el) {
@@ -818,7 +819,7 @@
     var html = '<button class="chip' + (state.cat ? "" : " on") + '" data-c="">' + esc(t("all")) + "</button>";
     cats.forEach(function (c) { html += '<button class="chip' + (state.cat === c ? " on" : "") + '" data-c="' + esc(c) + '">' + esc(c) + "</button>"; });
     box.innerHTML = html;
-    box.querySelectorAll(".chip").forEach(function (b) { b.onclick = function () { state.cat = b.getAttribute("data-c") || null; renderChips(); renderProducts(); }; });
+    box.querySelectorAll(".chip").forEach(function (b) { b.onclick = function () { state.cat = b.getAttribute("data-c") || null; state.shown = 40; renderChips(); renderProducts(); }; });
   }
   function renderProducts() {
     var grid = document.getElementById("grid");
@@ -830,7 +831,8 @@
         '<div style="margin-top:14px"><a class="btn btn-solid" href="' + wa(t("waMsg")) + '">💬 WhatsApp</a></div></div>';
       return;
     }
-    grid.innerHTML = list.map(function (p) {
+    var shown = Math.min(state.shown, list.length);
+    grid.innerHTML = list.slice(0, shown).map(function (p) {
       var price = Number(p.offer_price || p.price) || 0;
       var listPrice = Number(p.price) || 0;
       var hasOffer = p.offer_price && listPrice > price;
@@ -871,6 +873,12 @@
           '<a class="p-wa" href="' + wa(msg) + '">💬 ' + esc(t("order")) + "</a>" +
         "</div></article>";
     }).join("");
+    if (list.length > shown) {
+      note.innerHTML = '<div class="more-wrap"><button class="btn btn-solid" id="loadMore">' +
+        esc(t("more")) + " (" + (list.length - shown) + ")</button></div>";
+      var more = document.getElementById("loadMore");
+      if (more) more.onclick = function () { state.shown += 40; renderProducts(); };
+    }
   }
   function advanceSlide(box) {
     var imgs = box.querySelectorAll(".slide");
@@ -924,7 +932,7 @@
   async function boot() {
     try {
       var res = await Promise.all([
-        fetch(SUPABASE_URL + "/rest/v1/products?select=id,name,bn,category,price,offer_price,emoji,tint,image_url,image_urls,note,note_bn,stock_quantity,created_at&is_active=eq.true&order=created_at.desc&limit=60", { headers: { apikey: KEY, Authorization: "Bearer " + KEY } }).then(function (r) { return r.json(); }),
+        fetch(SUPABASE_URL + "/rest/v1/products?select=id,name,bn,category,price,offer_price,emoji,tint,image_url,image_urls,note,note_bn,stock_quantity,created_at&is_active=eq.true&order=created_at.desc&limit=300", { headers: { apikey: KEY, Authorization: "Bearer " + KEY } }).then(function (r) { return r.json(); }),
         fetch(SUPABASE_URL + "/rest/v1/shop_offers?select=id,title,message,image_url&is_active=eq.true&order=sort_order.asc&limit=4", { headers: { apikey: KEY, Authorization: "Bearer " + KEY } }).then(function (r) { return r.json(); }),
         fetch(SUPABASE_URL + "/rest/v1/review_wall?select=id,rating,comment,image_url,customer_name,created_at&order=created_at.desc&limit=6", { headers: { apikey: KEY, Authorization: "Bearer " + KEY } }).then(function (r) { return r.json(); })
       ]);
