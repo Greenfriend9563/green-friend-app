@@ -133,6 +133,12 @@
   .p-price{display:flex;align-items:baseline;gap:7px;margin-top:auto;padding-top:2px}
   .p-price b{font-size:16px;color:var(--green);font-weight:900}
   .p-price s{font-size:12px;color:#9AA793}
+  .size-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+  .size-chip{flex:1;min-width:70px;display:flex;flex-direction:column;align-items:center;gap:1px;padding:6px 5px;border-radius:10px;border:1.5px solid #D8E3CF;background:#F7FBF3;cursor:pointer;font-family:inherit;line-height:1.15}
+  .size-chip span{font-size:11px;font-weight:800;color:#4A5A44}
+  .size-chip b{font-size:12px;font-weight:900;color:var(--green)}
+  .size-chip.on{border-color:var(--green);background:#EAF3DE}
+  .cart-item .info .ci-size{display:inline-block;background:#EAF3DE;color:#2E7D4F;font-weight:800;border-radius:6px;padding:1px 6px;margin-right:6px;font-size:11px}
   .p-actions{display:flex;gap:7px;margin-top:9px}
   .p-order,.p-cart,.p-buy{flex:1;border-radius:12px;font-weight:900;font-size:12.5px;padding:9px;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;justify-content:center;gap:5px;border:0}
   .p-order{border:1px solid #CFDCC5;background:#F5FAF0;color:var(--green)}
@@ -346,13 +352,14 @@
       </div>
       <div class="fcol">
         <h3 data-t="fContact">যোগাযোগ</h3>
-        <p>💬 WhatsApp: <a href="https://wa.me/919563205299">+91 95632 05299</a></p>
+        <p>💬 WhatsApp: <a href="https://wa.me/919563205299">WhatsApp</a></p>
         <p>✉️ <a href="mailto:mobasserhoque@gmail.com">mobasserhoque@gmail.com</a></p>
         <p data-t="fHours">🕘 সকাল ৯টা – রাত ৯টা</p>
       </div>
       <div class="fcol">
         <h3 data-t="fApp">অ্যাপ</h3>
         <p><a id="apkFoot" href="#">⬇ APK ডাউনলোড</a></p>
+        <p><a href="admin.html" rel="nofollow">🔐 Admin panel</a></p>
       </div>
     </div>
     <div class="copy">© <span id="yr"></span> Green Friend · Malda, West Bengal</div>
@@ -456,7 +463,7 @@
       note: 'Play Protect "Unsafe app blocked" দেখালে More details → Install anyway চাপুন। অ্যাপে কোনো বিজ্ঞাপন নেই, টাকা কাটে না।',
       fTag: "মালদা ও মুর্শিদাবাদের বিখ্যাত আম গাছ — ৮ ফুট, কম দামে, গ্যারান্টি সহ।",
       fContact: "যোগাযোগ", fHours: "🕘 সকাল ৯টা – রাত ৯টা", fApp: "অ্যাপ",
-      order: "WhatsApp-এ অর্ডার", add: "কার্টে যোগ", buyNow: "এখনই কিনুন", all: "সব", out: "স্টক শেষ", low: "মাত্র {0}টি বাকি", off: "{0}% ছাড়", more: "আরও দেখুন",
+      order: "WhatsApp-এ অর্ডার", add: "কার্টে যোগ", buyNow: "এখনই কিনুন", all: "সব", out: "স্টক শেষ", low: "মাত্র {0}টি বাকি", off: "{0}% ছাড়", more: "আরও দেখুন", fromPrice: "{0} থেকে", size: "সাইজ",
       cart: "কার্ট", cartTitle: "আপনার কার্ট", total: "মোট", checkout: "চেকআউট",
       delivery: "ডেলিভারি", free: "ফ্রি", freeAbove: "{0} টাকার উপরে ডেলিভারি ফ্রি", freeAboveHint: "আর {0} যোগ করলেই ডেলিভারি ফ্রি",
       cartEmptyT: "কার্ট খালি", cartEmptyS: "একটা গাছ যোগ করুন।",
@@ -492,7 +499,7 @@
       note: 'If Play Protect says "Unsafe app blocked", tap More details → Install anyway. No ads, no charges.',
       fTag: "Mango plants across Malda & Murshidabad — 8 ft, lower price, guaranteed.",
       fContact: "Contact", fHours: "🕘 9 AM – 9 PM", fApp: "App",
-      order: "Order on WhatsApp", add: "Add to cart", buyNow: "Buy now", all: "All", out: "Out of stock", low: "Only {0} left", off: "{0}% off", more: "Load more",
+      order: "Order on WhatsApp", add: "Add to cart", buyNow: "Buy now", all: "All", out: "Out of stock", low: "Only {0} left", off: "{0}% off", more: "Load more", fromPrice: "from {0}", size: "Size",
       cart: "Cart", cartTitle: "Your cart", total: "Total", checkout: "Checkout",
       delivery: "Delivery", free: "FREE", freeAbove: "Free delivery above {0}", freeAboveHint: "Add {0} more for free delivery",
       cartEmptyT: "Cart is empty", cartEmptyS: "Add a plant to get started.",
@@ -529,9 +536,24 @@
   // ---------- cart ----------
   var cart = [];
   try { cart = JSON.parse(localStorage.getItem("gf_cart") || "[]"); } catch (e) { cart = []; }
+  if (!Array.isArray(cart)) cart = [];
+  // Older carts stored no key and no size; give them a stable key.
+  cart = cart.filter(function (c) { return c && c.product && c.product.id; }).map(function (c) {
+    if (!c.key) c.key = c.product.id;
+    return c;
+  });
+  var sizeChoice = {};
+  function productSizes(p) {
+    var list = p && Array.isArray(p.sizes) ? p.sizes : [];
+    return list.filter(function (s) { return s && s.label && Number(s.price) > 0; });
+  }
+  function unitPrice(c) {
+    if (c.size && Number(c.size.price) > 0) return Number(c.size.price);
+    return Number(c.product.offer_price || c.product.price) || 0;
+  }
   function saveCart() { try { localStorage.setItem("gf_cart", JSON.stringify(cart)); } catch (e) {} updateCartBadge(); renderCart(); }
   function cartCount() { return cart.reduce(function (a, c) { return a + c.qty; }, 0); }
-  function cartSubtotal() { return cart.reduce(function (a, c) { return a + (Number(c.product.offer_price || c.product.price) || 0) * c.qty; }, 0); }
+  function cartSubtotal() { return cart.reduce(function (a, c) { return a + unitPrice(c) * c.qty; }, 0); }
   function deliveryRule() {
     var ps = paySettings || {};
     var charge = Number(ps.delivery_charge || 0) || 0;
@@ -545,23 +567,38 @@
     return { fee: r.charge, free: false, charge: r.charge, freeAbove: r.freeAbove, remaining: r.freeAbove > 0 ? r.freeAbove - sub : 0, off: false };
   }
   function cartTotal() { var sub = cartSubtotal(); return sub + (sub > 0 ? deliveryFor(sub).fee : 0); }
-  function addToCart(p) {
-    var ex = cart.find(function (c) { return c.product.id === p.id; });
-    if (ex) ex.qty += 1; else cart.push({ product: p, qty: 1 });
+  function findProduct(id) { return state.products.find(function (p) { return p.id === id; }); }
+  function pickSize(id, label) {
+    sizeChoice[id] = label;
+    renderProducts();
+  }
+  function addToCart(p, sizeLabel) {
+    if (typeof p === "string") p = findProduct(p);
+    if (!p) return;
+    var sizes = productSizes(p);
+    var size = null;
+    if (sizes.length) {
+      var label = sizeLabel || sizeChoice[p.id] || sizes[0].label;
+      size = sizes.find(function (s) { return s.label === label; }) || sizes[0];
+      sizeChoice[p.id] = size.label;
+    }
+    var key = p.id + (size ? "|" + size.label : "");
+    var ex = cart.find(function (c) { return c.key === key; });
+    if (ex) ex.qty += 1; else cart.push({ key: key, product: p, size: size, qty: 1 });
     saveCart();
     toast(t("add") + " ✓");
     var fab = document.getElementById("cartFab");
     if (fab) { fab.classList.remove("bump"); void fab.offsetWidth; fab.classList.add("bump"); }
   }
-  function buyNow(p) {
-    addToCart(p);
+  function buyNow(p, sizeLabel) {
+    addToCart(p, sizeLabel);
     setTimeout(function () { openCheckout(); }, 260);
   }
-  function removeFromCart(id) { cart = cart.filter(function (c) { return c.product.id !== id; }); saveCart(); }
-  function setQty(id, q) {
-    var c = cart.find(function (x) { return x.product.id === id; });
+  function removeFromCart(key) { cart = cart.filter(function (c) { return c.key !== key; }); saveCart(); }
+  function setQty(key, q) {
+    var c = cart.find(function (x) { return x.key === key; });
     if (!c) return;
-    if (q < 1) { removeFromCart(id); return; }
+    if (q < 1) { removeFromCart(key); return; }
     c.qty = Math.min(99, q); saveCart();
   }
   function updateCartBadge() {
@@ -576,15 +613,15 @@
     if (!cart.length) { box.innerHTML = ""; empty.style.display = "block"; total.textContent = money(0); var cd0 = document.getElementById("cartDelivery"); if (cd0) cd0.innerHTML = ""; renderOrderSummary(); return; }
     empty.style.display = "none";
     box.innerHTML = cart.map(function (c) {
-      var price = Number(c.product.offer_price || c.product.price) || 0;
+      var price = unitPrice(c);
       var thumb = c.product.image_url
         ? '<img loading="lazy" src="' + esc(img(c.product.image_url)) + '" alt="">'
         : esc(c.product.emoji || "🌱");
       return '<div class="cart-item">' +
         '<div class="ci" style="background:' + esc(c.product.tint || "#EAF3DE") + '">' + thumb + "</div>" +
-        '<div class="info"><b>' + esc(productName(c.product)) + '</b><small>' + money(price) + ' × ' + c.qty + '</small></div>' +
-        '<div class="qty"><button onclick="setQty(\'' + c.product.id + '\',' + (c.qty - 1) + ')">−</button><span>' + c.qty + '</span><button onclick="setQty(\'' + c.product.id + '\',' + (c.qty + 1) + ')">+</button></div>' +
-        '<button class="rm" onclick="removeFromCart(\'' + c.product.id + '\')" title="মুছুন">✕</button>' +
+        '<div class="info"><b>' + esc(productName(c.product)) + '</b>' + (c.size ? '<small class="ci-size">' + esc(c.size.label) + '</small>' : '') + '<small>' + money(price) + ' × ' + c.qty + '</small></div>' +
+        '<div class="qty"><button onclick="setQty(\'' + esc(c.key) + '\',' + (c.qty - 1) + ')">−</button><span>' + c.qty + '</span><button onclick="setQty(\'' + esc(c.key) + '\',' + (c.qty + 1) + ')">+</button></div>' +
+        '<button class="rm" onclick="removeFromCart(\'' + esc(c.key) + '\')" title="মুছুন">✕</button>' +
         '</div>';
     }).join("");
     var dRow = deliveryFor(cartSubtotal());
@@ -758,7 +795,7 @@
       if (!session) throw new Error("লগইন করুন");
       var r = await sb.rpc("place_green_friend_order", {
         p_address: addr,
-        p_items: cart.map(function (c) { return { product_id: c.product.id, quantity: c.qty }; }),
+        p_items: cart.map(function (c) { return { product_id: c.product.id, quantity: c.qty, size_label: c.size ? c.size.label : null }; }),
         p_coupon_code: null,
         p_payment_method: selectedMethod,
         p_payment_reference: ref || null,
@@ -832,9 +869,12 @@
     }
     var shown = Math.min(state.shown, list.length);
     grid.innerHTML = list.slice(0, shown).map(function (p) {
-      var price = Number(p.offer_price || p.price) || 0;
+      var sizes = productSizes(p);
+      var selSize = sizes.length ? (sizes.find(function (s) { return s.label === sizeChoice[p.id]; }) || sizes[0]) : null;
+      if (selSize) sizeChoice[p.id] = selSize.label;
+      var price = selSize ? Number(selSize.price) : (Number(p.offer_price || p.price) || 0);
       var listPrice = Number(p.price) || 0;
-      var hasOffer = p.offer_price && listPrice > price;
+      var hasOffer = !sizes.length && p.offer_price && listPrice > price;
       var stock = p.stock_quantity;
       var out = stock === 0;
       var low = typeof stock === "number" && stock > 0 && stock <= 5;
@@ -858,16 +898,26 @@
       }
       var msg = fmt(t("waProduct"), productName(p), money(price));
       var noteText = (LANG === "bn" ? (p.note_bn || p.note) : (p.note || p.note_bn)) || "";
+      var sizeHtml = sizes.length ? '<div class="size-chips">' + sizes.map(function (s) {
+        var on = selSize && selSize.label === s.label;
+        return '<button type="button" class="size-chip' + (on ? " on" : "") + '" onclick="pickSize(\'' + esc(p.id) + '\',\'' + esc(String(s.label).replace(/'/g, "\\'")) + '\')">' +
+          '<span>' + esc(s.label) + '</span><b>' + money(s.price) + '</b></button>';
+      }).join("") + "</div>" : "";
+      var minPrice = sizes.length ? Math.min.apply(null, sizes.map(function (s) { return Number(s.price); })) : price;
+      var priceHtml = sizes.length
+        ? '<b>' + esc(fmt(t("fromPrice"), money(minPrice))) + '</b>'
+        : '<b>' + money(price) + '</b>' + (hasOffer ? "<s>" + money(listPrice) + "</s>" : "");
       return '<article class="card">' +
         '<div class="thumb" style="background:' + esc(p.tint || "#EAF3DE") + '">' + badge + thumb + "</div>" +
         '<div class="card-body">' +
           '<div class="p-cat">' + esc(p.category || "") + "</div>" +
           '<div class="p-name">' + esc(productName(p)) + "</div>" +
           (noteText ? '<div class="p-note">' + esc(noteText) + "</div>" : "") +
-          '<div class="p-price"><b>' + money(price) + "</b>" + (hasOffer ? "<s>" + money(listPrice) + "</s>" : "") + "</div>" +
+          '<div class="p-price">' + priceHtml + "</div>" +
+          sizeHtml +
           '<div class="p-actions">' +
-            '<button class="p-cart" ' + (out ? "disabled" : "") + ' onclick=\'addToCart(' + JSON.stringify(p).replace(/'/g, "&#39;") + ')\'>+ ' + esc(t("add")) + "</button>" +
-            '<button class="p-buy" ' + (out ? "disabled" : "") + ' onclick=\'buyNow(' + JSON.stringify(p).replace(/'/g, "&#39;") + ')\'>⚡ ' + esc(t("buyNow")) + "</button>" +
+            '<button class="p-cart" ' + (out ? "disabled" : "") + ' onclick="addToCart(\'' + esc(p.id) + '\')">+ ' + esc(t("add")) + "</button>" +
+            '<button class="p-buy" ' + (out ? "disabled" : "") + ' onclick="buyNow(\'' + esc(p.id) + '\')">⚡ ' + esc(t("buyNow")) + "</button>" +
           "</div>" +
           '<a class="p-wa" href="' + wa(msg) + '">💬 ' + esc(t("order")) + "</a>" +
         "</div></article>";
@@ -928,10 +978,21 @@
         "<p>" + esc(r.comment || "") + "</p></div>";
     }).join("");
   }
+  async function fetchProducts() {
+    var base = SUPABASE_URL + "/rest/v1/products?select=";
+    var cols = "id,name,bn,category,price,offer_price,sizes,emoji,tint,image_url,image_urls,note,note_bn,stock_quantity,created_at";
+    var tail = "&is_active=eq.true&order=created_at.desc&limit=300";
+    var headers = { apikey: KEY, Authorization: "Bearer " + KEY };
+    var r = await fetch(base + cols + tail, { headers: headers });
+    if (r.ok) return r.json();
+    // Older database without the sizes column: show the shop anyway.
+    r = await fetch(base + cols.replace(",sizes", "") + tail, { headers: headers });
+    return r.json();
+  }
   async function boot() {
     try {
       var res = await Promise.all([
-        fetch(SUPABASE_URL + "/rest/v1/products?select=id,name,bn,category,price,offer_price,emoji,tint,image_url,image_urls,note,note_bn,stock_quantity,created_at&is_active=eq.true&order=created_at.desc&limit=300", { headers: { apikey: KEY, Authorization: "Bearer " + KEY } }).then(function (r) { return r.json(); }),
+        fetchProducts(),
         fetch(SUPABASE_URL + "/rest/v1/shop_offers?select=id,title,message,image_url&is_active=eq.true&order=sort_order.asc&limit=4", { headers: { apikey: KEY, Authorization: "Bearer " + KEY } }).then(function (r) { return r.json(); }),
         fetch(SUPABASE_URL + "/rest/v1/review_wall?select=id,rating,comment,image_url,customer_name,created_at&order=created_at.desc&limit=6", { headers: { apikey: KEY, Authorization: "Bearer " + KEY } }).then(function (r) { return r.json(); })
       ]);
@@ -956,6 +1017,7 @@
   // Expose handlers used by inline onclick attributes (they live in this IIFE scope).
   window.addToCart = addToCart;
   window.buyNow = buyNow;
+  window.pickSize = pickSize;
   window.openCart = openCart;
   window.closeCart = closeCart;
   window.setQty = setQty;
