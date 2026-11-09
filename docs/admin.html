@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Green Friend · Admin</title>
+<link rel="icon" href="logo.png">
+<style>
+  :root{
+    --green:#1F5F3E; --green-2:#2E7D4F; --green-3:#EAF3DE; --green-4:#F5FAF0;
+    --ink:#1D2A22; --muted:#6C7A66; --line:#DDE7D5; --gold:#F3C969;
+    --danger:#B4483C; --danger-bg:#FBEDEA; --white:#fff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans Bengali",sans-serif;background:var(--green-4);color:var(--ink);font-size:14px}
+  button,input,select,textarea{font-family:inherit;font-size:14px}
+  a{color:var(--green);text-decoration:none}
+  .hide{display:none!important}
+  /* ---------- login ---------- */
+  #loginView{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+  .login-card{width:100%;max-width:400px;background:var(--white);border-radius:22px;padding:26px 22px;box-shadow:0 18px 50px rgba(31,95,62,.12);border:1px solid var(--line)}
+  .login-card img{height:86px;display:block;margin:0 auto 8px}
+  .login-card h1{margin:0;text-align:center;font-size:20px;color:var(--green)}
+  .login-card p{margin:6px 0 18px;text-align:center;color:var(--muted);font-size:12.5px;line-height:1.5}
+  .field{margin-bottom:12px}
+  .field label{display:block;font-size:12px;font-weight:800;color:var(--muted);margin-bottom:5px}
+  .field input,.field select,.field textarea{width:100%;padding:11px 12px;border:1.5px solid var(--line);border-radius:12px;background:#FBFDF8;color:var(--ink);outline:none}
+  .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--green-2);background:#fff}
+  .btn{border:0;border-radius:12px;padding:11px 15px;font-weight:900;cursor:pointer;background:var(--green);color:#fff}
+  .btn:disabled{opacity:.5;cursor:not-allowed}
+  .btn.light{background:var(--green-3);color:var(--green)}
+  .btn.outline{background:#fff;color:var(--green);border:1.5px solid var(--line)}
+  .btn.danger{background:var(--danger-bg);color:var(--danger)}
+  .btn.sm{padding:7px 10px;border-radius:9px;font-size:12px}
+  .btn.full{width:100%}
+  .login-note{margin-top:14px;font-size:11.5px;color:var(--muted);line-height:1.5;text-align:center}
+  .err{background:var(--danger-bg);color:var(--danger);border-radius:10px;padding:9px 11px;font-size:12.5px;font-weight:700;margin-bottom:12px}
+  /* ---------- app ---------- */
+  #appView{min-height:100vh}
+  header.top{position:sticky;top:0;z-index:20;background:var(--white);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;padding:10px 16px}
+  header.top img{height:52px}
+  header.top .sp{flex:1}
+  header.top .who{font-size:12px;color:var(--muted);text-align:right;line-height:1.3}
+  header.top .who b{display:block;color:var(--ink);font-size:13px}
+  nav.tabs{position:sticky;top:73px;z-index:19;background:var(--white);border-bottom:1px solid var(--line);display:flex;gap:6px;padding:8px 16px;overflow-x:auto}
+  nav.tabs button{border:0;background:transparent;color:var(--muted);font-weight:900;padding:9px 13px;border-radius:999px;cursor:pointer;white-space:nowrap}
+  nav.tabs button.on{background:var(--green-3);color:var(--green)}
+  main{max-width:1080px;margin:0 auto;padding:18px 16px 70px}
+  .h1{font-size:20px;font-weight:900;margin:0 0 3px}
+  .sub{color:var(--muted);font-size:12.5px;margin:0 0 16px}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:18px}
+  .stat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px}
+  .stat b{display:block;font-size:23px;color:var(--green);line-height:1.1}
+  .stat span{font-size:11.5px;color:var(--muted);font-weight:700}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px;margin-bottom:14px}
+  .toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+  .toolbar input{flex:1;min-width:180px;padding:10px 12px;border:1.5px solid var(--line);border-radius:12px;background:#FBFDF8}
+  .row{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid #EEF3E9}
+  .row:last-child{border-bottom:0}
+  .thumb{width:58px;height:58px;border-radius:12px;background:var(--green-3);flex:none;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:24px}
+  .thumb img{width:100%;height:100%;object-fit:cover}
+  .grow{flex:1;min-width:0}
+  .title{font-weight:900;font-size:14.5px;display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+  .meta{color:var(--muted);font-size:12px;margin-top:3px;line-height:1.4}
+  .pill{display:inline-block;border-radius:999px;padding:2px 8px;font-size:10.5px;font-weight:900;background:var(--green-3);color:var(--green)}
+  .pill.off{background:#F2F2F2;color:#777}
+  .pill.warn{background:#FDF1DC;color:#9A6A14}
+  .pill.bad{background:var(--danger-bg);color:var(--danger)}
+  .pill.paid{background:#E3F4E7;color:#247a42}
+  .sizes{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+  .chip{background:var(--green-3);color:var(--green);border-radius:8px;padding:3px 7px;font-size:11px;font-weight:800}
+  .actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;flex:none}
+  .order{border:1px solid var(--line);border-radius:16px;padding:13px;margin-bottom:11px;background:#fff}
+  .order .top{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:5px}
+  .order .oid{font-weight:900}
+  .order .items{margin:8px 0;font-size:12.5px;line-height:1.6}
+  .order .items .sz{color:var(--green-2);font-weight:800}
+  .order .addr{font-size:12.5px;color:var(--muted);line-height:1.5}
+  .order .tot{font-weight:900;color:var(--green);margin-top:6px}
+  .order .actions{justify-content:flex-start;margin-top:10px}
+  .order select{padding:7px 9px;border-radius:9px;border:1.5px solid var(--line);background:#FBFDF8;font-weight:700}
+  .empty{color:var(--muted);text-align:center;padding:26px 10px;font-size:13px}
+  /* ---------- modal ---------- */
+  .overlay{position:fixed;inset:0;background:rgba(18,32,24,.45);z-index:60;display:flex;align-items:flex-end;justify-content:center;padding:0}
+  .modal{background:#fff;border-radius:20px 20px 0 0;width:100%;max-width:640px;max-height:92vh;overflow:auto;padding:20px 18px 26px}
+  @media(min-width:700px){.overlay{align-items:center;padding:20px}.modal{border-radius:20px}}
+  .modal h2{margin:0 0 4px;font-size:18px}
+  .modal .msub{color:var(--muted);font-size:12.5px;margin:0 0 16px;line-height:1.5}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  @media(max-width:520px){.grid2{grid-template-columns:1fr}}
+  .size-row{display:grid;grid-template-columns:1fr 110px;gap:8px;margin-bottom:8px}
+  .size-row input{width:100%;padding:9px 10px;border:1.5px solid var(--line);border-radius:10px;background:#FBFDF8}
+  .modal-actions{display:flex;gap:8px;margin-top:16px}
+  .modal-actions .btn{flex:1}
+  .help{background:var(--green-4);border:1px dashed #C9DCC0;border-radius:12px;padding:10px 12px;font-size:12px;color:#4A5A44;line-height:1.55;margin:8px 0 12px}
+  .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:#183D2A;color:#fff;padding:11px 18px;border-radius:999px;font-size:13px;font-weight:800;z-index:99;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+  .toast.bad{background:var(--danger)}
+  .linkbar{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;font-weight:800;margin-top:8px}
+</style>
+</head>
+<body>
+
+<!-- ================= LOGIN ================= -->
+<div id="loginView">
+  <form class="login-card" onsubmit="doLogin(event)">
+    <img src="logo.png" alt="Green Friend">
+    <h1>Green Friend Admin</h1>
+    <p>কম্পিউটার বা মোবাইল ব্রাউজার থেকে দোকান চালান।<br>Run the shop from any computer browser.</p>
+    <div id="loginErr" class="err hide"></div>
+    <div class="field">
+      <label>মোবাইল নম্বর / Mobile number</label>
+      <input id="loginPhone" type="text" inputmode="tel" autocomplete="username" placeholder="9563205299" required>
+    </div>
+    <div class="field">
+      <label>পাসওয়ার্ড / Password</label>
+      <input id="loginPass" type="password" autocomplete="current-password" placeholder="••••••••" required>
+    </div>
+    <button class="btn full" id="loginBtn" type="submit">লগইন করুন / Sign in</button>
+    <div class="login-note">
+      অ্যাপে যে ফোন ও পাসওয়ার্ড দিয়ে লগইন করেন, সেটাই ব্যবহার করুন।<br>
+      Use the same phone &amp; password as the app. Admin accounts only.
+    </div>
+    <div class="linkbar" style="justify-content:center">
+      <a href="index.html">← Website</a>
+      <a href="https://github.com/Greenfriend9563/green-friend-app/releases/latest/download/Green-Friend.apk">Download app</a>
+    </div>
+  </form>
+</div>
+
+<!-- ================= APP ================= -->
+<div id="appView" class="hide">
+  <header class="top">
+    <a href="index.html"><img src="logo.png" alt="Green Friend"></a>
+    <div class="sp"></div>
+    <div class="who"><b id="whoName">Admin</b><span id="whoPhone"></span></div>
+    <button class="btn light sm" onclick="doLogout()">Log out</button>
+  </header>
+  <nav class="tabs">
+    <button data-tab="overview" class="on" onclick="setTab('overview')">Overview</button>
+    <button data-tab="products" onclick="setTab('products')">Products</button>
+    <button data-tab="orders" onclick="setTab('orders')">Orders</button>
+    <button data-tab="offers" onclick="setTab('offers')">Offers</button>
+    <button data-tab="customers" onclick="setTab('customers')">Customers</button>
+  </nav>
+  <main>
+    <section id="tab-overview">
+      <h1 class="h1">Overview</h1>
+      <p class="sub">Live numbers from the app and website.</p>
+      <div class="stats" id="statGrid"></div>
+      <div class="panel">
+        <h1 class="h1" style="font-size:16px">Quick help</h1>
+        <div class="help">
+          <b>Products:</b> প্রতিটি পণ্যে ৩টি সাইজ ও আলাদা দাম দিতে পারবেন। সাইজ খালি রাখলে একটি দামেই বিক্রি হবে।<br>
+          <b>Orders:</b> স্ট্যাটাস বদলান, পেমেন্ট যাচাই করুন বা অর্ডার মুছুন।<br>
+          <b>Website:</b> এই প্যানেলের বদল সরাসরি অ্যাপ ও ওয়েবসাইটে দেখাবে।
+        </div>
+        <div class="linkbar">
+          <a href="index.html" target="_blank" rel="noopener">Open website ↗</a>
+          <a href="https://github.com/Greenfriend9563/green-friend-app/releases" target="_blank" rel="noopener">GitHub releases ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-products" class="hide">
+      <h1 class="h1">Products</h1>
+      <p class="sub" id="productsSub">Add plants, set three sizes and their prices.</p>
+      <div class="toolbar">
+        <input id="productSearch" placeholder="Search products…" oninput="onProductSearch(this.value)">
+        <button class="btn" onclick="openProduct('')">＋ Add product</button>
+      </div>
+      <div class="panel" id="productList"><div class="empty">Loading…</div></div>
+    </section>
+
+    <section id="tab-orders" class="hide">
+      <h1 class="h1">Orders</h1>
+      <p class="sub">Change status, verify payments, delete bad orders.</p>
+      <div class="toolbar">
+        <input id="orderSearch" placeholder="Search order, name or phone…" oninput="onOrderSearch(this.value)">
+        <button class="btn light" onclick="loadOrders()">↻ Refresh</button>
+      </div>
+      <div id="orderList"><div class="empty">Loading…</div></div>
+    </section>
+
+    <section id="tab-offers" class="hide">
+      <h1 class="h1">Offers</h1>
+      <p class="sub">These show on the Home screen and the website.</p>
+      <div class="toolbar">
+        <div class="grow"></div>
+        <button class="btn" onclick="openOffer('')">＋ Add offer</button>
+      </div>
+      <div id="offerList"><div class="empty">Loading…</div></div>
+    </section>
+
+    <section id="tab-customers" class="hide">
+      <h1 class="h1">Registered customers</h1>
+      <p class="sub">Everyone who created an account in the app. Newest first.</p>
+      <div class="toolbar">
+        <input id="customerSearch" placeholder="Search name or phone…" oninput="onCustomerSearch(this.value)">
+      </div>
+      <div class="panel" id="customerList"><div class="empty">Loading…</div></div>
+    </section>
+  </main>
+</div>
+
+<!-- product modal -->
+<div id="productOverlay" class="overlay hide" onclick="if(event.target===this)closeProduct()">
+  <div class="modal">
+    <h2 id="productModalTitle">Add a product</h2>
+    <p class="msub">নাম, দাম, স্টক ও গাছের ৩টি সাইজ দিন।</p>
+    <div class="grid2">
+      <div class="field"><label>Product name *</label><input id="fName" placeholder="e.g. Langra Mango Plant"></div>
+      <div class="field"><label>Name in Bengali</label><input id="fBn" placeholder="যেমন ল্যাংড়া আম গাছ"></div>
+      <div class="field"><label>Category *</label><input id="fCategory" list="catList" placeholder="ইনডোর গাছ"><datalist id="catList"></datalist></div>
+      <div class="field"><label>Stock (blank = unlimited)</label><input id="fStock" inputmode="numeric" placeholder="e.g. 20"></div>
+      <div class="field"><label>Regular price (₹) *</label><input id="fPrice" inputmode="numeric" placeholder="e.g. 599"></div>
+      <div class="field"><label>Offer price (₹, optional)</label><input id="fOffer" inputmode="numeric" placeholder="blank = no offer"></div>
+    </div>
+    <div class="field"><label>Short note</label><input id="fNote" placeholder="Fresh from Green Friend"></div>
+    <div class="field"><label>Note in Bengali</label><input id="fNoteBn" placeholder="তাজা গাছ, যত্নের সাথে প্যাক করা"></div>
+
+    <label style="display:block;font-size:12px;font-weight:800;color:var(--muted);margin:4px 0 5px">Plant sizes (up to 3)</label>
+    <div class="help">প্রতিটি সাইজের আলাদা দাম দিন। তিনটি সারি খালি রাখলে এক দামেই বিক্রি হবে। সাইজ দিলে উপরের দামটাই শুরুর দাম হিসেবে দেখাবে।</div>
+    <div class="size-row"><input id="s0label" placeholder="Size 1 name (e.g. 2 ft / Small)"><input id="s0price" inputmode="numeric" placeholder="Price ₹"></div>
+    <div class="size-row"><input id="s1label" placeholder="Size 2 name"><input id="s1price" inputmode="numeric" placeholder="Price ₹"></div>
+    <div class="size-row"><input id="s2label" placeholder="Size 3 name"><input id="s2price" inputmode="numeric" placeholder="Price ₹"></div>
+
+    <div class="field" style="margin-top:12px"><label>Photo URLs (one per line, up to 5)</label><textarea id="fImages" rows="3" placeholder="https://greenfriend9563.github.io/green-friend-app/products/langra.jpg"></textarea></div>
+    <div class="field"><label><input type="checkbox" id="fActive" checked style="width:auto;margin-right:6px">Visible in shop</label></div>
+    <div id="productErr" class="err hide"></div>
+    <div class="modal-actions">
+      <button class="btn outline" onclick="closeProduct()">Cancel</button>
+      <button class="btn" id="productSaveBtn" onclick="saveProduct()">Save product</button>
+    </div>
+  </div>
+</div>
+
+<!-- offer modal -->
+<div id="offerOverlay" class="overlay hide" onclick="if(event.target===this)closeOffer()">
+  <div class="modal">
+    <h2 id="offerModalTitle">Add an offer</h2>
+    <p class="msub">অফার হোম স্ক্রিন ও ওয়েবসাইটে দেখাবে।</p>
+    <div class="field"><label>Title *</label><input id="oTitle" placeholder="e.g. Monsoon sale"></div>
+    <div class="field"><label>Message</label><textarea id="oMessage" rows="2" placeholder="e.g. 10% off on all mango plants"></textarea></div>
+    <div class="field"><label>Button text</label><input id="oButton" placeholder="Order now"></div>
+    <div class="field"><label>Image URL</label><input id="oImage" placeholder="https://…"></div>
+    <div class="field"><label>Sort order</label><input id="oSort" inputmode="numeric" placeholder="1"></div>
+    <div class="field"><label><input type="checkbox" id="oActive" checked style="width:auto;margin-right:6px">Active</label></div>
+    <div id="offerErr" class="err hide"></div>
+    <div class="modal-actions">
+      <button class="btn outline" onclick="closeOffer()">Cancel</button>
+      <button class="btn" id="offerSaveBtn" onclick="saveOffer()">Save offer</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var URL = "https://thiqwyltfgtluxizsaee.supabase.co";
+  var KEY = "sb_publishable_51MmOG-p1xr6nx7sh-dGkw_Es538Zli";
+  var SESSION_KEY = "gf_admin_web_session";
+
+  var S = {
+    products: [], orders: [], orderItems: [], offers: [], customers: [], visits: null,
+    tab: "overview", productQuery: "", orderQuery: "", customerQuery: "",
+    editingProduct: null, editingOffer: null, session: null
+  };
+
+  // ---------- helpers ----------
+  function $(id) { return document.getElementById(id); }
+  function esc(v) {
+    return String(v == null ? "" : v).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+  function money(n) { return "\u20B9" + (Number(n) || 0).toLocaleString("en-IN", { maximumFractionDigits: 0 }); }
+  function toast(msg, bad) {
+    var el = document.createElement("div");
+    el.className = "toast" + (bad ? " bad" : "");
+    el.textContent = msg;
+    document.body.appendChild(el);
+    setTimeout(function () { el.style.opacity = "0"; el.style.transition = "opacity .3s"; setTimeout(function () { el.remove(); }, 320); }, 1800);
+  }
+  function showErr(id, msg) {
+    var el = $(id);
+    if (!el) return;
+    if (!msg) { el.classList.add("hide"); el.textContent = ""; return; }
+    el.textContent = msg;
+    el.classList.remove("hide");
+  }
+  function productSizes(p) {
+    var list = p && Array.isArray(p.sizes) ? p.sizes : [];
+    return list.filter(function (s) { return s && s.label && Number(s.price) > 0; });
+  }
+  function fromPrice(p) {
+    var sizes = productSizes(p);
+    return sizes.length ? Math.min.apply(null, sizes.map(function (s) { return Number(s.price); })) : Number(p.sale_price || p.offer_price || p.price) || 0;
+  }
+  function priceText(p) {
+    var sizes = productSizes(p);
+    if (sizes.length) return "from " + money(fromPrice(p)) + " · " + sizes.length + " sizes";
+    if (p.offer_price) return money(p.offer_price) + " (was " + money(p.price) + ")";
+    return money(p.price);
+  }
+  function stockText(p) {
+    if (p.stock_quantity == null) return "Stock: unlimited";
+    return "Stock: " + p.stock_quantity;
+  }
+  function imageOf(p) {
+    if (Array.isArray(p.image_urls) && p.image_urls.length) return p.image_urls[0];
+    return p.image_url || "";
+  }
+  function dateText(v) {
+    if (!v) return "";
+    try { return new Date(v).toLocaleString("en-IN", { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" }); } catch (e) { return String(v); }
+  }
+  function phoneEmail(v) {
+    var raw = String(v || "").trim();
+    if (raw.indexOf("@") >= 0) return raw;
+    return "gf" + raw.replace(/\D/g, "") + "@phone.greenfriend.invalid";
+  }
+
+  // ---------- session + api ----------
+  function loadSession() {
+    try { return JSON.parse(localStorage.getItem(SESSION_KEY) || "null"); } catch (e) { return null; }
+  }
+  function saveSession(s) {
+    S.session = s;
+    try { if (s) localStorage.setItem(SESSION_KEY, JSON.stringify(s)); else localStorage.removeItem(SESSION_KEY); } catch (e) {}
+  }
+  async function authLogin(email, password) {
+    var r = await fetch(URL + "/auth/v1/token?grant_type=password", {
+      method: "POST",
+      headers: { apikey: KEY, "Content-Type": "application/json" },
+      body: JSON.stringify({ email: email, password: password })
+    });
+    var data = await r.json().catch(function () { return {}; });
+    if (!r.ok) throw new Error(data.error_description || data.msg || data.message || "Login failed");
+    return data;
+  }
+  async function refreshSession() {
+    if (!S.session || !S.session.refresh_token) return false;
+    try {
+      var r = await fetch(URL + "/auth/v1/token?grant_type=refresh_token", {
+        method: "POST",
+        headers: { apikey: KEY, "Content-Type": "application/json" },
+        body: JSON.stringify({ refresh_token: S.session.refresh_token })
+      });
+      if (!r.ok) return false;
+      var data = await r.json();
+      saveSession(data);
+      return true;
+    } catch (e) { return false; }
+  }
+  async function api(path, opts) {
+    opts = opts || {};
+    var headers = Object.assign({
+      apikey: KEY,
+      Authorization: "Bearer " + ((S.session && S.session.access_token) || KEY),
+      "Content-Type": "application/json"
+    }, opts.headers || {});
+    if (!opts.headers || !opts.headers.Prefer) headers.Prefer = "return=representation";
+    var init = { method: opts.method || "GET", headers: headers };
+    if (opts.body !== undefined) init.body = typeof opts.body === "string" ? opts.body : JSON.stringify(opts.body);
+    var r = await fetch(URL + path, init);
+    if (r.status === 401 && await refreshSession()) {
+      headers.Authorization = "Bearer " + S.session.access_token;
+      r = await fetch(URL + path, { method: init.method, headers: headers, body: init.body });
+    }
+    var txt = await r.text();
+    var data = null;
+    if (txt) { try { data = JSON.parse(txt); } catch (e) { data = txt; } }
+    if (!r.ok) {
+      var msg = (data && (data.message || data.error_description || data.hint || data.details)) || ("HTTP " + r.status);
+      if (data && data.code === "PGRST204") msg = msg + " — run supabase/product-sizes.sql in Supabase.";
+      throw new Error(msg);
+    }
+    return data;
+  }
+
+  // ---------- boot / auth ----------
+  async function boot() {
+    var saved = loadSession();
+    if (saved && saved.access_token) {
+      saveSession(saved);
+      try {
+        var ok = await api("/rest/v1/rpc/is_green_friend_admin", { method: "POST", body: {} });
+        if (ok === true) { await enterApp(); return; }
+      } catch (e) { /* fall through to login */ }
+      saveSession(null);
+    }
+    $("loginView").classList.remove("hide");
+    $("appView").classList.add("hide");
+  }
+
+  window.doLogin = async function (event) {
+    event.preventDefault();
+    showErr("loginErr", "");
+    var phone = $("loginPhone").value.trim();
+    var pass = $("loginPass").value;
+    if (!phone || !pass) return showErr("loginErr", "Enter your phone and password.");
+    var btn = $("loginBtn");
+    btn.disabled = true; btn.textContent = "Signing in…";
+    try {
+      var session = await authLogin(phoneEmail(phone), pass);
+      saveSession(session);
+      var ok = await api("/rest/v1/rpc/is_green_friend_admin", { method: "POST", body: {} });
+      if (ok !== true) throw new Error("This account is not an admin. Use the Green Friend admin phone number.");
+      await enterApp();
+    } catch (e) {
+      saveSession(null);
+      showErr("loginErr", e.message || "Login failed");
+    } finally {
+      btn.disabled = false; btn.textContent = "লগইন করুন / Sign in";
+    }
+  };
+
+  window.doLogout = async function () {
+    try { await api("/auth/v1/logout", { method: "POST", body: {} }); } catch (e) {}
+    saveSession(null);
+    $("appView").classList.add("hide");
+    $("loginView").classList.remove("hide");
+    $("loginPass").value = "";
+  };
+
+  async function enterApp() {
+    var meta = (S.session && S.session.user && S.session.user.user_metadata) || {};
+    var user = (S.session && S.session.user) || {};
+    $("whoName").textContent = meta.full_name || meta.name || "Admin";
+    $("whoPhone").textContent = user.phone || (user.email || "").replace("@phone.greenfriend.invalid", "");
+    $("loginView").classList.add("hide");
+    $("appView").classList.remove("hide");
+    setTab("overview");
+    await loadAll();
+  }
+
+  // ---------- tabs ----------
+  window.setTab = function (tab) {
+    S.tab = tab;
+    ["overview", "products", "orders", "offers", "customers"].forEach(function (name) {
+      $("tab-" + name).classList.toggle("hide", name !== tab);
+    });
+    document.querySelectorAll("nav.tabs button").forEach(function (b) {
+      b.classList.toggle("on", b.getAttribute("data-tab") === tab);
+    });
+    if (tab === "orders") loadOrders();
+    if (tab === "offers") loadOffers();
+    if (tab === "customers") loadCustomers();
+  };
+
+  // ---------- data ----------
+  async function loadAll() {
+    await Promise.all([loadProducts(), loadOrders(), loadOffers(), loadCustomers(), loadVisits()]);
+    renderOverview();
+  }
+  async function loadProducts() {
+    try {
+      S.products = await api("/rest/v1/products?select=*&order=created_at.desc&limit=500");
+      renderProducts();
+      renderOverview();
+      fillCategories();
+    } catch (e) {
+      $("productList").innerHTML = '<div class="empty">' + esc(e.message) + "</div>";
+    }
+  }
+  async function loadOrders() {
+    try {
+      S.orders = await api("/rest/v1/orders?select=*&order=created_at.desc&limit=200");
+      if (!Array.isArray(S.orders)) S.orders = [];
+      var items;
+      try {
+        items = await api("/rest/v1/order_items?select=order_id,product_name,quantity,unit_price,size_label&limit=2000");
+      } catch (e) {
+        // Older database without size_label still shows the orders.
+        items = await api("/rest/v1/order_items?select=order_id,product_name,quantity,unit_price&limit=2000");
+      }
+      S.orderItems = Array.isArray(items) ? items : [];
+      renderOrders();
+      renderOverview();
+    } catch (e) {
+      $("orderList").innerHTML = '<div class="empty">' + esc(e.message) + "</div>";
+    }
+  }
+  async function loadOffers() {
+    try {
+      S.offers = await api("/rest/v1/shop_offers?select=*&order=sort_order.asc&limit=100");
+      renderOffers();
+    } catch (e) {
+      $("offerList").innerHTML = '<div class="empty">' + esc(e.message) + "</div>";
+    }
+  }
+  async function loadCustomers() {
+    try {
+      S.customers = await api("/rest/v1/profiles?select=id,full_name,phone,role,created_at&order=created_at.desc&limit=500");
+      if (!Array.isArray(S.customers)) S.customers = [];
+      S.customers = S.customers.filter(function (c) { return c.role !== "admin"; });
+      renderCustomers();
+      renderOverview();
+    } catch (e) {
+      $("customerList").innerHTML = '<div class="empty">' + esc(e.message) + "</div>";
+    }
+  }
+  async function loadVisits() {
+    try { S.visits = await api("/rest/v1/rpc/site_visit_stats", { method: "POST", body: {} }); }
+    catch (e) { S.visits = null; }
+  }
+
+  // ---------- overview ----------
+  function renderOverview() {
+    if (!S.session) return;
+    var live = S.products.filter(function (p) { return p.is_active !== false; }).length;
+    var revenue = S.orders.reduce(function (a, o) { return a + (Number(o.total) || 0); }, 0);
+    var visits = S.visits || {};
+    $("statGrid").innerHTML = [
+      ["Products", S.products.length + " (" + live + " live)"],
+      ["Orders", S.orders.length],
+      ["Sales", money(revenue)],
+      ["Customers", S.customers.length],
+      ["Website visits today", visits.today == null ? "—" : visits.today],
+      ["Website visits total", visits.total == null ? "—" : visits.total]
+    ].map(function (row) {
+      return '<div class="stat"><b>' + esc(row[1]) + "</b><span>" + esc(row[0]) + "</span></div>";
+    }).join("");
+  }
+
+  // ---------- products ----------
+  window.onProductSearch = function (v) { S.productQuery = String(v || "").toLowerCase(); renderProducts(); };
+  function fillCategories() {
+    var cats = {};
+    S.products.forEach(function (p) { if (p.category) cats[p.category] = 1; });
+    $("catList").innerHTML = Object.keys(cats).map(function (c) { return "<option value=\"" + esc(c) + "\">"; }).join("");
+  }
+  function renderProducts() {
+    var list = S.products.filter(function (p) {
+      if (!S.productQuery) return true;
+      return ((p.name || "") + " " + (p.bn || "") + " " + (p.category || "")).toLowerCase().indexOf(S.productQuery) >= 0;
+    });
+    $("productsSub").textContent = S.products.filter(function (p) { return p.is_active !== false; }).length + " live · " + S.products.length + " total";
+    if (!list.length) { $("productList").innerHTML = '<div class="empty">No products match that search.</div>'; return; }
+    $("productList").innerHTML = list.map(function (p) {
+      var sizes = productSizes(p);
+      var img = imageOf(p);
+      return '<div class="row">' +
+        '<div class="thumb">' + (img ? '<img loading="lazy" src="' + esc(img) + '" alt="">' : esc(p.emoji || "🌱")) + "</div>" +
+        '<div class="grow">' +
+          '<div class="title">' + esc(p.name) + (p.is_active === false ? '<span class="pill off">ARCHIVED</span>' : "") + "</div>" +
+          '<div class="meta">' + esc(p.category || "") + " · " + esc(stockText(p)) + " · " + esc(priceText(p)) + "</div>" +
+          (sizes.length ? '<div class="sizes">' + sizes.map(function (s) { return '<span class="chip">' + esc(s.label) + " · " + money(s.price) + "</span>"; }).join("") + "</div>" : "") +
+        "</div>" +
+        '<div class="actions">' +
+          '<button class="btn light sm" onclick="openProduct(\'' + p.id + '\')">Edit</button>' +
+          (p.is_active === false
+            ? '<button class="btn sm" onclick="setActive(\'' + p.id + '\',true)">Restore</button>'
+            : '<button class="btn danger sm" onclick="setActive(\'' + p.id + '\',false)">Remove</button>') +
+        "</div>" +
+      "</div>";
+    }).join("");
+  }
+
+  window.openProduct = function (id) {
+    S.editingProduct = id || null;
+    showErr("productErr", "");
+    var p = id ? S.products.find(function (x) { return x.id === id; }) : null;
+    $("productModalTitle").textContent = p ? "Edit product" : "Add a product";
+    $("productSaveBtn").textContent = p ? "Save changes" : "Save product";
+    $("fName").value = p ? p.name || "" : "";
+    $("fBn").value = p ? p.bn || "" : "";
+    $("fCategory").value = p ? p.category || "" : "ইনডোর গাছ";
+    $("fStock").value = p && p.stock_quantity != null ? String(p.stock_quantity) : "";
+    $("fPrice").value = p ? String(p.price == null ? "" : p.price) : "";
+    $("fOffer").value = p && p.offer_price ? String(p.offer_price) : "";
+    $("fNote").value = p ? p.note || "" : "Fresh from Green Friend";
+    $("fNoteBn").value = p ? p.note_bn || "" : "";
+    $("fImages").value = p ? (Array.isArray(p.image_urls) ? p.image_urls : (p.image_url ? [p.image_url] : [])).join("\n") : "";
+    $("fActive").checked = p ? p.is_active !== false : true;
+    var sizes = p ? productSizes(p) : [];
+    for (var i = 0; i < 3; i++) {
+      $("s" + i + "label").value = sizes[i] ? sizes[i].label : "";
+      $("s" + i + "price").value = sizes[i] ? String(sizes[i].price) : "";
+    }
+    $("productOverlay").classList.remove("hide");
+  };
+  window.closeProduct = function () { $("productOverlay").classList.add("hide"); };
+
+  window.saveProduct = async function () {
+    showErr("productErr", "");
+    var name = $("fName").value.trim();
+    var category = $("fCategory").value.trim();
+    if (!name) return showErr("productErr", "Product name is required.");
+    if (!category) return showErr("productErr", "Category is required.");
+
+    var rows = [];
+    for (var i = 0; i < 3; i++) {
+      var label = $("s" + i + "label").value.trim();
+      var priceTxt = $("s" + i + "price").value.trim();
+      if (!label && !priceTxt) continue;
+      if (!label || !priceTxt || !isFinite(Number(priceTxt)) || Number(priceTxt) <= 0) {
+        return showErr("productErr", "Every size needs a name and a price above 0. Leave a row empty to skip it.");
+      }
+      rows.push({ label: label, price: Number(priceTxt) });
+    }
+    var seen = {};
+    for (var j = 0; j < rows.length; j++) {
+      var k = rows[j].label.toLowerCase();
+      if (seen[k]) return showErr("productErr", "Each size needs a different name.");
+      seen[k] = 1;
+    }
+    var sizes = rows;
+
+    var price = Number($("fPrice").value.trim());
+    if (!isFinite(price) || price <= 0) price = sizes.length ? Math.min.apply(null, sizes.map(function (s) { return s.price; })) : 0;
+    if (!isFinite(price) || price <= 0) return showErr("productErr", "Enter a valid regular price.");
+
+    var offerTxt = $("fOffer").value.trim();
+    var offer = offerTxt ? Number(offerTxt) : null;
+    if (sizes.length) offer = null;
+    if (offer != null && (!isFinite(offer) || offer <= 0 || offer >= price)) return showErr("productErr", "Offer price must be above 0 and below the regular price.");
+
+    var stockTxt = $("fStock").value.trim();
+    var stock = stockTxt === "" ? null : Number(stockTxt);
+    if (stock != null && (!isFinite(stock) || stock < 0)) return showErr("productErr", "Stock must be 0 or more.");
+
+    var urls = $("fImages").value.split(/\r?\n/).map(function (s) { return s.trim(); }).filter(Boolean);
+    if (urls.length > 5) return showErr("productErr", "A product can have up to 5 photos.");
+
+    var payload = {
+      name: name,
+      bn: $("fBn").value.trim(),
+      category: category,
+      price: price,
+      offer_price: offer,
+      sizes: sizes,
+      stock_quantity: stock == null ? null : Math.max(0, Math.floor(stock)),
+      note: $("fNote").value.trim() || "Fresh from Green Friend",
+      note_bn: $("fNoteBn").value.trim(),
+      image_url: urls[0] || null,
+      image_urls: urls,
+      is_active: $("fActive").checked
+    };
+
+    var btn = $("productSaveBtn");
+    btn.disabled = true; btn.textContent = "Saving…";
+    try {
+      if (S.editingProduct) {
+        await api("/rest/v1/products?id=eq." + encodeURIComponent(S.editingProduct), { method: "PATCH", body: payload });
+      } else {
+        await api("/rest/v1/products", { method: "POST", body: payload });
+      }
+      closeProduct();
+      toast("Product saved ✓");
+      await loadProducts();
+    } catch (e) {
+      showErr("productErr", e.message || "Could not save the product.");
+    } finally {
+      btn.disabled = false; btn.textContent = S.editingProduct ? "Save changes" : "Save product";
+    }
+  };
+
+  window.setActive = async function (id, active) {
+    try {
+      await api("/rest/v1/products?id=eq." + encodeURIComponent(id), { method: "PATCH", body: { is_active: active } });
+      toast(active ? "Product restored ✓" : "Product removed");
+      await loadProducts();
+    } catch (e) { toast(e.message || "Could not update", true); }
+  };
+
+  // ---------- orders ----------
+  window.onOrderSearch = function (v) { S.orderQuery = String(v || "").toLowerCase(); renderOrders(); };
+  var STATUSES = ["নতুন", "প্রস্তুত হচ্ছে", "পাঠানো হয়েছে", "ডেলিভারি সম্পন্ন", "শিফট করা হয়েছে", "শিফটের জন্য পেমেন্ট দিন", "বাতিল"];
+  var STATUS_EN = {
+    "নতুন": "New", "প্রস্তুত হচ্ছে": "Processing", "পাঠানো হয়েছে": "Shipped",
+    "ডেলিভারি সম্পন্ন": "Delivered", "শিফট করা হয়েছে": "Shifted",
+    "শিফটের জন্য পেমেন্ট দিন": "Pay for shift", "বাতিল": "Cancelled"
+  };
+  function renderOrders() {
+    var list = S.orders.filter(function (o) {
+      if (!S.orderQuery) return true;
+      return ((o.order_number || "") + " " + (o.customer_name || "") + " " + (o.phone || "")).toLowerCase().indexOf(S.orderQuery) >= 0;
+    });
+    if (!list.length) { $("orderList").innerHTML = '<div class="empty">No orders match that search.</div>'; return; }
+    $("orderList").innerHTML = list.map(function (o) {
+      var items = S.orderItems.filter(function (i) { return i.order_id === o.id; });
+      var pay = o.payment_status || "pending";
+      var payClass = pay === "paid" ? "paid" : (pay === "failed" ? "bad" : (pay === "awaiting_verification" ? "warn" : ""));
+      var statusOptions = STATUSES.map(function (st) {
+        return '<option value="' + esc(st) + '"' + (o.status === st ? " selected" : "") + ">" + esc(STATUS_EN[st] || st) + "</option>";
+      }).join("");
+      return '<div class="order">' +
+        '<div class="top"><span class="oid">#' + esc(o.order_number || String(o.id).slice(0, 8)) + '</span>' +
+          '<span class="pill">' + esc(STATUS_EN[o.status] || o.status || "New") + "</span>" +
+          '<span class="pill ' + payClass + '">' + esc(String(pay).toUpperCase()) + "</span>" +
+          '<span style="color:var(--muted);font-size:12px">' + esc(dateText(o.created_at)) + "</span></div>" +
+        '<div class="meta"><b>' + esc(o.customer_name || "Customer") + "</b> · " + esc(o.phone || "") + "</div>" +
+        '<div class="addr">' + esc(o.address || "") + (o.delivery_pincode ? " · PIN " + esc(o.delivery_pincode) : "") + "</div>" +
+        '<div class="items">' + (items.length ? items.map(function (i) {
+          return esc(i.quantity) + " × " + esc(i.product_name) + (i.size_label ? ' <span class="sz">(' + esc(i.size_label) + ")</span>" : "") + " — " + money(i.unit_price);
+        }).join("<br>") : '<span style="color:var(--muted)">Items unavailable</span>') + "</div>" +
+        '<div class="meta">Payment: ' + esc(o.payment_method || "COD") + (o.payment_reference ? " · Ref " + esc(o.payment_reference) : "") + "</div>" +
+        '<div class="tot">Total ' + money(o.total) + "</div>" +
+        '<div class="actions">' +
+          '<select onchange="setOrderStatus(\'' + o.id + '\', this.value)">' + statusOptions + "</select>" +
+          '<button class="btn light sm" onclick="setPayment(\'' + o.id + '\',\'paid\')">Mark paid</button>' +
+          '<button class="btn danger sm" onclick="setPayment(\'' + o.id + '\',\'failed\')">Reject payment</button>' +
+          '<button class="btn danger sm" onclick="deleteOrder(\'' + o.id + '\')">Delete</button>' +
+        "</div></div>";
+    }).join("");
+  }
+  window.setOrderStatus = async function (id, status) {
+    try {
+      await api("/rest/v1/orders?id=eq." + encodeURIComponent(id), { method: "PATCH", body: { status: status } });
+      var o = S.orders.find(function (x) { return x.id === id; });
+      if (o) o.status = status;
+      toast("Status updated ✓");
+      renderOverview();
+    } catch (e) { toast(e.message || "Could not update status", true); }
+  };
+  window.setPayment = async function (id, status) {
+    try {
+      var body = { payment_status: status };
+      if (status === "paid") body.paid_at = new Date().toISOString();
+      await api("/rest/v1/orders?id=eq." + encodeURIComponent(id), { method: "PATCH", body: body });
+      var o = S.orders.find(function (x) { return x.id === id; });
+      if (o) { o.payment_status = status; if (status === "paid") o.paid_at = body.paid_at; }
+      toast("Payment updated ✓");
+      renderOrders();
+    } catch (e) { toast(e.message || "Could not update payment", true); }
+  };
+  window.deleteOrder = async function (id) {
+    if (!confirm("Delete this order permanently? This cannot be undone.")) return;
+    try {
+      await api("/rest/v1/orders?id=eq." + encodeURIComponent(id), { method: "DELETE" });
+      S.orders = S.orders.filter(function (o) { return o.id !== id; });
+      S.orderItems = S.orderItems.filter(function (i) { return i.order_id !== id; });
+      toast("Order deleted");
+      renderOrders();
+      renderOverview();
+    } catch (e) { toast(e.message || "Could not delete the order", true); }
+  };
+
+  // ---------- offers ----------
+  function renderOffers() {
+    if (!S.offers.length) { $("offerList").innerHTML = '<div class="panel"><div class="empty">No offers yet.</div></div>'; return; }
+    $("offerList").innerHTML = S.offers.map(function (o) {
+      return '<div class="panel"><div class="row" style="border-bottom:0;padding:0">' +
+        '<div class="thumb">' + (o.image_url ? '<img loading="lazy" src="' + esc(o.image_url) + '" alt="">' : "🎁") + "</div>" +
+        '<div class="grow"><div class="title">' + esc(o.title || "Offer") + (o.is_active === false ? '<span class="pill off">HIDDEN</span>' : '<span class="pill">LIVE</span>') + "</div>" +
+          '<div class="meta">' + esc(o.message || "") + " · order " + esc(o.sort_order == null ? 0 : o.sort_order) + "</div></div>" +
+        '<div class="actions">' +
+          '<button class="btn light sm" onclick="openOffer(\'' + o.id + '\')">Edit</button>' +
+          '<button class="btn sm ' + (o.is_active === false ? "" : "outline") + '" onclick="toggleOffer(\'' + o.id + '\')">' + (o.is_active === false ? "Show" : "Hide") + "</button>" +
+          '<button class="btn danger sm" onclick="deleteOffer(\'' + o.id + '\')">Delete</button>' +
+        "</div></div></div>";
+    }).join("");
+  }
+  window.openOffer = function (id) {
+    S.editingOffer = id || null;
+    showErr("offerErr", "");
+    var o = id ? S.offers.find(function (x) { return x.id === id; }) : null;
+    $("offerModalTitle").textContent = o ? "Edit offer" : "Add an offer";
+    $("offerSaveBtn").textContent = o ? "Save changes" : "Save offer";
+    $("oTitle").value = o ? o.title || "" : "";
+    $("oMessage").value = o ? o.message || "" : "";
+    $("oButton").value = o ? o.button_text || "" : "";
+    $("oImage").value = o ? o.image_url || "" : "";
+    $("oSort").value = o && o.sort_order != null ? String(o.sort_order) : "1";
+    $("oActive").checked = o ? o.is_active !== false : true;
+    $("offerOverlay").classList.remove("hide");
+  };
+  window.closeOffer = function () { $("offerOverlay").classList.add("hide"); };
+  window.saveOffer = async function () {
+    showErr("offerErr", "");
+    var title = $("oTitle").value.trim();
+    if (!title) return showErr("offerErr", "Offer title is required.");
+    var payload = {
+      title: title,
+      message: $("oMessage").value.trim(),
+      button_text: $("oButton").value.trim(),
+      image_url: $("oImage").value.trim(),
+      sort_order: Number($("oSort").value) || 1,
+      is_active: $("oActive").checked
+    };
+    var btn = $("offerSaveBtn");
+    btn.disabled = true; btn.textContent = "Saving…";
+    try {
+      if (S.editingOffer) await api("/rest/v1/shop_offers?id=eq." + encodeURIComponent(S.editingOffer), { method: "PATCH", body: payload });
+      else await api("/rest/v1/shop_offers", { method: "POST", body: payload });
+      closeOffer();
+      toast("Offer saved ✓");
+      await loadOffers();
+    } catch (e) {
+      showErr("offerErr", e.message || "Could not save the offer.");
+    } finally {
+      btn.disabled = false; btn.textContent = S.editingOffer ? "Save changes" : "Save offer";
+    }
+  };
+  window.toggleOffer = async function (id) {
+    var o = S.offers.find(function (x) { return x.id === id; });
+    if (!o) return;
+    try {
+      await api("/rest/v1/shop_offers?id=eq." + encodeURIComponent(id), { method: "PATCH", body: { is_active: o.is_active === false } });
+      await loadOffers();
+      toast("Offer updated ✓");
+    } catch (e) { toast(e.message || "Could not update offer", true); }
+  };
+  window.deleteOffer = async function (id) {
+    if (!confirm("Delete this offer?")) return;
+    try {
+      await api("/rest/v1/shop_offers?id=eq." + encodeURIComponent(id), { method: "DELETE" });
+      await loadOffers();
+      toast("Offer deleted");
+    } catch (e) { toast(e.message || "Could not delete offer", true); }
+  };
+
+  // ---------- customers ----------
+  window.onCustomerSearch = function (v) { S.customerQuery = String(v || "").toLowerCase(); renderCustomers(); };
+  function renderCustomers() {
+    var list = S.customers.filter(function (c) {
+      if (!S.customerQuery) return true;
+      return ((c.full_name || "") + " " + (c.phone || "")).toLowerCase().indexOf(S.customerQuery) >= 0;
+    });
+    if (!list.length) { $("customerList").innerHTML = '<div class="empty">No customers yet.</div>'; return; }
+    $("customerList").innerHTML = list.map(function (c) {
+      var initial = String(c.full_name || "G").trim().charAt(0).toUpperCase();
+      return '<div class="row">' +
+        '<div class="thumb" style="font-weight:900;color:var(--green)">' + esc(initial) + "</div>" +
+        '<div class="grow"><div class="title">' + esc(c.full_name || "Green Friend member") + "</div>" +
+          '<div class="meta">' + esc(c.phone || "No phone") + " · joined " + esc(dateText(c.created_at)) + "</div></div>" +
+        "</div>";
+    }).join("");
+  }
+
+  // ---------- go ----------
+  boot();
+})();
+</script>
+</body>
+</html>
