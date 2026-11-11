@@ -524,6 +524,14 @@
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
   function money(n) { var v = Number(n) || 0; return "\u20B9" + v.toLocaleString("en-IN", { maximumFractionDigits: 0 }); }
   function img(url) { if (!url) return ""; return String(url).replace(/%2520/g, "%20").replace(/ /g, "%20"); }
+  // Grid cards load 400px thumbnails from the same GitHub folder to keep scrolling light.
+  var GH_PRODUCTS = "https://greenfriend9563.github.io/green-friend-app/products/";
+  function thumb(url) {
+    var u = img(url);
+    if (u.indexOf(GH_PRODUCTS) !== 0) return u;
+    if (u.indexOf(GH_PRODUCTS + "thumbs/") === 0) return u;
+    return GH_PRODUCTS + "thumbs/" + u.slice(GH_PRODUCTS.length);
+  }
   function wa(text) { return "https://wa.me/" + WA + "?text=" + encodeURIComponent(text); }
   // The app stores phone accounts as gf<country><number>@phone.greenfriend.invalid
   // (normalizePhone turns 9563205299 into +919563205299). Try that first, then
@@ -915,7 +923,7 @@
       var thumb;
       if (photos.length) {
         thumb = '<div class="slides" data-i="0">' + photos.map(function (u, i) {
-          return '<img class="slide' + (i === 0 ? " on" : "") + '" loading="lazy" src="' + esc(img(u)) + '" alt="' + esc(productName(p)) + '" onerror="this.style.display=\'none\'">';
+          return '<img class="slide' + (i === 0 ? " on" : "") + '" loading="lazy" decoding="async" src="' + esc(thumb(u)) + '" alt="' + esc(productName(p)) + '" onerror="this.style.display=\'none\'">';
         }).join("") + "</div>";
         if (photos.length > 1) {
           thumb += '<div class="p-dots">' + photos.map(function (_, i) {
