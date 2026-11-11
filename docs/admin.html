@@ -97,6 +97,17 @@
   .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:#183D2A;color:#fff;padding:11px 18px;border-radius:999px;font-size:13px;font-weight:800;z-index:99;box-shadow:0 10px 30px rgba(0,0,0,.25)}
   .toast.bad{background:var(--danger)}
   .linkbar{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;font-weight:800;margin-top:8px}
+  /* ---------- photo upload ---------- */
+  .upload-row{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-bottom:9px}
+  .upload-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 13px;border-radius:11px;border:1.5px dashed #B7D0A9;background:var(--green-4);color:var(--green);font-weight:900;font-size:12.5px;cursor:pointer}
+  .upload-btn:active{transform:scale(.98)}
+  .upload-status{font-size:12px;color:var(--muted);font-weight:700}
+  .photo-strip{display:flex;gap:8px;flex-wrap:wrap;margin:2px 0 10px}
+  .photo-strip:empty{display:none}
+  .photo-chip{position:relative;width:76px;height:76px;border-radius:12px;overflow:hidden;border:1.5px solid var(--line);background:var(--green-3)}
+  .photo-chip img{width:100%;height:100%;object-fit:cover;display:block}
+  .photo-chip button{position:absolute;top:3px;right:3px;width:20px;height:20px;border:0;border-radius:999px;background:rgba(20,32,24,.72);color:#fff;font-size:12px;line-height:20px;padding:0;cursor:pointer}
+  .photo-chip .n{position:absolute;left:3px;bottom:3px;background:rgba(20,32,24,.72);color:#fff;font-size:9.5px;font-weight:900;border-radius:6px;padding:1px 5px}
 </style>
 </head>
 <body>
@@ -226,7 +237,17 @@
     <div class="size-row"><input id="s1label" placeholder="Size 2 name"><input id="s1price" inputmode="numeric" placeholder="Price ₹"></div>
     <div class="size-row"><input id="s2label" placeholder="Size 3 name"><input id="s2price" inputmode="numeric" placeholder="Price ₹"></div>
 
-    <div class="field" style="margin-top:12px"><label>Photo URLs (one per line, up to 5)</label><textarea id="fImages" rows="3" placeholder="https://greenfriend9563.github.io/green-friend-app/products/langra.jpg"></textarea></div>
+    <div class="field" style="margin-top:12px">
+      <label>Product photos (up to 5)</label>
+      <div class="help">ফোন বা কম্পিউটার থেকে ছবি আপলোড করুন — JPEG / PNG / WebP, প্রতিটি সর্বোচ্চ ২০ MB। চাইলে নিচে ছবির URL-ও পেস্ট করতে পারেন।</div>
+      <div class="upload-row">
+        <label class="upload-btn" for="fPhotoFile">📷 ছবি আপলোড / Upload photos</label>
+        <input id="fPhotoFile" type="file" accept="image/jpeg,image/png,image/webp" multiple hidden onchange="uploadProductPhotos(this)">
+        <span id="fPhotoStatus" class="upload-status"></span>
+      </div>
+      <div id="fPhotoPreview" class="photo-strip"></div>
+      <textarea id="fImages" rows="2" placeholder="https://greenfriend9563.github.io/green-friend-app/products/langra.jpg"></textarea>
+    </div>
     <div class="field"><label><input type="checkbox" id="fActive" checked style="width:auto;margin-right:6px">Visible in shop</label></div>
     <div id="productErr" class="err hide"></div>
     <div class="modal-actions">
@@ -244,7 +265,14 @@
     <div class="field"><label>Title *</label><input id="oTitle" placeholder="e.g. Monsoon sale"></div>
     <div class="field"><label>Message</label><textarea id="oMessage" rows="2" placeholder="e.g. 10% off on all mango plants"></textarea></div>
     <div class="field"><label>Button text</label><input id="oButton" placeholder="Order now"></div>
-    <div class="field"><label>Image URL</label><input id="oImage" placeholder="https://…"></div>
+    <div class="field"><label>Image</label>
+      <div class="upload-row">
+        <label class="upload-btn" for="oImageFile">📷 ছবি আপলোড / Upload</label>
+        <input id="oImageFile" type="file" accept="image/jpeg,image/png,image/webp" hidden onchange="uploadOfferPhoto(this)">
+        <span id="oPhotoStatus" class="upload-status"></span>
+      </div>
+      <input id="oImage" placeholder="https://…">
+    </div>
     <div class="field"><label>Sort order</label><input id="oSort" inputmode="numeric" placeholder="1"></div>
     <div class="field"><label><input type="checkbox" id="oActive" checked style="width:auto;margin-right:6px">Active</label></div>
     <div id="offerErr" class="err hide"></div>
@@ -605,6 +633,8 @@
     $("fNote").value = p ? p.note || "" : "Fresh from Green Friend";
     $("fNoteBn").value = p ? p.note_bn || "" : "";
     $("fImages").value = p ? (Array.isArray(p.image_urls) ? p.image_urls : (p.image_url ? [p.image_url] : [])).join("\n") : "";
+    $("fPhotoStatus").textContent = "";
+    renderPhotoPreview();
     $("fActive").checked = p ? p.is_active !== false : true;
     var sizes = p ? productSizes(p) : [];
     for (var i = 0; i < 3; i++) {
@@ -614,6 +644,96 @@
     $("productOverlay").classList.remove("hide");
   };
   window.closeProduct = function () { $("productOverlay").classList.add("hide"); };
+
+  // ---------- product photo upload ----------
+  function imageList() {
+    return $("fImages").value.split(/\r?\n/).map(function (s) { return s.trim(); }).filter(Boolean);
+  }
+  function renderPhotoPreview() {
+    var urls = imageList();
+    var box = $("fPhotoPreview");
+    if (!box) return;
+    box.innerHTML = urls.map(function (url, i) {
+      return '<div class="photo-chip"><img src="' + esc(url) + '" alt="" loading="lazy" onerror="this.style.display=\'none\'">' +
+        '<span class="n">' + (i + 1) + '</span>' +
+        '<button type="button" title="Remove" onclick="removeProductPhoto(' + i + ')">\u2715</button></div>';
+    }).join("");
+  }
+  window.removeProductPhoto = function (index) {
+    var urls = imageList();
+    urls.splice(index, 1);
+    $("fImages").value = urls.join("\n");
+    renderPhotoPreview();
+  };
+
+  async function uploadOnePhoto(file, bucket, folder) {
+    if (!S.session || !S.session.access_token) throw new Error("Please sign in again.");
+    if (file.size > 20 * 1024 * 1024) throw new Error("Each photo must be under 20 MB.");
+    var ext = (file.name.split(".").pop() || "").toLowerCase();
+    if (["jpeg", "jpg", "png", "webp"].indexOf(ext) < 0) {
+      ext = file.type === "image/png" ? "png" : file.type === "image/webp" ? "webp" : "jpg";
+    }
+    var path = folder + "/" + Date.now() + "-" + Math.random().toString(16).slice(2, 10) + "." + ext;
+    async function send() {
+      return fetch(URL + "/storage/v1/object/" + bucket + "/" + path, {
+        method: "POST",
+        headers: {
+          apikey: KEY,
+          Authorization: "Bearer " + S.session.access_token,
+          "Content-Type": file.type || "image/jpeg",
+          "x-upsert": "false"
+        },
+        body: file
+      });
+    }
+    var r = await send();
+    if (r.status === 401 && await refreshSession()) r = await send();
+    if (!r.ok) {
+      var txt = await r.text(), msg = txt;
+      try { msg = JSON.parse(txt).message || txt; } catch (e) {}
+      throw new Error(msg || ("Upload failed (HTTP " + r.status + ")"));
+    }
+    return URL + "/storage/v1/object/public/" + bucket + "/" + path;
+  }
+
+  window.uploadProductPhotos = async function (input) {
+    var files = Array.prototype.slice.call(input.files || []);
+    input.value = "";
+    var status = $("fPhotoStatus");
+    if (!files.length) return;
+    var urls = imageList();
+    var room = 5 - urls.length;
+    if (room <= 0) { status.textContent = "5 photos already added — remove one first."; return; }
+    var skipped = Math.max(0, files.length - room);
+    files = files.slice(0, room);
+    for (var i = 0; i < files.length; i++) {
+      status.textContent = "Uploading " + (i + 1) + "/" + files.length + "\u2026";
+      try {
+        var url = await uploadOnePhoto(files[i], "product-images", "products");
+        urls.push(url);
+        $("fImages").value = urls.join("\n");
+        renderPhotoPreview();
+      } catch (e) {
+        status.textContent = "\u274C " + e.message;
+        return;
+      }
+    }
+    status.textContent = "\u2713 " + files.length + " photo(s) added" + (skipped ? " \u00B7 " + skipped + " skipped (max 5)" : "");
+  };
+
+  window.uploadOfferPhoto = async function (input) {
+    var file = (input.files || [])[0];
+    input.value = "";
+    var status = $("oPhotoStatus");
+    if (!file) return;
+    status.textContent = "Uploading\u2026";
+    try {
+      $("oImage").value = await uploadOnePhoto(file, "offer-images", "offers");
+      status.textContent = "\u2713 Uploaded";
+    } catch (e) {
+      status.textContent = "\u274C " + e.message;
+    }
+  };
 
   window.saveProduct = async function () {
     showErr("productErr", "");
