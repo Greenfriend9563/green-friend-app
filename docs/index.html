@@ -525,7 +525,30 @@
   function money(n) { var v = Number(n) || 0; return "\u20B9" + v.toLocaleString("en-IN", { maximumFractionDigits: 0 }); }
   function img(url) { if (!url) return ""; return String(url).replace(/%2520/g, "%20").replace(/ /g, "%20"); }
   function wa(text) { return "https://wa.me/" + WA + "?text=" + encodeURIComponent(text); }
-  function phoneEmail(phone) { return "gf" + String(phone || "").replace(/\D/g, "") + "@phone.greenfriend.invalid"; }
+  // The app stores phone accounts as gf<country><number>@phone.greenfriend.invalid
+  // (normalizePhone turns 9563205299 into +919563205299). Try that first, then
+  // the older 10-digit form for accounts created before this fix.
+  function loginEmails(v) {
+    var raw = String(v || "").trim();
+    if (raw.indexOf("@") >= 0) return [raw];
+    var digits = raw.replace(/\D/g, "");
+    var appDigits = digits;
+    if (raw.charAt(0) === "+") {
+      // keep the digits exactly as typed after +
+    } else if (digits.length === 10) {
+      appDigits = "91" + digits;
+    } else if (digits.length === 11 && digits.charAt(0) === "0") {
+      appDigits = "91" + digits.slice(1);
+    } else if (digits.length === 12 && digits.indexOf("91") === 0) {
+      // already has 91
+    }
+    var list = ["gf" + appDigits + "@phone.greenfriend.invalid"];
+    var legacy = "gf" + digits + "@phone.greenfriend.invalid";
+    if (list.indexOf(legacy) < 0) list.push(legacy);
+    return list;
+  }
+  function phoneEmail(phone) { return loginEmails(phone)[0]; }
+  function phoneEmailLegacy(phone) { return "gf" + String(phone || "").replace(/\D/g, "") + "@phone.greenfriend.invalid"; }
 
   document.getElementById("yr").textContent = new Date().getFullYear();
   ["apkTop", "apkHero", "apkBand", "apkFoot"].forEach(function (id) { var el = document.getElementById(id); if (el) el.href = APK; });
@@ -674,9 +697,15 @@
         session = r.data.session;
         if (!session) throw new Error("Email confirmation চালু আছে Supabase-এ। Auth → Email provider → Confirm email বন্ধ করে আবার চেষ্টা করুন।");
       } else {
-        var r2 = await sb.auth.signInWithPassword({ email: phoneEmail(phone), password: pass });
-        if (r2.error) throw r2.error;
-        session = r2.data.session;
+        var emails = loginEmails(phone);
+        var lastError = null;
+        session = null;
+        for (var ei = 0; ei < emails.length; ei++) {
+          var r2 = await sb.auth.signInWithPassword({ email: emails[ei], password: pass });
+          if (!r2.error && r2.data && r2.data.session) { session = r2.data.session; break; }
+          lastError = r2.error || new Error("লগইন ব্যর্থ");
+        }
+        if (!session) throw lastError || new Error("লগইন ব্যর্থ");
       }
       await showOrderBox();
     } catch (e) { showErr(e.message || "লগইন ব্যর্থ"); }
