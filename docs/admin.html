@@ -118,7 +118,8 @@
     </div>
     <button class="btn full" id="loginBtn" type="submit">লগইন করুন / Sign in</button>
     <div class="login-note">
-      অ্যাপে যে ফোন ও পাসওয়ার্ড দিয়ে লগইন করেন, সেটাই ব্যবহার করুন।<br>
+      অ্যাপে যে ফোন ও পাসওয়ার্ড দিয়ে Admin লগইন করেন, সেটাই ব্যবহার করুন।<br>
+      ১০ সংখ্যার নম্বর দিলে সিস্টেম নিজেই +91 যোগ করে।<br>
       Use the same phone &amp; password as the app. Admin accounts only.
     </div>
     <div class="linkbar" style="justify-content:center">
@@ -440,7 +441,7 @@
     } catch (e) {
       saveSession(null);
       var msg = e.message || "Login failed";
-      if (/invalid login credentials/i.test(msg)) msg = "ফোন নম্বর বা পাসওয়ার্ড মেলেনি। অ্যাপে যে নম্বর ও পাসওয়ার্ড দিয়ে লগইন করেন সেটাই দিন (যেমন 9563205299 বা +919563205299)।";
+      if (/invalid login credentials/i.test(msg)) msg = "ফোন নম্বর বা পাসওয়ার্ড মেলেনি। অ্যাপে যে নম্বর ও পাসওয়ার্ড দিয়ে লগইন করেন সেটাই দিন (যেমন 9563205299 বা +919563205299)।" + (emails && emails[0] ? " [ID: " + emails[0] + "]" : "");
       showErr("loginErr", msg);
     } finally {
       btn.disabled = false; btn.textContent = "লগইন করুন / Sign in";
