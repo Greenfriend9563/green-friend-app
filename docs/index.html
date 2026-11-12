@@ -25,6 +25,20 @@
   "currenciesAccepted": "INR"
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "How long does delivery take?", "acceptedAnswer": { "@type": "Answer", "text": "2–3 days in Malda and Murshidabad, 4–5 days elsewhere in West Bengal, and 5–7 days to other states. Tracking is sent on WhatsApp." } },
+    { "@type": "Question", "name": "What are the delivery charges?", "acceptedAnswer": { "@type": "Answer", "text": "Delivery is completely free on orders of ₹1000 or more. Below that the charge is shown at checkout — no hidden costs." } },
+    { "@type": "Question", "name": "Are the plants really 8 feet?", "acceptedAnswer": { "@type": "Answer", "text": "Mango plants grow up to 8 feet. Every product has 3 sizes (small / medium / large), with the price and height listed on the product page." } },
+    { "@type": "Question", "name": "What if the plant arrives damaged or wrong?", "acceptedAnswer": { "@type": "Answer", "text": "Send a photo or video on WhatsApp within 24 hours of delivery. After checking, we replace it free of cost." } },
+    { "@type": "Question", "name": "How can I pay?", "acceptedAnswer": { "@type": "Answer", "text": "Cash on delivery, UPI (12-digit UTR) or bank transfer. Ordering in the app is even easier." } },
+    { "@type": "Question", "name": "Where is the nursery?", "acceptedAnswer": { "@type": "Answer", "text": "Our own gardens are in Malda and Murshidabad. No middlemen, so prices stay low." } }
+  ]
+}
+</script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🌿%3C/text%3E%3C/svg%3E">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <style>
@@ -76,6 +90,26 @@
   .langGateBtn:hover,.langGateBtn.on{border-color:var(--green);background:#F4FAF1}
   .langGateBtn.on b{color:var(--green)}
   .langGateFoot{font-size:10.5px;color:var(--muted);opacity:.8;margin-top:6px}
+
+  /* ---- homepage blocks: category tiles, stats, FAQ ---- */
+  .cats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0 4px}
+  .cat-tile{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;color:var(--ink);display:block;cursor:pointer}
+  .cat-tile img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;background:var(--green-3)}
+  .cat-tile b{display:block;font-size:11.5px;padding:7px 6px;text-align:center;line-height:1.25}
+  .cat-tile small{display:block;font-size:10px;color:var(--muted);text-align:center;padding-bottom:7px}
+  .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:16px 0 4px}
+  .stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px 10px;text-align:center}
+  .stat b{display:block;font-size:18px;font-weight:900;color:var(--green);letter-spacing:-.3px}
+  .stat span{font-size:11px;color:var(--muted);line-height:1.35;display:block;margin-top:2px}
+  .faq{display:grid;gap:8px}
+  .faq details{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+  .faq summary{font-weight:800;font-size:13.5px;cursor:pointer;list-style:none;display:flex;gap:8px;align-items:flex-start}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:'+';margin-left:auto;color:var(--green);font-weight:900;font-size:17px;line-height:1}
+  .faq details[open] summary::after{content:'\2212'}
+  .faq p{margin:9px 0 0;font-size:12.5px;color:var(--muted);line-height:1.65}
+  .p-ship{font-size:10.5px;color:#2F7D4F;background:#EDF7E8;border-radius:7px;padding:3px 6px;display:inline-block;margin-top:6px;font-weight:700}
+  @media(min-width:720px){.cats{grid-template-columns:repeat(6,1fr)}.stats{grid-template-columns:repeat(4,1fr)}}
 
   /* ---- mobile (Chrome Android / iPhone) ---- */
   @media(max-width:719px){
@@ -297,6 +331,25 @@
     </div>
   </div>
 
+  <section class="wrap" id="catSec">
+    <div class="sec-head">
+      <div>
+        <h2 data-t="catTitle">ক্যাটাগরি</h2>
+        <p data-t="catSub">যা খুঁজছেন, সেখান থেকেই শুরু করুন</p>
+      </div>
+    </div>
+    <div class="cats" id="cats"></div>
+  </section>
+
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat"><b data-t="st1n">৮ ফুট</b><span data-t="st1">গাছের উচ্চতা</span></div>
+      <div class="stat"><b data-t="st2n">১০০%</b><span data-t="st2">অরিজিনাল গ্যারান্টি</span></div>
+      <div class="stat"><b data-t="st3n">২ জেলা</b><span data-t="st3">মালদা ও মুর্শিদাবাদ</span></div>
+      <div class="stat"><b id="statCount">—</b><span data-t="st4">গাছের রকম</span></div>
+    </div>
+  </div>
+
   <div class="wrap">
     <div class="band">
       <div class="ico">↑</div>
@@ -308,7 +361,7 @@
     </div>
   </div>
 
-  <section class="wrap">
+  <section class="wrap" id="plants">
     <div class="sec-head">
       <div>
         <h2 data-t="plants">আমাদের গাছ</h2>
@@ -350,6 +403,16 @@
       </div>
     </div>
     <div class="reviews" id="reviews"></div>
+  </section>
+
+  <section class="wrap" id="faqSec">
+    <div class="sec-head">
+      <div>
+        <h2 data-t="faqTitle">সাধারণ প্রশ্ন</h2>
+        <p data-t="faqSub">ডেলিভারি, গ্যারান্টি, পেমেন্ট — ছোট ছোট উত্তর</p>
+      </div>
+    </div>
+    <div class="faq" id="faq"></div>
   </section>
 
   <section class="wrap">
@@ -490,6 +553,11 @@
       note: 'Play Protect "Unsafe app blocked" দেখালে More details → Install anyway চাপুন। অ্যাপে কোনো বিজ্ঞাপন নেই, টাকা কাটে না।',
       fTag: "মালদা ও মুর্শিদাবাদের বিখ্যাত আম গাছ — ৮ ফুট, কম দামে, গ্যারান্টি সহ।",
       fContact: "যোগাযোগ", fHours: "🕘 সকাল ৯টা – রাত ৯টা", fApp: "অ্যাপ",
+      catTitle: "ক্যাটাগরি", catSub: "যা খুঁজছেন, সেখান থেকেই শুরু করুন", catItems: "পণ্য",
+      st1n: "৮ ফুট", st1: "গাছের উচ্চতা", st2n: "১০০%", st2: "অরিজিনাল গ্যারান্টি",
+      st3n: "২ জেলা", st3: "মালদা ও মুর্শিদাবাদ", st4: "গাছের রকম",
+      faqTitle: "সাধারণ প্রশ্ন", faqSub: "ডেলিভারি, গ্যারান্টি, পেমেন্ট — ছোট ছোট উত্তর",
+      shipBadge: "{0}+ অর্ডারে ডেলিভারি ফ্রি",
       order: "WhatsApp-এ অর্ডার", add: "কার্টে যোগ", buyNow: "এখনই কিনুন", all: "সব", out: "স্টক শেষ", low: "মাত্র {0}টি বাকি", off: "{0}% ছাড়", more: "আরও দেখুন", fromPrice: "{0} থেকে", size: "সাইজ",
       cart: "কার্ট", cartTitle: "আপনার কার্ট", total: "মোট", checkout: "চেকআউট",
       delivery: "ডেলিভারি", free: "ফ্রি", freeAbove: "{0} টাকার উপরে ডেলিভারি ফ্রি", freeAboveHint: "আর {0} যোগ করলেই ডেলিভারি ফ্রি",
@@ -528,6 +596,11 @@
       note: 'If Play Protect says "Unsafe app blocked", tap More details → Install anyway. No ads, no charges.',
       fTag: "Mango plants across Malda & Murshidabad — 8 ft, lower price, guaranteed.",
       fContact: "Contact", fHours: "🕘 9 AM – 9 PM", fApp: "App",
+      catTitle: "Categories", catSub: "Start from what you are looking for", catItems: "items",
+      st1n: "8 ft", st1: "plant height", st2n: "100%", st2: "original guarantee",
+      st3n: "2 districts", st3: "Malda & Murshidabad", st4: "plant varieties",
+      faqTitle: "Frequently asked questions", faqSub: "Delivery, guarantee and payment — short answers",
+      shipBadge: "Free delivery above {0}",
       order: "Order on WhatsApp", add: "Add to cart", buyNow: "Buy now", all: "All", out: "Out of stock", low: "Only {0} left", off: "{0}% off", more: "Load more", fromPrice: "from {0}", size: "Size",
       cart: "Cart", cartTitle: "Your cart", total: "Total", checkout: "Checkout",
       delivery: "Delivery", free: "FREE", freeAbove: "Free delivery above {0}", freeAboveHint: "Add {0} more for free delivery",
@@ -566,6 +639,11 @@
       note: 'Play Protect "Unsafe app blocked" दिखाए तो More details → Install anyway दबाएँ। ऐप में कोई विज्ञापन नहीं, पैसे नहीं कटते।',
       fTag: "मालदा और मुर्शिदाबाद के मशहूर आम के पौधे — 8 फीट, कम दाम, गारंटी के साथ।",
       fContact: "संपर्क", fHours: "🕘 सुबह 9 – रात 9", fApp: "ऐप",
+      catTitle: "श्रेणियाँ", catSub: "जो चाहिए वहीं से शुरू करें", catItems: "आइटम",
+      st1n: "8 फीट", st1: "पौधे की ऊँचाई", st2n: "100%", st2: "असली की गारंटी",
+      st3n: "2 जिले", st3: "मालदा और मुर्शिदाबाद", st4: "पौधों की किस्में",
+      faqTitle: "अक्सर पूछे जाने वाले सवाल", faqSub: "डिलीवरी, गारंटी और पेमेंट — छोटे जवाब",
+      shipBadge: "{0}+ पर डिलीवरी फ्री",
       order: "WhatsApp पर ऑर्डर", add: "कार्ट में डालें", buyNow: "अभी खरीदें", all: "सभी", out: "स्टॉक खत्म", low: "सिर्फ़ {0} बाकी", off: "{0}% छूट", more: "और देखें", fromPrice: "{0} से", size: "साइज़",
       cart: "कार्ट", cartTitle: "आपका कार्ट", total: "कुल", checkout: "चेकआउट",
       delivery: "डिलीवरी", free: "फ्री", freeAbove: "{0} से ऊपर डिलीवरी फ्री", freeAboveHint: "और {0} जोड़ें तो डिलीवरी फ्री",
@@ -585,6 +663,37 @@
       waProduct: "नमस्ते! मुझे यह पौधा चाहिए: {0} — {1}",
       number: "नंबर", plant: "पौधा"
     }
+  };
+
+  // ---------- FAQ (shown as an accordion, one set per language) ----------
+  var FAQ = {
+    bn: [
+      { q: "ডেলিভারিতে কত দিন লাগে?", a: "মালদা ও মুর্শিদাবাদে ২–৩ দিন, পশ্চিমবঙ্গের বাকি জেলায় ৪–৫ দিন, অন্য রাজ্যে ৫–৭ দিন। অর্ডারের পর WhatsApp-এ ট্র্যাকিং পাঠিয়ে দেওয়া হয়।" },
+      { q: "ডেলিভারি চার্জ কত?", a: "₹১০০০ বা তার বেশি অর্ডারে ডেলিভারি সম্পূর্ণ ফ্রি। কম হলে চেকআউটে চার্জ দেখানো হয় — কোনো লুকানো খরচ নেই।" },
+      { q: "গাছ কি সত্যিই ৮ ফুট?", a: "আমের চারা ৮ ফুট পর্যন্ত হয়। প্রতিটি পণ্যে ৩টি সাইজ (ছোট / মাঝারি / বড়) আছে — দাম ও উচ্চতা পণ্যের পেজে লেখা থাকে।" },
+      { q: "গাছ নষ্ট বা ভুল এলে কী করব?", a: "ডেলিভারির ২৪ ঘণ্টার মধ্যে WhatsApp-এ গাছের ছবি বা ভিডিও পাঠান। যাচাই করে বিনা খরচে রিপ্লেসমেন্ট দেওয়া হয়।" },
+      { q: "পেমেন্ট কীভাবে করব?", a: "ক্যাশ অন ডেলিভারি, UPI (১২ সংখ্যার UTR) অথবা ব্যাংক ট্রান্সফার। অ্যাপে অর্ডার করলে আরও সহজ।" },
+      { q: "নার্সারি কোথায়?", a: "আমাদের নিজের বাগান মালদা ও মুর্শিদাবাদে। কোনো মধ্যস্বত্বভোগী নেই — তাই দাম কম রাখা যায়।" },
+      { q: "অর্ডার ট্র্যাক করব কীভাবে?", a: "অ্যাপে My Orders-এ দেখুন, অথবা WhatsApp-এ অর্ডার নম্বর পাঠান — সাথে সাথে আপডেট পাবেন।" }
+    ],
+    en: [
+      { q: "How long does delivery take?", a: "2–3 days in Malda and Murshidabad, 4–5 days elsewhere in West Bengal, and 5–7 days to other states. Tracking is sent on WhatsApp." },
+      { q: "What are the delivery charges?", a: "Delivery is completely free on orders of ₹1000 or more. Below that the charge is shown at checkout — no hidden costs." },
+      { q: "Are the plants really 8 feet?", a: "Mango plants grow up to 8 feet. Every product has 3 sizes (small / medium / large), with the price and height listed on the product page." },
+      { q: "What if the plant arrives damaged or wrong?", a: "Send a photo or video on WhatsApp within 24 hours of delivery. After checking, we replace it free of cost." },
+      { q: "How can I pay?", a: "Cash on delivery, UPI (12-digit UTR) or bank transfer. Ordering in the app is even easier." },
+      { q: "Where is the nursery?", a: "Our own gardens are in Malda and Murshidabad. No middlemen, so prices stay low." },
+      { q: "How do I track my order?", a: "Open My Orders in the app, or send your order number on WhatsApp for an instant update." }
+    ],
+    hi: [
+      { q: "डिलीवरी में कितने दिन लगते हैं?", a: "मालदा और मुर्शिदाबाद में 2–3 दिन, पश्चिम बंगाल के बाकी जिलों में 4–5 दिन, दूसरे राज्यों में 5–7 दिन। ट्रैकिंग WhatsApp पर भेजी जाती है।" },
+      { q: "डिलीवरी चार्ज कितना है?", a: "₹1000 या उससे ज़्यादा के ऑर्डर पर डिलीवरी पूरी तरह फ्री। कम होने पर चेकआउट में चार्ज दिखता है — कोई छिपा खर्च नहीं।" },
+      { q: "क्या पौधे सच में 8 फीट के हैं?", a: "आम के पौधे 8 फीट तक होते हैं। हर उत्पाद में 3 साइज़ (छोटा / मध्यम / बड़ा) हैं — दाम और ऊँचाई उत्पाद पेज पर लिखी है।" },
+      { q: "पौधा खराब या गलत मिले तो क्या करें?", a: "डिलीवरी के 24 घंटे के भीतर WhatsApp पर पौधे की फोटो या वीडियो भेजें। जाँच के बाद बिना खर्च बदल दिया जाता है।" },
+      { q: "पेमेंट कैसे करें?", a: "कैश ऑन डिलीवरी, UPI (12 अंकों का UTR) या बैंक ट्रांसफर। ऐप में ऑर्डर करना और आसान है।" },
+      { q: "नर्सरी कहाँ है?", a: "हमारे अपने बाग़ मालदा और मुर्शिदाबाद में हैं। कोई बिचौलिया नहीं — इसलिए दाम कम हैं।" },
+      { q: "ऑर्डर ट्रैक कैसे करें?", a: "ऐप में My Orders में देखें, या WhatsApp पर ऑर्डर नंबर भेजें — तुरंत अपडेट मिलेगा।" }
+    ]
   };
 
   function t(key) { return TXT[LANG][key] || key; }
@@ -964,8 +1073,44 @@
     document.getElementById("waHero").href = wa(t("waMsg"));
     document.getElementById("fab").href = wa(t("waMsg"));
     document.querySelectorAll("#lang button").forEach(function (b) { b.classList.toggle("on", b.getAttribute("data-l") === LANG); });
-    renderChips(); renderProducts(); renderOffers(); renderReviews(); renderCart();
+    renderChips(); renderProducts(); renderOffers(); renderReviews(); renderCart(); renderCats(); renderFaq();
     try { localStorage.setItem("gf_lang", LANG); } catch (e) {}
+  }
+  function renderFaq() {
+    var box = document.getElementById("faq");
+    if (!box) return;
+    var items = FAQ[LANG] || FAQ.en;
+    box.innerHTML = items.map(function (it) {
+      return "<details><summary>" + esc(it.q) + "</summary><p>" + esc(it.a) + "</p></details>";
+    }).join("");
+  }
+  function renderCats() {
+    var box = document.getElementById("cats");
+    if (!box) return;
+    var seen = [], tiles = [];
+    state.products.forEach(function (p) {
+      var c = (p.category || "").trim();
+      if (!c || seen.indexOf(c) >= 0) return;
+      seen.push(c);
+      var photos = (Array.isArray(p.image_urls) && p.image_urls.length ? p.image_urls : (p.image_url ? [p.image_url] : [])).filter(Boolean);
+      var n = state.products.filter(function (x) { return (x.category || "").trim() === c; }).length;
+      tiles.push({ cat: c, img: photos.length ? thumbUrl(photos[0]) : "", count: n });
+    });
+    box.innerHTML = tiles.map(function (tl) {
+      return '<a class="cat-tile" href="#plants" data-c="' + esc(tl.cat) + '">' +
+        (tl.img ? '<img loading="lazy" decoding="async" src="' + esc(tl.img) + '" alt="' + esc(catLabel(tl.cat)) + '" onerror="this.style.display=\'none\'">' : "") +
+        "<b>" + esc(catLabel(tl.cat)) + "</b><small>" + tl.count + " " + esc(t("catItems")) + "</small></a>";
+    }).join("");
+    box.querySelectorAll(".cat-tile").forEach(function (a) {
+      a.onclick = function (ev) {
+        ev.preventDefault();
+        state.cat = a.getAttribute("data-c") || null;
+        state.shown = 40;
+        renderChips(); renderProducts();
+        var sec = document.getElementById("plants");
+        if (sec) { try { sec.scrollIntoView({ behavior: "smooth", block: "start" }); } catch (e) { sec.scrollIntoView(); } }
+      };
+    });
   }
   function renderChips() {
     var box = document.getElementById("chips");
@@ -1027,6 +1172,8 @@
       var priceHtml = sizes.length
         ? '<b>' + esc(fmt(t("fromPrice"), money(minPrice))) + '</b>'
         : '<b>' + money(price) + '</b>' + (hasOffer ? "<s>" + money(listPrice) + "</s>" : "");
+      var shipAbove = paySettings && paySettings.free_delivery_above != null ? Number(paySettings.free_delivery_above) : 1000;
+      var shipHtml = shipAbove > 0 ? '<span class="p-ship">' + esc(fmt(t("shipBadge"), money(shipAbove))) + "</span>" : "";
       return '<article class="card">' +
         '<div class="thumb" style="background:' + esc(p.tint || "#EAF3DE") + '">' + badge + thumb + "</div>" +
         '<div class="card-body">' +
@@ -1034,6 +1181,7 @@
           '<div class="p-name">' + esc(productName(p)) + "</div>" +
           (noteText ? '<div class="p-note">' + esc(noteText) + "</div>" : "") +
           '<div class="p-price">' + priceHtml + "</div>" +
+          shipHtml +
           sizeHtml +
           '<div class="p-actions">' +
             '<button class="p-cart" ' + (out ? "disabled" : "") + ' onclick="addToCart(\'' + esc(p.id) + '\')">+ ' + esc(t("add")) + "</button>" +
@@ -1120,7 +1268,9 @@
       state.offers = Array.isArray(res[1]) ? res[1] : [];
       state.reviews = Array.isArray(res[2]) ? res[2] : [];
     } catch (e) { state.products = []; state.offers = []; state.reviews = []; console.warn("Green Friend website:", e.message); }
-    renderChips(); renderProducts(); renderOffers(); renderReviews();
+    renderChips(); renderProducts(); renderOffers(); renderReviews(); renderCats(); renderFaq();
+    var sc = document.getElementById("statCount");
+    if (sc) sc.textContent = (state.products.length ? state.products.length + "+" : "—");
   }
 
   function setLang(code) {
