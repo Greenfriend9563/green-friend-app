@@ -594,7 +594,7 @@
   function img(url) { if (!url) return ""; return String(url).replace(/%2520/g, "%20").replace(/ /g, "%20"); }
   // Grid cards load 400px thumbnails from the same GitHub folder to keep scrolling light.
   var GH_PRODUCTS = "https://greenfriend9563.github.io/green-friend-app/products/";
-  function thumb(url) {
+  function thumbUrl(url) {
     var u = img(url);
     if (u.indexOf(GH_PRODUCTS) !== 0) return u;
     if (u.indexOf(GH_PRODUCTS + "thumbs/") === 0) return u;
@@ -938,6 +938,20 @@
   function closeCheckout() { document.getElementById("checkoutOverlay").classList.remove("on"); }
 
   // ---------- render ----------
+  // Category names are stored in Bengali in the database; show them in the chosen language.
+  var CAT_LABELS = {
+    "ফুল": { bn: "ফুল", en: "Flowers", hi: "फूल" },
+    "ফল": { bn: "ফল", en: "Fruit plants", hi: "फल के पौधे" },
+    "ইনডোর গাছ": { bn: "ইনডোর গাছ", en: "Indoor plants", hi: "इनडोर पौधे" },
+    "টব": { bn: "টব", en: "Pots", hi: "गमले" },
+    "অর্গানিক কেয়ার": { bn: "অর্গানিক কেয়ার", en: "Organic care", hi: "ऑर्गेनिक केयर" },
+    "কম্বো প্যাক": { bn: "কম্বো প্যাক", en: "Combo pack", hi: "कॉम्बो पैक" }
+  };
+  function catLabel(name) {
+    var key = String(name || "").trim();
+    var map = CAT_LABELS[key];
+    return map ? (map[LANG] || key) : key;
+  }
   function productName(p) { if (LANG === "bn" && p.bn) return p.bn; return p.name || p.bn || "Plant"; }
   var state = { products: [], offers: [], reviews: [], cat: null, shown: 40 };
   function applyLang() {
@@ -959,7 +973,7 @@
     state.products.forEach(function (p) { var c = (p.category || "").trim(); if (c && cats.indexOf(c) < 0) cats.push(c); });
     if (!cats.length) { box.innerHTML = ""; return; }
     var html = '<button class="chip' + (state.cat ? "" : " on") + '" data-c="">' + esc(t("all")) + "</button>";
-    cats.forEach(function (c) { html += '<button class="chip' + (state.cat === c ? " on" : "") + '" data-c="' + esc(c) + '">' + esc(c) + "</button>"; });
+    cats.forEach(function (c) { html += '<button class="chip' + (state.cat === c ? " on" : "") + '" data-c="' + esc(c) + '">' + esc(catLabel(c)) + "</button>"; });
     box.innerHTML = html;
     box.querySelectorAll(".chip").forEach(function (b) { b.onclick = function () { state.cat = b.getAttribute("data-c") || null; state.shown = 40; renderChips(); renderProducts(); }; });
   }
@@ -992,7 +1006,7 @@
       var thumb;
       if (photos.length) {
         thumb = '<div class="slides" data-i="0">' + photos.map(function (u, i) {
-          return '<img class="slide' + (i === 0 ? " on" : "") + '" loading="lazy" decoding="async" src="' + esc(thumb(u)) + '" alt="' + esc(productName(p)) + '" onerror="this.style.display=\'none\'">';
+          return '<img class="slide' + (i === 0 ? " on" : "") + '" loading="lazy" decoding="async" src="' + esc(thumbUrl(u)) + '" alt="' + esc(productName(p)) + '" onerror="this.style.display=\'none\'">';
         }).join("") + "</div>";
         if (photos.length > 1) {
           thumb += '<div class="p-dots">' + photos.map(function (_, i) {
@@ -1016,7 +1030,7 @@
       return '<article class="card">' +
         '<div class="thumb" style="background:' + esc(p.tint || "#EAF3DE") + '">' + badge + thumb + "</div>" +
         '<div class="card-body">' +
-          '<div class="p-cat">' + esc(p.category || "") + "</div>" +
+          '<div class="p-cat">' + esc(catLabel(p.category)) + "</div>" +
           '<div class="p-name">' + esc(productName(p)) + "</div>" +
           (noteText ? '<div class="p-note">' + esc(noteText) + "</div>" : "") +
           '<div class="p-price">' + priceHtml + "</div>" +
