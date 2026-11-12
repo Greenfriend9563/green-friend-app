@@ -1257,6 +1257,21 @@
     r = await fetch(base + cols.replace(",sizes", "") + tail, { headers: headers });
     return r.json();
   }
+  // Product pages link here as ?add=<id> — put the plant straight in the cart.
+  function deepLinkAdd() {
+    try {
+      var m = (location.search || "").match(/[?&]add=([^&]+)/);
+      if (!m) return;
+      var id = decodeURIComponent(m[1]);
+      try { history.replaceState(null, "", location.pathname + location.hash); } catch (e) {}
+      var p = findProduct(id);
+      if (!p) return;
+      addToCart(p);
+      window.__gfOpenCart = true;
+      var gate = document.getElementById("langGate");
+      if (!gate || gate.classList.contains("off")) { window.__gfOpenCart = false; openCart(); }
+    } catch (e) {}
+  }
   async function boot() {
     try {
       var res = await Promise.all([
@@ -1271,6 +1286,7 @@
     renderChips(); renderProducts(); renderOffers(); renderReviews(); renderCats(); renderFaq();
     var sc = document.getElementById("statCount");
     if (sc) sc.textContent = (state.products.length ? state.products.length + "+" : "—");
+    deepLinkAdd();
   }
 
   function setLang(code) {
@@ -1296,6 +1312,7 @@
         gate.classList.add("off");
         try { document.body.style.overflow = ""; } catch (e) {}
         window.scrollTo(0, 0);
+        if (window.__gfOpenCart) { window.__gfOpenCart = false; setTimeout(openCart, 220); }
       };
     });
   })();
