@@ -827,7 +827,7 @@
         return;
       }
     }
-    status.textContent = "\u2713 " + files.length + " photo(s) added" + (skipped ? " \u00B7 " + skipped + " skipped (max 5)" : "");
+    status.textContent = "\u2713 " + files.length + " photo(s) added" + (skipped ? " \u00B7 " + skipped + " skipped (max 5)" : "") + (ghToken() ? " \u00B7 GitHub-এ ১-২ মিনিটে লাইভ হবে" : "");
   };
 
   window.uploadOfferPhoto = async function (input) {
