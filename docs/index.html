@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -62,6 +62,20 @@
   .lang{display:flex;background:#fff;border:1px solid var(--line);border-radius:999px;overflow:hidden}
   .lang button{border:0;background:transparent;padding:7px 11px;font-size:12px;font-weight:800;color:var(--muted);cursor:pointer;font-family:inherit}
   .lang button.on{background:var(--green);color:#fff}
+
+  /* ---- language gate shown right after the page opens ---- */
+  .langGate{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:18px;background:rgba(19,42,31,.62);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+  .langGate.off{display:none}
+  .langGateCard{width:100%;max-width:392px;max-height:92vh;overflow:auto;background:#fff;border-radius:24px;padding:26px 22px 20px;text-align:center;box-shadow:0 26px 60px rgba(10,30,20,.35)}
+  .langGateCard img{height:74px;display:block;margin:0 auto 12px}
+  .langGateTitle{font-size:21px;font-weight:900;color:var(--ink);letter-spacing:-.2px}
+  .langGateSub{font-size:12.5px;color:var(--muted);margin:6px 0 18px;line-height:1.5}
+  .langGateBtn{display:block;width:100%;margin-bottom:10px;padding:15px 16px;border:2px solid var(--line);border-radius:16px;background:#fff;cursor:pointer;font-family:inherit;text-align:center;transition:border-color .15s,background .15s}
+  .langGateBtn b{display:block;font-size:19px;font-weight:900;color:var(--ink);line-height:1.2}
+  .langGateBtn span{display:block;font-size:11.5px;color:var(--muted);margin-top:3px}
+  .langGateBtn:hover,.langGateBtn.on{border-color:var(--green);background:#F4FAF1}
+  .langGateBtn.on b{color:var(--green)}
+  .langGateFoot{font-size:10.5px;color:var(--muted);opacity:.8;margin-top:6px}
 
   /* ---- mobile (Chrome Android / iPhone) ---- */
   @media(max-width:719px){
@@ -243,11 +257,22 @@
 </head>
 <body>
 
+<div class="langGate" id="langGate" role="dialog" aria-modal="true" aria-label="Choose language">
+  <div class="langGateCard">
+    <img src="logo.png" alt="Green Friend">
+    <div class="langGateTitle">Choose your language</div>
+    <div class="langGateSub">ভাষা বেছে নিন &nbsp;·&nbsp; अपनी भाषा चुनें</div>    <button class="langGateBtn" data-g="en"><b>English</b><span>Continue in English</span></button>
+    <button class="langGateBtn" data-g="bn"><b>বাংলা</b><span>বাংলায় দেখুন</span></button>
+    <button class="langGateBtn" data-g="hi"><b>हिन्दी</b><span>हिन्दी में देखें</span></button>
+    <div class="langGateFoot">Green Friend · Malda, West Bengal</div>
+  </div>
+</div>
+
 <header>
   <div class="wrap bar">
     <a class="brand" href="#top"><img class="brand-logo" src="logo.png" alt="Green Friend"></a>
     <div class="grow"></div>
-    <div class="lang" id="lang"><button data-l="bn" class="on">বাংলা</button><button data-l="en">EN</button></div>
+    <div class="lang" id="lang"><button data-l="en" class="on">EN</button><button data-l="bn">বাংলা</button><button data-l="hi">हिन्दी</button></div>
     <a class="btn btn-gold btn-sm" id="apkTop" href="#">⬇ <span data-t="app">অ্যাপ</span></a>
   </div>
 </header>
@@ -441,7 +466,7 @@
   var KEY = "sb_publishable_51MmOG-p1xr6nx7sh-dGkw_Es538Zli";
   var APK = "https://github.com/Greenfriend9563/green-friend-app/releases/latest/download/Green-Friend.apk";
   var WA = "919563205299";
-  var LANG = localStorage.getItem("gf_lang") || "bn";
+  var LANG = localStorage.getItem("gf_lang") || "en";
   var sb = window.supabase.createClient(SUPABASE_URL, KEY);
 
   var TXT = {
@@ -516,6 +541,43 @@
       emptyS: "If you cannot see the list, message us on WhatsApp — we will send photos and prices.",
       waMsg: "Hello! I would like to order from Green Friend",
       waProduct: "Hello! I would like this plant: {0} — {1}"
+    },
+    hi: {
+      app: "ऐप", h1: '8 फीट <span>आम के पौधे</span>',
+      sub: "आम के पौधे — <b>मालदा और मुर्शिदाबाद के मशहूर आम के पौधे</b> मिलते हैं। पौधे की ऊँचाई <b>8 फीट</b>, <b>कम दाम</b> में, <b>100% गारंटी</b> के साथ। इनडोर पौधे, फूल, फल और गमले भी हैं — घर डिलीवरी, कैश ऑन डिलीवरी / UPI।",
+      cta1: "🌱 पौधे देखें", b0: "🥭 8 फीट आम के पौधे", b1: "✅ 100% गारंटी", b2: "🚚 ₹1000+ ऑर्डर पर फ्री डिलीवरी", b3: "💵 कैश ऑन डिलीवरी", b4: "🎁 दोस्त को भेजें, कूपन पाएँ",
+      bandTitle: "ऐप में ऑर्डर करने पर ज़्यादा फायदा",
+      bandSub: "दोस्त को भेजकर कूपन, रिव्यू देकर कूपन, और ऑर्डर ट्रैकिंग — सब एक ऐप में।",
+      plants: "हमारे पौधे", plantsSub: "दाम, फोटो और स्टॉक — सब लाइव",
+      offers: "अभी के ऑफर", offersSub: "सीमित समय के लिए",
+      trustTitle: "100% असली की गारंटी",
+      trustMsg: "नकली सामान खरीदकर ठगे न जाएँ — हमसे लें 100% असली पौधे।",
+      reviews: "ग्राहकों की बात", reviewsSub: "सच्चे रिव्यू",
+      howTitle: "ऐप कैसे इंस्टॉल करें", howSub: "सिर्फ़ एक बार, 30 सेकंड",
+      s1t: "APK डाउनलोड करें", s1s: "ऊपर के हरे बटन पर दबाएँ — Green-Friend.apk डाउनलोड होगा।",
+      s2t: "फाइल खोलें", s2s: "डाउनलोड पूरा होने पर फाइल पर दबाकर Install करें।",
+      s3t: "अनुमति दें", s3s: '"Allow from this source" चालू करें — यह सिर्फ़ एक बार चाहिए।',
+      note: 'Play Protect "Unsafe app blocked" दिखाए तो More details → Install anyway दबाएँ। ऐप में कोई विज्ञापन नहीं, पैसे नहीं कटते।',
+      fTag: "मालदा और मुर्शिदाबाद के मशहूर आम के पौधे — 8 फीट, कम दाम, गारंटी के साथ।",
+      fContact: "संपर्क", fHours: "🕘 सुबह 9 – रात 9", fApp: "ऐप",
+      order: "WhatsApp पर ऑर्डर", add: "कार्ट में डालें", buyNow: "अभी खरीदें", all: "सभी", out: "स्टॉक खत्म", low: "सिर्फ़ {0} बाकी", off: "{0}% छूट", more: "और देखें", fromPrice: "{0} से", size: "साइज़",
+      cart: "कार्ट", cartTitle: "आपका कार्ट", total: "कुल", checkout: "चेकआउट",
+      delivery: "डिलीवरी", free: "फ्री", freeAbove: "{0} से ऊपर डिलीवरी फ्री", freeAboveHint: "और {0} जोड़ें तो डिलीवरी फ्री",
+      cartEmptyT: "कार्ट खाली है", cartEmptyS: "एक पौधा जोड़ें।",
+      checkoutTitle: "ऑर्डर पूरा करें", signin: "साइन इन", signup: "अकाउंट बनाएँ",
+      phone: "मोबाइल नंबर", password: "पासवर्ड", name: "आपका नाम", continue: "आगे बढ़ें",
+      authNote: "वही फोन और पासवर्ड ऐप में भी लॉगिन के लिए काम करेगा।",
+      address: "डिलीवरी पता", pincode: "PIN कोड (6 अंक)", payMethod: "पेमेंट तरीका",
+      cod: "कैश ऑन डिलीवरी", upi: "UPI", bank: "बैंक ट्रांसफर",
+      upiRef: "12 अंकों का UTR", bankRef: "बैंक रेफरेंस (6–22 अक्षर/अंक)",
+      placeOrder: "ऑर्डर करें", logout: "लॉगआउट", close: "बंद करें",
+      successTitle: "ऑर्डर हो गया! 🎉", successSub: "आपका ऑर्डर नंबर:",
+      successNote: "हम जल्द संपर्क करेंगे। ट्रैकिंग के लिए WhatsApp पर दबाएँ।",
+      emptyT: "पौधों की सूची तैयार हो रही है",
+      emptyS: "सूची न दिखे तो सीधे WhatsApp करें — हम फोटो और दाम भेज देंगे।",
+      waMsg: "नमस्ते! मैं Green Friend से ऑर्डर करना चाहता हूँ",
+      waProduct: "नमस्ते! मुझे यह पौधा चाहिए: {0} — {1}",
+      number: "नंबर", plant: "पौधा"
     }
   };
 
@@ -1040,7 +1102,32 @@
     renderChips(); renderProducts(); renderOffers(); renderReviews();
   }
 
-  document.querySelectorAll("#lang button").forEach(function (b) { b.onclick = function () { LANG = b.getAttribute("data-l"); applyLang(); }; });
+  function setLang(code) {
+    if (!TXT[code]) return;
+    LANG = code;
+    applyLang();
+  }
+
+  document.querySelectorAll("#lang button").forEach(function (b) { b.onclick = function () { setLang(b.getAttribute("data-l")); }; });
+
+  // Big language chooser shown right after the page opens (English is the default).
+  (function () {
+    var gate = document.getElementById("langGate");
+    if (!gate) return;
+    var buttons = gate.querySelectorAll("[data-g]");
+    Array.prototype.forEach.call(buttons, function (b) {
+      b.classList.toggle("on", b.getAttribute("data-g") === LANG);
+    });
+    try { document.body.style.overflow = "hidden"; } catch (e) {}
+    Array.prototype.forEach.call(buttons, function (b) {
+      b.onclick = function () {
+        setLang(b.getAttribute("data-g"));
+        gate.classList.add("off");
+        try { document.body.style.overflow = ""; } catch (e) {}
+        window.scrollTo(0, 0);
+      };
+    });
+  })();
 
   // toast
   function toast(msg) {
@@ -1091,6 +1178,7 @@
     } catch (e) {}
   }
 
+  applyLang();
   trackVisit();
   boot();
   updateCartBadge();
