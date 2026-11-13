@@ -5,7 +5,7 @@
 ## 🌐 ওয়েবসাইট
 
 ব্রাউজারে গাছ দেখুন ও অর্ডার করুন — ইনস্টল ছাড়াই:
-**https://greenfriend9563.github.io/green-friend-app/**
+**https://greenfriendnursery.github.io/**
 
 ---
 
@@ -15,7 +15,7 @@
 
 সরাসরি লিংক:
 ```
-https://github.com/Greenfriend9563/green-friend-app/releases/latest/download/Green-Friend.apk
+https://github.com/greenfriendnursery/greenfriendnursery.github.io/releases/latest/download/Green-Friend.apk
 ```
 
 ## 📲 ইনস্টল করার নিয়ম
