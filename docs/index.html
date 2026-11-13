@@ -127,13 +127,25 @@
   .langGateFoot{font-size:10.5px;color:var(--muted);opacity:.8;margin-top:6px}
 
   /* ---- homepage blocks: category tiles, stats, FAQ ---- */
-  .cats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:16px 0 4px}
-  .cat-tile{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;color:var(--ink);display:block;cursor:pointer;transition:transform .18s,box-shadow .18s}
-  .cat-tile:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
-  .cat-tile img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;background:var(--green-3)}
-  .cat-tile b{display:block;font-size:11.5px;padding:7px 6px;text-align:center;line-height:1.25;transition:color .15s}
+  .cats{display:flex;gap:16px;overflow-x:auto;padding:10px 2px 14px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .cats::-webkit-scrollbar{display:none}
+  .cat-tile{display:flex;flex-direction:column;align-items:center;gap:7px;color:var(--ink);cursor:pointer;text-decoration:none;flex:none;width:96px}
+  .cat-tile .c-ring{width:96px;height:96px;border-radius:50%;overflow:hidden;border:3px solid #fff;box-shadow:0 4px 14px rgba(23,64,39,.14);background:var(--green-3);display:flex;align-items:center;justify-content:center;font-size:40px;transition:transform .18s,box-shadow .18s}
+  .cat-tile:hover .c-ring{transform:translateY(-3px);box-shadow:0 10px 22px rgba(23,64,39,.22)}
+  .cat-tile img{width:100%;height:100%;object-fit:cover;display:block}
+  .cat-tile b{display:block;font-size:12.5px;text-align:center;line-height:1.25;transition:color .15s}
   .cat-tile:hover b{color:var(--green)}
-  .cat-tile small{display:block;font-size:10px;color:var(--muted);text-align:center;padding-bottom:7px}
+  .cat-tile small{display:block;font-size:10.5px;color:var(--muted);text-align:center;margin-top:-3px}
+  .promos{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:6px 0 4px}
+  @media(min-width:720px){.promos{grid-template-columns:repeat(4,1fr);gap:16px}}
+  .promo{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:16/10;display:block;background:linear-gradient(140deg,var(--green),#2F9E5B);box-shadow:var(--shadow);transition:transform .18s,box-shadow .18s}
+  .promo:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(23,64,39,.2)}
+  .promo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .promo .p-veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,26,16,0),rgba(10,26,16,.74))}
+  .promo .p-emo{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:44px}
+  .promo .ptxt{position:absolute;left:12px;right:12px;bottom:10px;color:#fff}
+  .promo .ptxt b{display:block;font-size:14px;letter-spacing:-.2px}
+  .promo .ptxt span{font-size:11.5px;color:#D9F2D0;font-weight:800}
   .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:16px 0 4px}
   .stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px 10px;text-align:center}
   .stat b{display:block;font-size:18px;font-weight:900;color:var(--gold);letter-spacing:-.3px}
@@ -145,8 +157,9 @@
   .faq summary::after{content:'+';margin-left:auto;color:var(--green);font-weight:900;font-size:17px;line-height:1}
   .faq details[open] summary::after{content:'\2212'}
   .faq p{margin:9px 0 0;font-size:12.5px;color:var(--muted);line-height:1.65}
-  .p-ship{font-size:10.5px;color:#8A5E12;background:#FFF6E3;border-radius:7px;padding:3px 6px;display:inline-block;margin-top:6px;font-weight:700}
-  @media(min-width:720px){.cats{grid-template-columns:repeat(auto-fit,minmax(168px,1fr))}.stats{grid-template-columns:repeat(4,1fr)}}
+  .p-ship{font-size:11px;color:#0F766E;background:#E4F5F2;border:1px solid #C9E9E4;border-radius:999px;padding:4px 10px;display:inline-block;margin-top:6px;font-weight:800}
+  .p-seller{font-size:10.5px;font-weight:700;color:#5E6B5F;background:#F2F5EC;border:1px solid var(--line);border-radius:999px;padding:3px 10px;display:inline-block;align-self:flex-start;margin-top:2px}
+  @media(min-width:720px){.cats{flex-wrap:wrap;justify-content:flex-start;gap:22px;overflow:visible;padding:12px 2px 16px}.stats{grid-template-columns:repeat(4,1fr)}}
 
   /* ---- mobile (Chrome Android / iPhone) ---- */
   @media(max-width:719px){
@@ -226,10 +239,12 @@
 
   section{padding:8px 0 34px}
   .sec-head{display:flex;align-items:flex-end;gap:12px;margin:6px 0 16px}
-  .sec-head h2{font-size:clamp(20px,4.6vw,26px);margin:0;letter-spacing:-.5px;position:relative;padding-bottom:9px}
-  .sec-head h2::after{content:"";position:absolute;left:0;bottom:0;width:46px;height:4px;border-radius:2px;background:linear-gradient(90deg,var(--green),#8FD14F)}
+  .sec-head h2{font-size:clamp(20px,4.6vw,26px);margin:0;letter-spacing:-.5px;position:relative;padding-left:14px}
+  .sec-head h2::before{content:"";position:absolute;left:0;top:3px;bottom:3px;width:6px;border-radius:4px;background:linear-gradient(180deg,var(--gold-2),var(--gold))}
   .sec-head p{margin:0;color:var(--muted);font-size:13px}
   .sec-head .grow{flex:1}
+  .viewall{margin-left:auto;color:var(--green);font-weight:900;font-size:13px;text-decoration:none;white-space:nowrap}
+  .viewall:hover{text-decoration:underline}
 
   .chips{display:flex;gap:8px;overflow-x:auto;padding:4px 0 12px;scrollbar-width:none}
   .chips::-webkit-scrollbar{display:none}
@@ -250,9 +265,9 @@
   .p-dots{position:absolute;bottom:8px;left:0;right:0;display:flex;gap:4px;justify-content:center;z-index:3;pointer-events:none}
   .p-dots i{width:5px;height:5px;border-radius:999px;background:rgba(255,255,255,.6);box-shadow:0 0 0 1px rgba(31,95,62,.25);transition:width .3s ease}
   .p-dots i.on{width:15px;background:#fff}
-  .badge{position:absolute;top:10px;left:10px;background:var(--green);color:#fff;font-size:11.5px;font-weight:900;border-radius:999px;padding:5px 12px;box-shadow:0 2px 8px rgba(0,0,0,.14)}
+  .badge{position:absolute;top:10px;left:10px;background:linear-gradient(135deg,#FF8A00,#F25C05);color:#fff;font-size:11.5px;font-weight:900;border-radius:999px;padding:5px 12px;box-shadow:0 2px 8px rgba(0,0,0,.14)}
   .badge.out{background:#EDF1EA;color:#5E6B5F}
-  .badge.low{background:#C2410C;color:#fff}
+  .badge.low{background:#D64545;color:#fff}
   .fav{position:absolute;top:10px;right:10px;z-index:4;width:34px;height:34px;border-radius:50%;border:0;background:rgba(255,255,255,.92);color:#9AA39A;font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.12);transition:transform .15s,color .15s;padding:0}
   .fav.on{color:#E0245E}
   .fav:active{transform:scale(.9)}
@@ -263,7 +278,7 @@
   .p-note{font-size:12px;color:#6C7A66;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
   .p-price{display:flex;align-items:center;gap:7px;margin-top:auto;padding-top:2px;flex-wrap:wrap}
   .p-price b{font-size:18px;color:var(--ink);font-weight:900}
-  .p-price s{font-size:13px;color:#A2A89E}
+  .p-price s{font-size:13px;color:#D64545}
   .p-price em{font-style:normal;font-size:11px;font-weight:900;color:var(--green);background:var(--green-3);border-radius:6px;padding:2px 7px}
   .size-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
   .size-chip{flex:1;min-width:70px;display:flex;flex-direction:column;align-items:center;gap:1px;padding:6px 5px;border-radius:10px;border:1.5px solid #E2E4DC;background:#FAFAF7;cursor:pointer;font-family:inherit;line-height:1.15}
@@ -342,9 +357,10 @@
     .sec-head{margin:8px 0 20px}
     .grid{gap:20px}
     .cats{gap:14px}
-    .cat-tile img{aspect-ratio:16/11}
-    .cat-tile b{font-size:13px;padding:9px 8px}
-    .cat-tile small{font-size:11px;padding-bottom:9px}
+    .cat-tile{width:104px}
+    .cat-tile .c-ring{width:104px;height:104px}
+    .cat-tile b{font-size:13px}
+    .cat-tile small{font-size:11px}
     .stat{padding:18px 14px}
     .stat b{font-size:22px}
     .stat span{font-size:12px}
@@ -475,6 +491,7 @@
       </div>
     </div>
     <div class="cats" id="cats"></div>
+    <div class="promos" id="promos"></div>
   </section>
 
   <div class="wrap">
@@ -503,6 +520,7 @@
         <h2 data-t="plants">আমাদের গাছ</h2>
         <p data-t="plantsSub">দাম, ছবি ও স্টক — সব লাইভ</p>
       </div>
+      <a class="viewall" id="viewAll" href="#plants" data-t="viewAll">সব দেখুন →</a>
     </div>
     <div class="chips" id="chips"></div>
     <div class="grid" id="grid">
@@ -671,7 +689,7 @@
   var TXT = {
     bn: {
       app: "অ্যাপ", h1: '৮ ফুট <span>আমের গাছ</span>',
-      searchPh: "গাছ খুঁজুন… (যেমন আম)", fav: "পছন্দ", favChip: "❤ পছন্দ", searchRes: "{0}টি গাছ পাওয়া গেছে", searchClear: "✕ ফলাফল মুছুন", offerCta: "অফার নিন →",
+      searchPh: "গাছ খুঁজুন… (যেমন আম)", fav: "পছন্দ", favChip: "❤ পছন্দ", searchRes: "{0}টি গাছ পাওয়া গেছে", searchClear: "✕ ফলাফল মুছুন", offerCta: "অফার নিন →", viewAll: "সব দেখুন →", explore: "দেখুন →", seller: "বিক্রেতা : গ্রিন ফ্রেন্ড",
       heroKicker: "🌿 মালদা ও মুর্শিদাবাদের নার্সারি",
       navPlants: "গাছ", navCats: "ক্যাটাগরি", navOffers: "অফার", navFaq: "প্রশ্ন", navInstall: "অ্যাপ",
       topbar: "🚚 ₹১০০০+ অর্ডারে ডেলিভারি ফ্রি · ✅ ১০০% অরিজিনাল গ্যারান্টি · 💵 ক্যাশ অন ডেলিভারি",
@@ -702,7 +720,7 @@
       st1n: "৮ ফুট", st1: "গাছের উচ্চতা", st2n: "১০০%", st2: "অরিজিনাল গ্যারান্টি",
       st3n: "২ জেলা", st3: "মালদা ও মুর্শিদাবাদ", st4: "গাছের রকম",
       faqTitle: "সাধারণ প্রশ্ন", faqSub: "ডেলিভারি, গ্যারান্টি, পেমেন্ট — ছোট ছোট উত্তর",
-      shipBadge: "{0}+ অর্ডারে ডেলিভারি ফ্রি",
+      shipBadge: "🚚 {0}+ অর্ডারে ডেলিভারি ফ্রি",
       order: "WhatsApp-এ অর্ডার", add: "কার্টে যোগ", buyNow: "এখনই কিনুন", all: "সব", out: "স্টক শেষ", low: "মাত্র {0}টি বাকি", off: "{0}% ছাড়", more: "আরও দেখুন", fromPrice: "{0} থেকে", size: "সাইজ",
       cart: "কার্ট", cartTitle: "আপনার কার্ট", total: "মোট", checkout: "চেকআউট",
       delivery: "ডেলিভারি", free: "ফ্রি", freeAbove: "{0} টাকার উপরে ডেলিভারি ফ্রি", freeAboveHint: "আর {0} যোগ করলেই ডেলিভারি ফ্রি",
@@ -723,7 +741,7 @@
     },
     en: {
       app: "App", h1: '8 ft <span>mango plants</span>',
-      searchPh: "Search plants… (e.g. mango)", fav: "Favourite", favChip: "❤ Favourites", searchRes: "{0} plants found", searchClear: "✕ Clear results", offerCta: "Grab offer →",
+      searchPh: "Search plants… (e.g. mango)", fav: "Favourite", favChip: "❤ Favourites", searchRes: "{0} plants found", searchClear: "✕ Clear results", offerCta: "Grab offer →", viewAll: "View All →", explore: "Explore Now →", seller: "Sold By : Green Friend",
       heroKicker: "🌿 Malda & Murshidabad nursery",
       navPlants: "Plants", navCats: "Categories", navOffers: "Offers", navFaq: "FAQ", navInstall: "Install app",
       topbar: "🚚 Free delivery above ₹1000 · ✅ 100% original guarantee · 💵 Cash on delivery",
@@ -754,7 +772,7 @@
       st1n: "8 ft", st1: "plant height", st2n: "100%", st2: "original guarantee",
       st3n: "2 districts", st3: "Malda & Murshidabad", st4: "plant varieties",
       faqTitle: "Frequently asked questions", faqSub: "Delivery, guarantee and payment — short answers",
-      shipBadge: "Free delivery above {0}",
+      shipBadge: "🚚 Free delivery above {0}",
       order: "Order on WhatsApp", add: "Add to cart", buyNow: "Buy now", all: "All", out: "Out of stock", low: "Only {0} left", off: "{0}% off", more: "Load more", fromPrice: "from {0}", size: "Size",
       cart: "Cart", cartTitle: "Your cart", total: "Total", checkout: "Checkout",
       delivery: "Delivery", free: "FREE", freeAbove: "Free delivery above {0}", freeAboveHint: "Add {0} more for free delivery",
@@ -775,7 +793,7 @@
     },
     hi: {
       app: "ऐप", h1: '8 फीट <span>आम के पौधे</span>',
-      searchPh: "पौधे खोजें… (जैसे आम)", fav: "पसंदीदा", favChip: "❤ पसंदीदा", searchRes: "{0} पौधे मिले", searchClear: "✕ परिणाम हटाएँ", offerCta: "ऑफ़र लें →",
+      searchPh: "पौधे खोजें… (जैसे आम)", fav: "पसंदीदा", favChip: "❤ पसंदीदा", searchRes: "{0} पौधे मिले", searchClear: "✕ परिणाम हटाएँ", offerCta: "ऑफ़र लें →", viewAll: "सभी देखें →", explore: "अभी देखें →", seller: "विक्रेता : ग्रीन फ्रेंड",
       heroKicker: "🌿 मालदा और मुर्शिदाबाद की नर्सरी",
       navPlants: "पौधे", navCats: "श्रेणियाँ", navOffers: "ऑफ़र", navFaq: "सवाल", navInstall: "ऐप",
       topbar: "🚚 ₹1000+ पर डिलीवरी फ्री · ✅ 100% असली की गारंटी · 💵 कैश ऑन डिलीवरी",
@@ -806,7 +824,7 @@
       st1n: "8 फीट", st1: "पौधे की ऊँचाई", st2n: "100%", st2: "असली की गारंटी",
       st3n: "2 जिले", st3: "मालदा और मुर्शिदाबाद", st4: "पौधों की किस्में",
       faqTitle: "अक्सर पूछे जाने वाले सवाल", faqSub: "डिलीवरी, गारंटी और पेमेंट — छोटे जवाब",
-      shipBadge: "{0}+ पर डिलीवरी फ्री",
+      shipBadge: "🚚 {0}+ पर डिलीवरी फ्री",
       order: "WhatsApp पर ऑर्डर", add: "कार्ट में डालें", buyNow: "अभी खरीदें", all: "सभी", out: "स्टॉक खत्म", low: "सिर्फ़ {0} बाकी", off: "{0}% छूट", more: "और देखें", fromPrice: "{0} से", size: "साइज़",
       cart: "कार्ट", cartTitle: "आपका कार्ट", total: "कुल", checkout: "चेकआउट",
       delivery: "डिलीवरी", free: "फ्री", freeAbove: "{0} से ऊपर डिलीवरी फ्री", freeAboveHint: "और {0} जोड़ें तो डिलीवरी फ्री",
@@ -1274,19 +1292,29 @@
     });
     box.innerHTML = tiles.map(function (tl) {
       return '<a class="cat-tile" href="#plants" data-c="' + esc(tl.cat) + '">' +
-        (tl.img ? '<img loading="lazy" decoding="async" src="' + esc(tl.img) + '" alt="' + esc(catLabel(tl.cat)) + '" onerror="this.style.display=\'none\'">' : "") +
+        '<span class="c-ring">' + (tl.img ? '<img loading="lazy" decoding="async" src="' + esc(tl.img) + '" alt="' + esc(catLabel(tl.cat)) + '" onerror="this.style.display=\'none\'">' : "🌱") + "</span>" +
         "<b>" + esc(catLabel(tl.cat)) + "</b><small>" + tl.count + " " + esc(t("catItems")) + "</small></a>";
     }).join("");
-    box.querySelectorAll(".cat-tile").forEach(function (a) {
-      a.onclick = function (ev) {
-        ev.preventDefault();
-        state.cat = a.getAttribute("data-c") || null;
-        state.shown = 40;
-        renderChips(); renderProducts();
-        var sec = document.getElementById("plants");
-        if (sec) { try { sec.scrollIntoView({ behavior: "smooth", block: "start" }); } catch (e) { sec.scrollIntoView(); } }
-      };
-    });
+    var promos = document.getElementById("promos");
+    if (promos) {
+      promos.innerHTML = tiles.slice(0, 4).map(function (tl) {
+        return '<a class="promo" href="#plants" data-c="' + esc(tl.cat) + '">' +
+          (tl.img ? '<img loading="lazy" decoding="async" src="' + esc(tl.img) + '" alt="' + esc(catLabel(tl.cat)) + '">' : '<span class="p-emo">🌱</span>') +
+          '<div class="p-veil"></div>' +
+          '<div class="ptxt"><b>' + esc(catLabel(tl.cat)) + "</b><span>" + esc(t("explore")) + "</span></div></a>";
+      }).join("");
+      promos.querySelectorAll(".promo").forEach(function (a) { a.onclick = goCat; });
+    }
+    box.querySelectorAll(".cat-tile").forEach(function (a) { a.onclick = goCat; });
+  }
+  function goCat(ev) {
+    ev.preventDefault();
+    state.cat = (ev.currentTarget || this).getAttribute("data-c") || null;
+    state.favOn = false;
+    state.shown = 40;
+    renderChips(); renderProducts();
+    var sec = document.getElementById("plants");
+    if (sec) { try { sec.scrollIntoView({ behavior: "smooth", block: "start" }); } catch (e) { sec.scrollIntoView(); } }
   }
   function renderChips() {
     var box = document.getElementById("chips");
@@ -1386,6 +1414,7 @@
         '<div class="card-body">' +
           '<div class="p-cat">' + esc(catLabel(p.category)) + "</div>" +
           nameHtml +
+          '<div class="p-seller">' + esc(t("seller")) + "</div>" +
           (noteText ? '<div class="p-note">' + esc(noteText) + "</div>" : "") +
           '<div class="p-price">' + priceHtml + "</div>" +
           shipHtml +
@@ -1492,6 +1521,16 @@
     document.addEventListener("click", function (ev) {
       if (qres && !box.contains(ev.target) && !qres.contains(ev.target)) qres.classList.remove("on");
     });
+    var viewAll = document.getElementById("viewAll");
+    if (viewAll) viewAll.onclick = function (ev) {
+      ev.preventDefault();
+      state.cat = null; state.favOn = false; state.q = "";
+      box.value = "";
+      state.shown = 40;
+      renderChips(); renderProducts();
+      var sec = document.getElementById("plants");
+      if (sec) { try { sec.scrollIntoView({ behavior: "smooth", block: "start" }); } catch (e) { sec.scrollIntoView(); } }
+    };
   })();
 
   function renderOffers() {
