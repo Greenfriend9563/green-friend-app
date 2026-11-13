@@ -177,6 +177,7 @@
   .card-body{padding:11px 12px 13px;display:flex;flex-direction:column;gap:6px;flex:1}
   .p-cat{font-size:10.5px;font-weight:900;letter-spacing:.5px;text-transform:uppercase;color:#8CA27F}
   .p-name{font-size:14.5px;font-weight:900;line-height:1.3;letter-spacing:-.2px}
+  a.p-name,a.thumb{color:inherit;text-decoration:none}
   .p-note{font-size:11px;color:#6C7A66;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
   .p-price{display:flex;align-items:baseline;gap:7px;margin-top:auto;padding-top:2px}
   .p-price b{font-size:16px;color:var(--green);font-weight:900}
@@ -1070,7 +1071,7 @@
     return map ? (map[LANG] || key) : key;
   }
   function productName(p) { if (LANG === "bn" && p.bn) return p.bn; return p.name || p.bn || "Plant"; }
-  var state = { products: [], offers: [], reviews: [], cat: null, shown: 40 };
+  var state = { products: [], offers: [], reviews: [], cat: null, shown: 40, slugs: {} };
   function applyLang() {
     document.documentElement.lang = LANG;
     if (TXT[LANG].docTitle) document.title = TXT[LANG].docTitle;
@@ -1182,11 +1183,20 @@
         : '<b>' + money(price) + '</b>' + (hasOffer ? "<s>" + money(listPrice) + "</s>" : "");
       var shipAbove = paySettings && paySettings.free_delivery_above != null ? Number(paySettings.free_delivery_above) : 1000;
       var shipHtml = shipAbove > 0 ? '<span class="p-ship">' + esc(fmt(t("shipBadge"), money(shipAbove))) + "</span>" : "";
+      var slug = state.slugs && state.slugs[p.id];
+      var href = slug ? "product/" + slug + ".html" : "";
+      var thumbOpen = href
+        ? '<a class="thumb" href="' + esc(href) + '" style="background:' + esc(p.tint || "#EAF3DE") + '">'
+        : '<div class="thumb" style="background:' + esc(p.tint || "#EAF3DE") + '">';
+      var thumbClose = href ? "</a>" : "</div>";
+      var nameHtml = href
+        ? '<a class="p-name" href="' + esc(href) + '">' + esc(productName(p)) + "</a>"
+        : '<div class="p-name">' + esc(productName(p)) + "</div>";
       return '<article class="card">' +
-        '<div class="thumb" style="background:' + esc(p.tint || "#EAF3DE") + '">' + badge + thumb + "</div>" +
+        thumbOpen + badge + thumb + thumbClose +
         '<div class="card-body">' +
           '<div class="p-cat">' + esc(catLabel(p.category)) + "</div>" +
-          '<div class="p-name">' + esc(productName(p)) + "</div>" +
+          nameHtml +
           (noteText ? '<div class="p-note">' + esc(noteText) + "</div>" : "") +
           '<div class="p-price">' + priceHtml + "</div>" +
           shipHtml +
@@ -1291,6 +1301,10 @@
       state.offers = Array.isArray(res[1]) ? res[1] : [];
       state.reviews = Array.isArray(res[2]) ? res[2] : [];
     } catch (e) { state.products = []; state.offers = []; state.reviews = []; console.warn("Green Friend website:", e.message); }
+    try {
+      var mapRes = await fetch("product-map.json", { cache: "no-store" });
+      state.slugs = mapRes.ok ? await mapRes.json() : {};
+    } catch (e) { state.slugs = {}; }
     renderChips(); renderProducts(); renderOffers(); renderReviews(); renderCats(); renderFaq();
     var sc = document.getElementById("statCount");
     if (sc) sc.textContent = (state.products.length ? state.products.length + "+" : "—");
