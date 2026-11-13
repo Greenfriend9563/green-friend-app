@@ -9,14 +9,14 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Green Friend — আমের গাছ, মালদা ও মুর্শিদাবাদ">
 <meta property="og:description" content="৮ ফুট হাইটের আমের গাছ — মালদা ও মুর্শিদাবাদের বিখ্যাত আম গাছ, কম দামে, ১০০% গ্যারান্টি সহ।">
-<link rel="canonical" href="https://greenfriend9563.github.io/green-friend-app/">
+<link rel="canonical" href="https://greenfriendnursery.github.io/green-friend-app/">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Store",
   "name": "Green Friend",
   "description": "আমের গাছ — মালদা ও মুর্শিদাবাদের বিখ্যাত আম গাছ পাওয়া যাবে। গাছের হাইট ৮ ফুট, কম দামে, ১০০% গ্যারান্টি সহ।",
-  "url": "https://greenfriend9563.github.io/green-friend-app/",
+  "url": "https://greenfriendnursery.github.io/green-friend-app/",
   "telephone": "+919563205299",
   "email": "mobasserhoque@gmail.com",
   "openingHours": "Mo-Su 09:00-21:00",
@@ -700,9 +700,13 @@
   function fmt(s) { var a = arguments; return String(s).replace(/\{(\d+)\}/g, function (m, i) { return a[Number(i) + 1]; }); }
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
   function money(n) { var v = Number(n) || 0; return "\u20B9" + v.toLocaleString("en-IN", { maximumFractionDigits: 0 }); }
-  function img(url) { if (!url) return ""; return String(url).replace(/%2520/g, "%20").replace(/ /g, "%20"); }
+  // Photos stored in the database still carry the old GitHub Pages host; point them at the new one.
+  var OLD_HOST = "https://greenfriend9563.github.io/";
+  var NEW_HOST = "https://greenfriendnursery.github.io/";
+  function fixHost(url) { return String(url || "").split(OLD_HOST).join(NEW_HOST); }
+  function img(url) { if (!url) return ""; return fixHost(String(url)).replace(/%2520/g, "%20").replace(/ /g, "%20"); }
   // Grid cards load 400px thumbnails from the same GitHub folder to keep scrolling light.
-  var GH_PRODUCTS = "https://greenfriend9563.github.io/green-friend-app/products/";
+  var GH_PRODUCTS = "https://greenfriendnursery.github.io/green-friend-app/products/";
   function thumbUrl(url) {
     var u = img(url);
     if (u.indexOf(GH_PRODUCTS) !== 0) return u;
