@@ -246,7 +246,7 @@
         <span id="fPhotoStatus" class="upload-status"></span>
       </div>
       <div id="fPhotoPreview" class="photo-strip"></div>
-      <textarea id="fImages" rows="2" placeholder="https://greenfriendnursery.github.io/green-friend-app/products/langra.jpg"></textarea>
+      <textarea id="fImages" rows="2" placeholder="https://greenfriendnursery.github.io/greenfriendnursery/products/langra.jpg"></textarea>
       <div style="margin-top:10px;padding:10px 12px;border:1px dashed #CFDCC5;border-radius:12px;background:#F7FBF3">
         <div style="font-size:12px;font-weight:800;color:#1F5F3E">GitHub ছবি হোস্টিং (ফ্রি)</div>
         <div style="font-size:11px;color:#6C7A66;line-height:1.5;margin:3px 0 7px">
@@ -679,7 +679,7 @@
   };
 
   // ---------- GitHub photo hosting (free, every photo lives on GitHub Pages) ----------
-  var GH = { repo: "greenfriendnursery/green-friend-app", branch: "main", base: "docs/products", pages: "https://greenfriendnursery.github.io/green-friend-app/products/" };
+  var GH = { repo: "greenfriendnursery/greenfriendnursery", branch: "main", base: "docs/products", pages: "https://greenfriendnursery.github.io/greenfriendnursery/products/" };
   function ghToken() { try { return localStorage.getItem("gf_gh_token") || ""; } catch (e) { return ""; } }
   window.saveGhToken = function () {
     var el = $("ghToken");
@@ -770,7 +770,7 @@
     var small = await shrinkPhoto(file, 400, 0.76);
     await ghPutFile(dir + "/" + name + ".jpg", full);
     if (dir === GH.base) await ghPutFile(dir + "/thumbs/" + name + ".jpg", small);
-    if (dir === "docs/offers") return "https://greenfriendnursery.github.io/green-friend-app/offers/" + name + ".jpg";
+    if (dir === "docs/offers") return "https://greenfriendnursery.github.io/greenfriendnursery/offers/" + name + ".jpg";
     return GH.pages + name + ".jpg";
   }
 
