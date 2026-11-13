@@ -284,12 +284,17 @@
 
   .offers{display:grid;grid-template-columns:1fr;gap:14px}
   @media(min-width:720px){.offers{grid-template-columns:1fr 1fr}}
-  .offer{position:relative;border-radius:18px;overflow:hidden;min-height:150px;display:flex;flex-direction:column;justify-content:flex-end;color:#fff;box-shadow:var(--shadow);background:#6E5620}
-  .offer img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-  .offer .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,30,20,.05),rgba(10,30,20,.78))}
-  .offer .txt{position:relative;padding:16px 18px}
-  .offer b{font-size:17px;display:block;letter-spacing:-.3px}
-  .offer span{font-size:12.5px;color:#E4F0DA;display:block;margin-top:3px}
+  .offer{position:relative;display:flex;align-items:stretch;background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);text-decoration:none;transition:transform .15s,box-shadow .15s}
+  .offer:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(23,64,39,.14)}
+  .offer::before,.offer::after{content:"";position:absolute;left:103px;width:18px;height:18px;border-radius:50%;background:var(--paper);z-index:2}
+  .offer::before{top:-9px}
+  .offer::after{bottom:-9px}
+  .offer .o-ic{position:relative;flex:none;width:112px;background:linear-gradient(155deg,var(--green),#2F9E5B);border-right:2px dashed rgba(255,255,255,.55);display:flex;align-items:center;justify-content:center;font-size:34px}
+  .offer .o-ic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .offer .o-txt{flex:1;padding:16px 18px;position:relative}
+  .offer b{font-size:16.5px;color:var(--ink);display:block;letter-spacing:-.3px}
+  .offer .o-msg{font-size:12.5px;color:var(--muted);display:block;margin-top:4px}
+  .offer .o-cta{margin-top:10px;display:inline-flex;align-items:center;gap:5px;background:var(--green-3);color:var(--green);font-size:12px;font-weight:900;padding:6px 12px;border-radius:999px}
 
   .trust{display:flex;gap:14px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:0 4px 14px rgba(31,95,62,.05)}
   .trust .seal{flex:none;width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,var(--gold-2),var(--gold));display:flex;align-items:center;justify-content:center;font-size:26px;color:#243018}
@@ -666,7 +671,7 @@
   var TXT = {
     bn: {
       app: "অ্যাপ", h1: '৮ ফুট <span>আমের গাছ</span>',
-      searchPh: "গাছ খুঁজুন… (যেমন আম)", fav: "পছন্দ", favChip: "❤ পছন্দ", searchRes: "{0}টি গাছ পাওয়া গেছে", searchClear: "✕ ফলাফল মুছুন",
+      searchPh: "গাছ খুঁজুন… (যেমন আম)", fav: "পছন্দ", favChip: "❤ পছন্দ", searchRes: "{0}টি গাছ পাওয়া গেছে", searchClear: "✕ ফলাফল মুছুন", offerCta: "অফার নিন →",
       heroKicker: "🌿 মালদা ও মুর্শিদাবাদের নার্সারি",
       navPlants: "গাছ", navCats: "ক্যাটাগরি", navOffers: "অফার", navFaq: "প্রশ্ন", navInstall: "অ্যাপ",
       topbar: "🚚 ₹১০০০+ অর্ডারে ডেলিভারি ফ্রি · ✅ ১০০% অরিজিনাল গ্যারান্টি · 💵 ক্যাশ অন ডেলিভারি",
@@ -718,7 +723,7 @@
     },
     en: {
       app: "App", h1: '8 ft <span>mango plants</span>',
-      searchPh: "Search plants… (e.g. mango)", fav: "Favourite", favChip: "❤ Favourites", searchRes: "{0} plants found", searchClear: "✕ Clear results",
+      searchPh: "Search plants… (e.g. mango)", fav: "Favourite", favChip: "❤ Favourites", searchRes: "{0} plants found", searchClear: "✕ Clear results", offerCta: "Grab offer →",
       heroKicker: "🌿 Malda & Murshidabad nursery",
       navPlants: "Plants", navCats: "Categories", navOffers: "Offers", navFaq: "FAQ", navInstall: "Install app",
       topbar: "🚚 Free delivery above ₹1000 · ✅ 100% original guarantee · 💵 Cash on delivery",
@@ -770,7 +775,7 @@
     },
     hi: {
       app: "ऐप", h1: '8 फीट <span>आम के पौधे</span>',
-      searchPh: "पौधे खोजें… (जैसे आम)", fav: "पसंदीदा", favChip: "❤ पसंदीदा", searchRes: "{0} पौधे मिले", searchClear: "✕ परिणाम हटाएँ",
+      searchPh: "पौधे खोजें… (जैसे आम)", fav: "पसंदीदा", favChip: "❤ पसंदीदा", searchRes: "{0} पौधे मिले", searchClear: "✕ परिणाम हटाएँ", offerCta: "ऑफ़र लें →",
       heroKicker: "🌿 मालदा और मुर्शिदाबाद की नर्सरी",
       navPlants: "पौधे", navCats: "श्रेणियाँ", navOffers: "ऑफ़र", navFaq: "सवाल", navInstall: "ऐप",
       topbar: "🚚 ₹1000+ पर डिलीवरी फ्री · ✅ 100% असली की गारंटी · 💵 कैश ऑन डिलीवरी",
@@ -1495,9 +1500,13 @@
     if (!state.offers.length) { sec.hidden = true; return; }
     sec.hidden = false;
     box.innerHTML = state.offers.map(function (o) {
+      var ic = o.image_url
+        ? '<img loading="lazy" src="' + esc(img(o.image_url)) + '" alt="">'
+        : esc(o.emoji || "🎁");
       return '<a class="offer" href="' + wa(t("waMsg") + " — " + (o.title || "")) + '">' +
-        (o.image_url ? '<img loading="lazy" src="' + esc(img(o.image_url)) + '" alt="">' : "") +
-        '<div class="veil"></div><div class="txt"><b>' + esc(o.title || "") + "</b><span>" + esc(o.message || "") + "</span></div></a>";
+        '<div class="o-ic">' + ic + "</div>" +
+        '<div class="o-txt"><b>' + esc(o.title || "") + '</b><span class="o-msg">' + esc(o.message || "") + "</span>" +
+        '<span class="o-cta">' + esc(t("offerCta")) + "</span></div></a>";
     }).join("");
   }
   function renderReviews() {
