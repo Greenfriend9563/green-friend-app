@@ -11,6 +11,9 @@
 <meta property="og:description" content="৮ ফুট হাইটের আমের গাছ — মালদা ও মুর্শিদাবাদের বিখ্যাত আম গাছ, কম দামে, ১০০% গ্যারান্টি সহ।">
 <link rel="canonical" href="https://greenfriendnursery.github.io/">
 <link rel="preload" as="image" href="products/sb-langra-mango-1.jpg" fetchpriority="high">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -44,17 +47,17 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <style>
   :root{
-    --green:#232820; --green-2:#333A2E; --green-3:#F1F3ED;
-    --gold:#A9741C; --gold-2:#F0B64A; --cream:#FFFFFF;
-    --paper:#F7F8F4;
-    --ink:#1B1F1A; --muted:#6C7268; --line:#E5E7E0; --card:#FFFFFF;
-    --shadow:0 10px 30px rgba(24,28,20,.08);
-    --radius:14px;
+    --green:#1E7A3C; --green-2:#14532D; --green-3:#F0F7F1;
+    --gold:#C07A0E; --gold-2:#F2B33D; --cream:#FFFFFF;
+    --paper:#F7F9F5;
+    --ink:#151A14; --muted:#6B7267; --line:#E6EAE2; --card:#FFFFFF;
+    --shadow:0 10px 30px rgba(23,64,39,.10);
+    --radius:16px;
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   html,body{margin:0;padding:0}
   body{
-    font-family:"Hind Siliguri","Noto Sans Bengali","Nirmala UI",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    font-family:"Hind Siliguri","Noto Sans Bengali","Nirmala UI","Poppins",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
     color:var(--ink); background:var(--cream); line-height:1.55;
     -webkit-font-smoothing:antialiased;
   }
@@ -63,33 +66,51 @@
   .wrap{max-width:1260px;margin:0 auto;padding:0 24px}
 
   /* thin announcement strip — marketplace look, scrolls away */
-  .topbar{background:#232820;color:#F6E7C8;font-size:12px;font-weight:700;letter-spacing:.2px}
+  .topbar{background:#173D25;color:#F6E7C8;font-size:12px;font-weight:700;letter-spacing:.2px}
   .topbar .wrap{padding-top:7px;padding-bottom:7px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .topbarShort{display:none}
   @media(max-width:719px){.topbar{font-size:11px}.topbar .wrap{padding-top:6px;padding-bottom:6px}.topbarFull{display:none}.topbarShort{display:inline}}
 
-  header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-  .bar{display:flex;align-items:center;gap:10px;height:150px}
+  header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .bar{display:flex;align-items:center;gap:12px;height:72px}
   .brand{display:flex;align-items:center;flex:none;line-height:1}
-  .brand .brand-logo{height:122px;width:auto;display:block;flex:none}
+  .brand .brand-logo{height:56px;width:auto;display:block;flex:none}
   .brand .leaf{font-size:22px}
   .nav{display:none}
   @media(min-width:900px){
-    .nav{display:flex;align-items:center;gap:24px;margin-left:38px}
+    .nav{display:flex;align-items:center;gap:22px;margin-left:28px}
     .nav a{font-size:13.5px;font-weight:800;color:#3C423A;padding:7px 1px;border-bottom:2px solid transparent;transition:color .15s,border-color .15s;white-space:nowrap}
-    .nav a:hover{color:var(--gold);border-color:var(--gold)}
+    .nav a:hover{color:var(--green);border-color:var(--green)}
   }
   .grow{flex:1}
   .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border-radius:999px;padding:11px 18px;font-weight:800;font-size:14px;border:1px solid transparent;cursor:pointer;transition:.18s transform,.18s box-shadow;white-space:nowrap;font-family:inherit}
   .btn:active{transform:scale(.97)}
   .btn-solid{background:linear-gradient(135deg,#F5C766,#E3A62E);color:#2A2210;box-shadow:0 8px 18px rgba(200,145,35,.28)}
-  .btn-gold{background:#232820;color:#FFF6E2;box-shadow:0 6px 16px rgba(20,24,16,.22)}
+  .btn-gold{background:var(--green);color:#FFF6E2;box-shadow:0 6px 16px rgba(20,24,16,.22)}
   .btn-line{background:#fff;color:#2A2F27;border-color:#DCDED5}
   .btn-sm{padding:8px 13px;font-size:12.5px}
   .btn-danger{background:#FBEDEA;color:#9B463F;border-color:#F3CFC9}
   .lang{display:flex;background:#fff;border:1px solid var(--line);border-radius:999px;overflow:hidden}
   .lang button{border:0;background:transparent;padding:7px 11px;font-size:12px;font-weight:800;color:var(--muted);cursor:pointer;font-family:inherit}
-  .lang button.on{background:#232820;color:#fff}
+  .lang button.on{background:var(--green);color:#fff}
+
+  /* ---- header search (PaudheWale-style) ---- */
+  .search{position:relative;flex:1;max-width:520px;margin-left:auto}
+  .search input{width:100%;height:42px;border:1.5px solid var(--line);border-radius:999px;padding:0 18px 0 42px;font-family:inherit;font-size:13.5px;background:var(--paper);outline:none;transition:border-color .15s,box-shadow .15s}
+  .search input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(30,122,60,.12);background:#fff}
+  .s-ico{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:#8A9486;pointer-events:none;font-size:14px}
+  .qres{position:absolute;top:50px;left:0;right:0;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden;display:none;z-index:60;max-height:380px;overflow-y:auto}
+  .qres.on{display:block}
+  .qres a{display:flex;align-items:center;gap:10px;padding:9px 12px;border-bottom:1px solid #F0F2EC}
+  .qres a:last-child{border-bottom:0}
+  .qres a:hover{background:var(--green-3)}
+  .qres img{width:40px;height:40px;border-radius:10px;object-fit:cover;flex:none;background:var(--green-3)}
+  .qres .qn{font-size:13px;font-weight:800;line-height:1.25;display:block;color:var(--ink)}
+  .qres .qp{font-size:12px;color:var(--green);font-weight:900}
+  .qres .qnone{padding:14px;font-size:12.5px;color:var(--muted)}
+  .qres .qimg{width:40px;height:40px;border-radius:10px;background:var(--green-3);display:flex;align-items:center;justify-content:center;flex:none;font-size:20px}
+  .search-note{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin-top:10px}
+  .search-note button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:3px 10px;font-family:inherit;font-size:11.5px;font-weight:800;color:var(--green);cursor:pointer}
 
   /* ---- language gate shown right after the page opens ---- */
   .langGate{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:18px;background:rgba(20,22,17,.62);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
@@ -107,9 +128,11 @@
 
   /* ---- homepage blocks: category tiles, stats, FAQ ---- */
   .cats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:16px 0 4px}
-  .cat-tile{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;color:var(--ink);display:block;cursor:pointer}
+  .cat-tile{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;color:var(--ink);display:block;cursor:pointer;transition:transform .18s,box-shadow .18s}
+  .cat-tile:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
   .cat-tile img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;background:var(--green-3)}
-  .cat-tile b{display:block;font-size:11.5px;padding:7px 6px;text-align:center;line-height:1.25}
+  .cat-tile b{display:block;font-size:11.5px;padding:7px 6px;text-align:center;line-height:1.25;transition:color .15s}
+  .cat-tile:hover b{color:var(--green)}
   .cat-tile small{display:block;font-size:10px;color:var(--muted);text-align:center;padding-bottom:7px}
   .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:16px 0 4px}
   .stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px 10px;text-align:center}
@@ -129,11 +152,14 @@
   @media(max-width:719px){
     html{overflow-x:hidden}
     .wrap{padding:0 14px}
-    .bar{height:auto;padding:8px 0 10px;gap:8px}
+    .bar{height:auto;padding:8px 0 10px;gap:8px;flex-wrap:wrap}
     .brand{flex:none}
-    .brand .brand-logo{height:74px}
+    .brand .brand-logo{height:66px}
     .lang button{padding:6px 9px;font-size:11px}
     .bar .btn-sm{padding:7px 10px;font-size:11.5px}
+    .search{order:9;flex-basis:100%;max-width:none;margin:0}
+    .search input{height:40px;font-size:13px}
+    .qres{top:46px}
     .band{padding:16px 18px;gap:12px;margin:0 auto 26px}
     .band .grow{min-width:0;flex:1 1 100%}
     .band > .btn{width:100%}
@@ -193,14 +219,15 @@
   }
 
   .band{background:linear-gradient(100deg,#FFF8EA,#FDEFD3);color:#3A2C12;border-radius:18px;padding:22px 24px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin:0 auto 34px;position:relative;z-index:5;box-shadow:var(--shadow);border:1px solid #EFD9AE}
-  .band .ico{width:52px;height:52px;border-radius:14px;background:#232820;color:#F5C965;display:flex;align-items:center;justify-content:center;font-size:24px;flex:none}
+  .band .ico{width:52px;height:52px;border-radius:14px;background:var(--green);color:#F5C965;display:flex;align-items:center;justify-content:center;font-size:24px;flex:none}
   .band b{display:block;font-size:16px;letter-spacing:-.2px;color:#2A2416}
   .band small{display:block;color:#8A7440;font-size:12.5px;margin-top:3px}
   .band .grow{min-width:180px}
 
   section{padding:8px 0 34px}
   .sec-head{display:flex;align-items:flex-end;gap:12px;margin:6px 0 16px}
-  .sec-head h2{font-size:clamp(20px,4.6vw,26px);margin:0;letter-spacing:-.5px}
+  .sec-head h2{font-size:clamp(20px,4.6vw,26px);margin:0;letter-spacing:-.5px;position:relative;padding-bottom:9px}
+  .sec-head h2::after{content:"";position:absolute;left:0;bottom:0;width:46px;height:4px;border-radius:2px;background:linear-gradient(90deg,var(--green),#8FD14F)}
   .sec-head p{margin:0;color:var(--muted);font-size:13px}
   .sec-head .grow{flex:1}
 
@@ -212,7 +239,8 @@
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:14px}
   .more-wrap{display:flex;justify-content:center;margin:20px 0 4px}
   @media(min-width:720px){.grid{grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px}}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:0 4px 14px rgba(31,95,62,.06);display:flex;flex-direction:column;transition:.2s transform,.2s box-shadow}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:0 4px 14px rgba(23,64,39,.07);display:flex;flex-direction:column;transition:.2s transform,.2s box-shadow}
+  .card:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(23,64,39,.14)}
   .card:active{transform:scale(.99)}
   .thumb{position:relative;aspect-ratio:1/1;background:var(--green-3);display:flex;align-items:center;justify-content:center;font-size:44px;overflow:hidden}
   .thumb img{width:100%;height:100%;object-fit:cover}
@@ -222,17 +250,21 @@
   .p-dots{position:absolute;bottom:8px;left:0;right:0;display:flex;gap:4px;justify-content:center;z-index:3;pointer-events:none}
   .p-dots i{width:5px;height:5px;border-radius:999px;background:rgba(255,255,255,.6);box-shadow:0 0 0 1px rgba(31,95,62,.25);transition:width .3s ease}
   .p-dots i.on{width:15px;background:#fff}
-  .badge{position:absolute;top:9px;left:9px;background:#fff;color:#8A5A00;font-size:10.5px;font-weight:900;border-radius:999px;padding:4px 9px;box-shadow:0 2px 8px rgba(0,0,0,.10)}
-  .badge.out{background:#FBEDEA;color:#9B463F}
-  .badge.low{background:#FFF6E0;color:#8A5A00}
+  .badge{position:absolute;top:10px;left:10px;background:var(--green);color:#fff;font-size:10.5px;font-weight:900;border-radius:999px;padding:4px 10px;box-shadow:0 2px 8px rgba(0,0,0,.14)}
+  .badge.out{background:#EDF1EA;color:#5E6B5F}
+  .badge.low{background:#C2410C;color:#fff}
+  .fav{position:absolute;top:10px;right:10px;z-index:4;width:30px;height:30px;border-radius:50%;border:0;background:rgba(255,255,255,.92);color:#9AA39A;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.12);transition:transform .15s,color .15s;padding:0}
+  .fav.on{color:#E0245E}
+  .fav:active{transform:scale(.9)}
   .card-body{padding:11px 12px 13px;display:flex;flex-direction:column;gap:6px;flex:1}
   .p-cat{font-size:10.5px;font-weight:900;letter-spacing:.5px;text-transform:uppercase;color:#9A8A6A}
   .p-name{font-size:14.5px;font-weight:900;line-height:1.3;letter-spacing:-.2px}
   a.p-name,a.thumb{color:inherit;text-decoration:none}
   .p-note{font-size:11px;color:#6C7A66;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-  .p-price{display:flex;align-items:baseline;gap:7px;margin-top:auto;padding-top:2px}
-  .p-price b{font-size:16px;color:var(--gold);font-weight:900}
-  .p-price s{font-size:12px;color:#9AA793}
+  .p-price{display:flex;align-items:center;gap:7px;margin-top:auto;padding-top:2px;flex-wrap:wrap}
+  .p-price b{font-size:16.5px;color:var(--ink);font-weight:900}
+  .p-price s{font-size:12px;color:#A2A89E}
+  .p-price em{font-style:normal;font-size:11px;font-weight:900;color:var(--green);background:var(--green-3);border-radius:6px;padding:2px 7px}
   .size-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
   .size-chip{flex:1;min-width:70px;display:flex;flex-direction:column;align-items:center;gap:1px;padding:6px 5px;border-radius:10px;border:1.5px solid #E2E4DC;background:#FAFAF7;cursor:pointer;font-family:inherit;line-height:1.15}
   .size-chip span{font-size:11px;font-weight:800;color:#5A6054}
@@ -242,7 +274,8 @@
   .p-actions{display:flex;gap:7px;margin-top:9px}
   .p-order,.p-cart,.p-buy{flex:1;border-radius:12px;font-weight:900;font-size:12.5px;padding:9px;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;justify-content:center;gap:5px;border:0}
   .p-order{border:1px solid #E4D6B8;background:#FFFBF2;color:#8A5E12}
-  .p-cart{background:#232820;color:#fff}
+  .p-cart{background:var(--green);color:#fff;transition:filter .15s}
+  .p-cart:hover:not(:disabled){filter:brightness(.9)}
   .p-buy{background:var(--gold-2);color:#243018}
   .p-wa{display:block;text-align:center;margin-top:7px;font-size:12px;font-weight:800;color:var(--green)}
   .p-cart:disabled,.p-order:disabled,.p-buy:disabled{opacity:.45;cursor:not-allowed}
@@ -281,7 +314,7 @@
   .step small{color:var(--muted);font-size:12.5px}
   .note{background:#FFF9E9;border:1px solid #F0E0B4;color:#6E5620;border-radius:14px;padding:13px 15px;font-size:12.5px;margin-top:14px}
 
-  footer{background:#1A1D17;color:#C9CFC0;padding:34px 0 100px;margin-top:20px}
+  footer{background:#132A1B;color:#C9CFC0;padding:34px 0 100px;margin-top:20px}
   footer h3{color:#FFF8E8;font-size:16px;margin:0 0 10px}
   footer a{color:#F5EFE0}
   .frow{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:26px}
@@ -291,7 +324,7 @@
 
   .fab{position:fixed;right:16px;bottom:16px;z-index:60;width:56px;height:56px;border-radius:50%;background:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px rgba(37,211,102,.42);font-size:27px}
   .cartfab{position:fixed;left:16px;bottom:16px;z-index:60;background:linear-gradient(135deg,#F5C766,#E3A62E);color:#2A2210;border:0;border-radius:999px;padding:12px 16px;font-weight:900;font-size:13px;box-shadow:0 10px 26px rgba(200,145,35,.35);display:flex;align-items:center;gap:8px;cursor:pointer;font-family:inherit}
-  .cartfab .badge{position:static;background:#232820;color:#FFF6E2;border-radius:999px;padding:2px 8px;font-size:11px}
+  .cartfab .badge{position:static;background:var(--green-2);color:#FFF6E2;border-radius:999px;padding:2px 8px;font-size:11px}
 
   .empty{background:#fff;border:1px dashed #D9D2C2;border-radius:16px;padding:28px 18px;text-align:center;color:var(--muted);font-size:13.5px}
   .empty b{display:block;color:var(--ink);font-size:15px;margin-bottom:6px}
@@ -383,6 +416,7 @@
       <a href="#install" data-t="navInstall">Install app</a>
     </nav>
     <div class="grow"></div>
+    <div class="search"><span class="s-ico">🔍</span><input id="q" type="search" autocomplete="off" placeholder="গাছ খুঁজুন…" aria-label="Search"><div class="qres" id="qres"></div></div>
     <div class="lang" id="lang"><button data-l="en" class="on">EN</button><button data-l="bn">বাংলা</button><button data-l="hi">हिन्दी</button></div>
     <a class="btn btn-gold btn-sm" id="apkTop" href="#">⬇ <span data-t="app">অ্যাপ</span></a>
   </div>
@@ -632,6 +666,7 @@
   var TXT = {
     bn: {
       app: "অ্যাপ", h1: '৮ ফুট <span>আমের গাছ</span>',
+      searchPh: "গাছ খুঁজুন… (যেমন আম)", fav: "পছন্দ", favChip: "❤ পছন্দ", searchRes: "{0}টি গাছ পাওয়া গেছে", searchClear: "✕ ফলাফল মুছুন",
       heroKicker: "🌿 মালদা ও মুর্শিদাবাদের নার্সারি",
       navPlants: "গাছ", navCats: "ক্যাটাগরি", navOffers: "অফার", navFaq: "প্রশ্ন", navInstall: "অ্যাপ",
       topbar: "🚚 ₹১০০০+ অর্ডারে ডেলিভারি ফ্রি · ✅ ১০০% অরিজিনাল গ্যারান্টি · 💵 ক্যাশ অন ডেলিভারি",
@@ -683,6 +718,7 @@
     },
     en: {
       app: "App", h1: '8 ft <span>mango plants</span>',
+      searchPh: "Search plants… (e.g. mango)", fav: "Favourite", favChip: "❤ Favourites", searchRes: "{0} plants found", searchClear: "✕ Clear results",
       heroKicker: "🌿 Malda & Murshidabad nursery",
       navPlants: "Plants", navCats: "Categories", navOffers: "Offers", navFaq: "FAQ", navInstall: "Install app",
       topbar: "🚚 Free delivery above ₹1000 · ✅ 100% original guarantee · 💵 Cash on delivery",
@@ -734,6 +770,7 @@
     },
     hi: {
       app: "ऐप", h1: '8 फीट <span>आम के पौधे</span>',
+      searchPh: "पौधे खोजें… (जैसे आम)", fav: "पसंदीदा", favChip: "❤ पसंदीदा", searchRes: "{0} पौधे मिले", searchClear: "✕ परिणाम हटाएँ",
       heroKicker: "🌿 मालदा और मुर्शिदाबाद की नर्सरी",
       navPlants: "पौधे", navCats: "श्रेणियाँ", navOffers: "ऑफ़र", navFaq: "सवाल", navInstall: "ऐप",
       topbar: "🚚 ₹1000+ पर डिलीवरी फ्री · ✅ 100% असली की गारंटी · 💵 कैश ऑन डिलीवरी",
@@ -1191,7 +1228,10 @@
     return map ? (map[LANG] || key) : key;
   }
   function productName(p) { if (LANG === "bn" && p.bn) return p.bn; return p.name || p.bn || "Plant"; }
-  var state = { products: [], offers: [], reviews: [], cat: null, shown: 40, slugs: {} };
+  var state = { products: [], offers: [], reviews: [], cat: null, shown: 40, slugs: {}, q: "", favOn: false };
+  var fav = {};
+  try { fav = JSON.parse(localStorage.getItem("gf_fav") || "{}"); } catch (e) { fav = {}; }
+  function saveFav() { try { localStorage.setItem("gf_fav", JSON.stringify(fav)); } catch (e) {} }
   function applyLang() {
     document.documentElement.lang = LANG;
     if (TXT[LANG].docTitle) document.title = TXT[LANG].docTitle;
@@ -1201,6 +1241,8 @@
     });
     document.getElementById("waHero").href = wa(t("waMsg"));
     document.getElementById("fab").href = wa(t("waMsg"));
+    var qbox = document.getElementById("q");
+    if (qbox) qbox.placeholder = t("searchPh");
     document.querySelectorAll("#lang button").forEach(function (b) { b.classList.toggle("on", b.getAttribute("data-l") === LANG); });
     renderChips(); renderProducts(); renderOffers(); renderReviews(); renderCart(); renderCats(); renderFaq();
     try { localStorage.setItem("gf_lang", LANG); } catch (e) {}
@@ -1246,16 +1288,36 @@
     var cats = [];
     state.products.forEach(function (p) { var c = (p.category || "").trim(); if (c && cats.indexOf(c) < 0) cats.push(c); });
     if (!cats.length) { box.innerHTML = ""; return; }
-    var html = '<button class="chip' + (state.cat ? "" : " on") + '" data-c="">' + esc(t("all")) + "</button>";
-    cats.forEach(function (c) { html += '<button class="chip' + (state.cat === c ? " on" : "") + '" data-c="' + esc(c) + '">' + esc(catLabel(c)) + "</button>"; });
+    var html = '<button class="chip favchip' + (state.favOn ? " on" : "") + '" data-fav="1">' + esc(t("favChip")) + "</button>";
+    html += '<button class="chip' + (!state.cat && !state.favOn ? " on" : "") + '" data-c="">' + esc(t("all")) + "</button>";
+    cats.forEach(function (c) { html += '<button class="chip' + (state.cat === c && !state.favOn ? " on" : "") + '" data-c="' + esc(c) + '">' + esc(catLabel(c)) + "</button>"; });
     box.innerHTML = html;
-    box.querySelectorAll(".chip").forEach(function (b) { b.onclick = function () { state.cat = b.getAttribute("data-c") || null; state.shown = 40; renderChips(); renderProducts(); }; });
+    box.querySelectorAll(".chip").forEach(function (b) {
+      b.onclick = function () {
+        if (b.hasAttribute("data-fav")) { state.favOn = !state.favOn; state.cat = null; }
+        else { state.cat = b.getAttribute("data-c") || null; state.favOn = false; }
+        state.shown = 40;
+        renderChips(); renderProducts();
+      };
+    });
   }
   function renderProducts() {
     var grid = document.getElementById("grid");
     var note = document.getElementById("plantsNote");
     note.innerHTML = "";
     var list = state.products.filter(function (p) { return !state.cat || p.category === state.cat; });
+    if (state.q) {
+      var ql = state.q.toLowerCase();
+      list = list.filter(function (p) {
+        var hay = ((p.bn || "") + " " + (p.name || "") + " " + (p.category || "") + " " + (p.note || "") + " " + (p.note_bn || "")).toLowerCase();
+        return hay.indexOf(ql) >= 0;
+      });
+    }
+    if (state.favOn) list = list.filter(function (p) { return !!fav[p.id]; });
+    if (state.q) {
+      note.innerHTML = '<div class="search-note">' + esc(fmt(t("searchRes"), list.length)) +
+        ' <button type="button" class="s-clear" onclick="clearSearch()">' + esc(t("searchClear")) + "</button></div>";
+    }
     if (!list.length) {
       grid.innerHTML = '<div class="empty" style="grid-column:1/-1"><b>' + esc(t("emptyT")) + "</b>" + esc(t("emptyS")) +
         '<div style="margin-top:14px"><a class="btn btn-solid" href="' + wa(t("waMsg")) + '">💬 WhatsApp</a></div></div>';
@@ -1298,9 +1360,11 @@
           '<span>' + esc(s.label) + '</span><b>' + money(s.price) + '</b></button>';
       }).join("") + "</div>" : "";
       var minPrice = sizes.length ? Math.min.apply(null, sizes.map(function (s) { return Number(s.price); })) : price;
+      var isFav = !!fav[p.id];
+      var favBtn = '<button class="fav' + (isFav ? " on" : "") + '" type="button" aria-label="' + esc(t("fav")) + '" title="' + esc(t("fav")) + '" onclick="toggleFav(\'' + esc(p.id) + '\', this)">&#10084;</button>';
       var priceHtml = sizes.length
         ? '<b>' + esc(fmt(t("fromPrice"), money(minPrice))) + '</b>'
-        : '<b>' + money(price) + '</b>' + (hasOffer ? "<s>" + money(listPrice) + "</s>" : "");
+        : '<b>' + money(price) + '</b>' + (hasOffer ? "<s>" + money(listPrice) + "</s><em>" + esc(fmt(t("off"), Math.round((1 - price / listPrice) * 100))) + "</em>" : "");
       var shipAbove = paySettings && paySettings.free_delivery_above != null ? Number(paySettings.free_delivery_above) : 1000;
       var shipHtml = shipAbove > 0 ? '<span class="p-ship">' + esc(fmt(t("shipBadge"), money(shipAbove))) + "</span>" : "";
       var slug = state.slugs && state.slugs[p.id];
@@ -1313,7 +1377,7 @@
         ? '<a class="p-name" href="' + esc(href) + '">' + esc(productName(p)) + "</a>"
         : '<div class="p-name">' + esc(productName(p)) + "</div>";
       return '<article class="card">' +
-        thumbOpen + badge + thumb + thumbClose +
+        thumbOpen + badge + favBtn + thumb + thumbClose +
         '<div class="card-body">' +
           '<div class="p-cat">' + esc(catLabel(p.category)) + "</div>" +
           nameHtml +
@@ -1329,7 +1393,7 @@
         "</div></article>";
     }).join("");
     if (list.length > shown) {
-      note.innerHTML = '<div class="more-wrap"><button class="btn btn-solid" id="loadMore">' +
+      note.innerHTML += '<div class="more-wrap"><button class="btn btn-solid" id="loadMore">' +
         esc(t("more")) + " (" + (list.length - shown) + ")</button></div>";
       var more = document.getElementById("loadMore");
       if (more) more.onclick = function () { state.shown += 40; renderProducts(); };
@@ -1357,6 +1421,73 @@
     }
   }
   setInterval(slideTickAll, 3000);
+
+  function toggleFav(id, btn) {
+    if (fav[id]) delete fav[id]; else fav[id] = 1;
+    saveFav();
+    if (btn) btn.classList.toggle("on", !!fav[id]);
+    if (state.favOn) renderProducts();
+  }
+  function clearSearch() {
+    state.q = "";
+    var box = document.getElementById("q");
+    if (box) box.value = "";
+    var qres = document.getElementById("qres");
+    if (qres) qres.classList.remove("on");
+    renderProducts();
+  }
+  function renderQ() {
+    var box = document.getElementById("q");
+    var qres = document.getElementById("qres");
+    if (!box || !qres) return;
+    state.q = box.value.trim();
+    if (!state.q) { qres.classList.remove("on"); renderProducts(); return; }
+    var ql = state.q.toLowerCase();
+    var hits = state.products.filter(function (p) {
+      var hay = ((p.bn || "") + " " + (p.name || "") + " " + (p.category || "")).toLowerCase();
+      return hay.indexOf(ql) >= 0;
+    }).slice(0, 6);
+    qres.innerHTML = hits.length
+      ? hits.map(function (p) {
+          var photos = (Array.isArray(p.image_urls) && p.image_urls.length ? p.image_urls : (p.image_url ? [p.image_url] : [])).filter(Boolean);
+          var img = photos.length ? '<img loading="lazy" src="' + esc(thumbUrl(photos[0])) + '" alt="">' : '<span class="qimg">' + esc(p.emoji || "🌱") + "</span>";
+          var price = Number(p.offer_price || p.price) || 0;
+          return '<a href="#plants" class="qhit" data-q="' + esc(productName(p)) + '">' + img +
+            '<span class="qn">' + esc(productName(p)) + '</span><span class="qp">' + money(price) + "</span></a>";
+        }).join("")
+      : '<div class="qnone">' + esc(t("emptyT")) + "</div>";
+    qres.classList.add("on");
+    qres.querySelectorAll(".qhit").forEach(function (a) {
+      a.onclick = function () {
+        state.q = a.getAttribute("data-q") || state.q;
+        box.value = state.q;
+        qres.classList.remove("on");
+        state.shown = 40;
+        renderProducts();
+        var sec = document.getElementById("plants");
+        if (sec) { try { sec.scrollIntoView({ behavior: "smooth", block: "start" }); } catch (e) { sec.scrollIntoView(); } }
+      };
+    });
+  }
+  (function () {
+    var box = document.getElementById("q");
+    var qres = document.getElementById("qres");
+    if (!box) return;
+    box.addEventListener("input", renderQ);
+    box.addEventListener("focus", renderQ);
+    box.addEventListener("keydown", function (ev) {
+      if (ev.key !== "Enter") return;
+      ev.preventDefault();
+      if (qres) qres.classList.remove("on");
+      state.shown = 40;
+      renderProducts();
+      var sec = document.getElementById("plants");
+      if (sec) { try { sec.scrollIntoView({ behavior: "smooth", block: "start" }); } catch (e) { sec.scrollIntoView(); } }
+    });
+    document.addEventListener("click", function (ev) {
+      if (qres && !box.contains(ev.target) && !qres.contains(ev.target)) qres.classList.remove("on");
+    });
+  })();
 
   function renderOffers() {
     var sec = document.getElementById("offerSec");
@@ -1483,6 +1614,8 @@
   window.signOutWeb = signOutWeb;
   window.selectPay = selectPay;
   window.submitOrder = submitOrder;
+  window.toggleFav = toggleFav;
+  window.clearSearch = clearSearch;
 
   // One visit per browser session. The row is written through a Supabase RPC
   // (the website has no login) and the admin app shows the totals.
