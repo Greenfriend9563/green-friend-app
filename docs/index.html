@@ -360,7 +360,6 @@
   @media(min-width:1024px){
     section{padding:10px 0 46px}
     .sec-head{margin:8px 0 20px}
-    .heroTextSec{grid-template-columns:minmax(0,1fr) 430px;gap:40px;align-items:center}
     .grid{gap:20px}
     .cats{gap:14px}
     .cat-tile{width:104px}
@@ -1531,17 +1530,27 @@
         return out;
       };
       var anyImg = imgsOf("Fruit plants").concat(imgsOf("Flowers"), imgsOf("Indoor plants"), imgsOf("Medicinal plants"))[0] || "";
+      var used = {};
+      var pickImg = function (cats) {
+        for (var i = 0; i < cats.length; i++) {
+          var pool = imgsOf(cats[i]);
+          for (var j = 0; j < pool.length; j++) {
+            if (pool[j] && !used[pool[j]]) { used[pool[j]] = 1; return pool[j]; }
+          }
+        }
+        return "";
+      };
       var collections = [
-        { t: "colTerrace", cat: "Indoor plants", img: imgsOf("Indoor plants")[0] },
-        { t: "colLow", cat: "Indoor plants", img: imgsOf("Indoor plants")[1] || imgsOf("Medicinal plants")[0] },
-        { t: "colExotic", cat: "Fruit plants", img: imgsOf("Fruit plants")[0] },
-        { t: "colTropical", cat: "Fruit plants", img: imgsOf("Fruit plants")[1] }
+        { t: "colTerrace", cat: "Indoor plants", img: pickImg(["Indoor plants"]) },
+        { t: "colLow", cat: "Indoor plants", img: pickImg(["Indoor plants", "Medicinal plants", "Flowers"]) },
+        { t: "colExotic", cat: "Fruit plants", img: pickImg(["Fruit plants"]) },
+        { t: "colTropical", cat: "Fruit plants", img: pickImg(["Fruit plants", "Flowers"]) }
       ];
       promos.innerHTML = collections.map(function (c) {
         var hasCat = tiles.some(function (tl) { return tl.cat === c.cat; });
         var img = c.img || anyImg;
         return '<a class="promo" href="#plants" data-c="' + esc(hasCat ? c.cat : "") + '">' +
-          (img ? '<img loading="lazy" decoding="async" src="' + esc(img) + '" alt="' + esc(t(c.t)) + '">' : '<span class="p-emo">🌱</span>') +
+          (img ? '<img loading="lazy" decoding="async" src="' + esc(img) + '" alt="' + esc(t(c.t)) + '" onerror="this.remove()">' : '<span class="p-emo">🌱</span>') +
           '<div class="p-veil"></div>' +
           '<div class="ptxt"><b>' + esc(t(c.t)) + "</b><span>" + esc(t("explore")) + "</span></div></a>";
       }).join("");
@@ -1939,16 +1948,22 @@
     } catch (e) {}
   }
   async function boot() {
+    var cached = null;
+    try { cached = JSON.parse(localStorage.getItem("gf_products") || "null"); } catch (e) {}
+    var useCache = function () {
+      return cached && Array.isArray(cached.d) && cached.d.length ? cached.d : [];
+    };
     try {
       var res = await Promise.all([
         fetchProducts(),
         fetch(SUPABASE_URL + "/rest/v1/shop_offers?select=id,title,message,image_url&is_active=eq.true&order=sort_order.asc&limit=4", { headers: { apikey: KEY, Authorization: "Bearer " + KEY } }).then(function (r) { return r.json(); }),
         fetch(SUPABASE_URL + "/rest/v1/review_wall?select=id,rating,comment,image_url,customer_name,created_at&order=created_at.desc&limit=6", { headers: { apikey: KEY, Authorization: "Bearer " + KEY } }).then(function (r) { return r.json(); })
       ]);
-      state.products = Array.isArray(res[0]) ? res[0] : [];
+      state.products = Array.isArray(res[0]) && res[0].length ? res[0] : useCache();
+      if (state.products.length) { try { localStorage.setItem("gf_products", JSON.stringify({ t: Date.now(), d: state.products })); } catch (e) {} }
       state.offers = Array.isArray(res[1]) ? res[1] : [];
       state.reviews = Array.isArray(res[2]) ? res[2] : [];
-    } catch (e) { state.products = []; state.offers = []; state.reviews = []; console.warn("Green Friend website:", e.message); }
+    } catch (e) { state.products = useCache(); state.offers = []; state.reviews = []; console.warn("Green Friend website:", e.message); }
     try {
       var mapRes = await fetch("product-map.json", { cache: "no-store" });
       state.slugs = mapRes.ok ? await mapRes.json() : {};
