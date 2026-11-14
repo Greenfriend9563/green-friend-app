@@ -715,7 +715,7 @@
   var TXT = {
     bn: {
       app: "অ্যাপ", h1: '৮ ফুট <span>আমের গাছ</span>',
-      searchPh: "গাছ খুঁজুন… (যেমন আম)", fav: "পছন্দ", favChip: "❤ পছন্দ", searchRes: "{0}টি গাছ পাওয়া গেছে", searchClear: "✕ ফলাফল মুছুন", offerCta: "অফার নিন →", viewAll: "সব দেখুন →", explore: "দেখুন →", seller: "বিক্রেতা : গ্রিন ফ্রেন্ড",
+      searchPh: "গাছ খুঁজুন… (যেমন আম)", fav: "পছন্দ", favChip: "❤ পছন্দ", searchRes: "{0}টি গাছ পাওয়া গেছে", searchClear: "✕ ফলাফল মুছুন", offerCta: "অফার নিন →", viewAll: "সব দেখুন →", explore: "দেখুন →", seller: "বিক্রেতা : গ্রিন ফ্রেন্ড", colTerrace: "টেরেস গার্ডেন", colLow: "কম যত্নের গাছ", colExotic: "এক্সোটিক ফল", colTropical: "ট্রপিক্যাল ফল",
       heroKicker: "🌿 মালদা ও মুর্শিদাবাদের নার্সারি",
       navPlants: "গাছ", navCats: "ক্যাটাগরি", navOffers: "অফার", navFaq: "প্রশ্ন", navInstall: "অ্যাপ",
       topbar: "🚚 ₹১০০০+ অর্ডারে ডেলিভারি ফ্রি · ✅ ১০০% অরিজিনাল গ্যারান্টি · 💵 ক্যাশ অন ডেলিভারি",
@@ -767,7 +767,7 @@
     },
     en: {
       app: "App", h1: '8 ft <span>mango plants</span>',
-      searchPh: "Search plants… (e.g. mango)", fav: "Favourite", favChip: "❤ Favourites", searchRes: "{0} plants found", searchClear: "✕ Clear results", offerCta: "Grab offer →", viewAll: "View All →", explore: "Explore Now →", seller: "Sold By : Green Friend",
+      searchPh: "Search plants… (e.g. mango)", fav: "Favourite", favChip: "❤ Favourites", searchRes: "{0} plants found", searchClear: "✕ Clear results", offerCta: "Grab offer →", viewAll: "View All →", explore: "Explore Now →", seller: "Sold By : Green Friend", colTerrace: "Terrace Garden", colLow: "Low Maintenance", colExotic: "Exotic Fruits", colTropical: "Tropical Fruits",
       heroKicker: "🌿 Malda & Murshidabad nursery",
       navPlants: "Plants", navCats: "Categories", navOffers: "Offers", navFaq: "FAQ", navInstall: "Install app",
       topbar: "🚚 Free delivery above ₹1000 · ✅ 100% original guarantee · 💵 Cash on delivery",
@@ -819,7 +819,7 @@
     },
     hi: {
       app: "ऐप", h1: '8 फीट <span>आम के पौधे</span>',
-      searchPh: "पौधे खोजें… (जैसे आम)", fav: "पसंदीदा", favChip: "❤ पसंदीदा", searchRes: "{0} पौधे मिले", searchClear: "✕ परिणाम हटाएँ", offerCta: "ऑफ़र लें →", viewAll: "सभी देखें →", explore: "अभी देखें →", seller: "विक्रेता : ग्रीन फ्रेंड",
+      searchPh: "पौधे खोजें… (जैसे आम)", fav: "पसंदीदा", favChip: "❤ पसंदीदा", searchRes: "{0} पौधे मिले", searchClear: "✕ परिणाम हटाएँ", offerCta: "ऑफ़र लें →", viewAll: "सभी देखें →", explore: "अभी देखें →", seller: "विक्रेता : ग्रीन फ्रेंड", colTerrace: "टेरेस गार्डन", colLow: "कम देखभाल वाले पौधे", colExotic: "एक्सोटिक फल", colTropical: "ट्रॉपिकल फल",
       heroKicker: "🌿 मालदा और मुर्शिदाबाद की नर्सरी",
       navPlants: "पौधे", navCats: "श्रेणियाँ", navOffers: "ऑफ़र", navFaq: "सवाल", navInstall: "ऐप",
       topbar: "🚚 ₹1000+ पर डिलीवरी फ्री · ✅ 100% असली की गारंटी · 💵 कैश ऑन डिलीवरी",
@@ -1323,11 +1323,29 @@
     }).join("");
     var promos = document.getElementById("promos");
     if (promos) {
-      promos.innerHTML = tiles.slice(0, 4).map(function (tl) {
-        return '<a class="promo" href="#plants" data-c="' + esc(tl.cat) + '">' +
-          (tl.img ? '<img loading="lazy" decoding="async" src="' + esc(tl.img) + '" alt="' + esc(catLabel(tl.cat)) + '">' : '<span class="p-emo">🌱</span>') +
+      var imgsOf = function (cat) {
+        var out = [];
+        state.products.forEach(function (p) {
+          if ((p.category || "").trim() !== cat) return;
+          var photos = (Array.isArray(p.image_urls) && p.image_urls.length ? p.image_urls : (p.image_url ? [p.image_url] : [])).filter(Boolean);
+          if (photos.length) out.push(thumbUrl(photos[0]));
+        });
+        return out;
+      };
+      var anyImg = imgsOf("Fruit plants").concat(imgsOf("Flowers"), imgsOf("Indoor plants"), imgsOf("Medicinal plants"))[0] || "";
+      var collections = [
+        { t: "colTerrace", cat: "Indoor plants", img: imgsOf("Indoor plants")[0] },
+        { t: "colLow", cat: "Indoor plants", img: imgsOf("Indoor plants")[1] || imgsOf("Medicinal plants")[0] },
+        { t: "colExotic", cat: "Fruit plants", img: imgsOf("Fruit plants")[0] },
+        { t: "colTropical", cat: "Fruit plants", img: imgsOf("Fruit plants")[1] }
+      ];
+      promos.innerHTML = collections.map(function (c) {
+        var hasCat = tiles.some(function (tl) { return tl.cat === c.cat; });
+        var img = c.img || anyImg;
+        return '<a class="promo" href="#plants" data-c="' + esc(hasCat ? c.cat : "") + '">' +
+          (img ? '<img loading="lazy" decoding="async" src="' + esc(img) + '" alt="' + esc(t(c.t)) + '">' : '<span class="p-emo">🌱</span>') +
           '<div class="p-veil"></div>' +
-          '<div class="ptxt"><b>' + esc(catLabel(tl.cat)) + "</b><span>" + esc(t("explore")) + "</span></div></a>";
+          '<div class="ptxt"><b>' + esc(t(c.t)) + "</b><span>" + esc(t("explore")) + "</span></div></a>";
       }).join("");
       promos.querySelectorAll(".promo").forEach(function (a) { a.onclick = goCat; });
     }
