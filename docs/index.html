@@ -137,6 +137,8 @@
   .cat-tile:hover b{color:var(--green)}
   .cat-tile small{display:block;font-size:10.5px;color:var(--muted);text-align:center;margin-top:-3px}
   .promos{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:6px 0 4px}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px 20px 22px;box-shadow:0 4px 16px rgba(23,64,39,.05);margin-bottom:36px}
+  @media(max-width:719px){.panel{padding:12px 10px 14px;border-radius:16px;margin-bottom:26px}}
   @media(min-width:720px){.promos{grid-template-columns:repeat(4,1fr);gap:16px}}
   .promo{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:16/10;display:block;background:linear-gradient(140deg,var(--green),#2F9E5B);box-shadow:var(--shadow);transition:transform .18s,box-shadow .18s}
   .promo:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(23,64,39,.2)}
@@ -157,7 +159,7 @@
   .faq summary::after{content:'+';margin-left:auto;color:var(--green);font-weight:900;font-size:17px;line-height:1}
   .faq details[open] summary::after{content:'\2212'}
   .faq p{margin:9px 0 0;font-size:12.5px;color:var(--muted);line-height:1.65}
-  .p-ship{font-size:11px;color:#0F766E;background:#E4F5F2;border:1px solid #C9E9E4;border-radius:999px;padding:4px 10px;display:inline-block;margin-top:6px;font-weight:800}
+  .p-ship{font-size:11px;color:var(--green);background:var(--green-3);border:1px solid #CBE5D4;border-radius:999px;padding:4px 10px;display:inline-block;margin-top:6px;font-weight:800}
   .p-seller{font-size:10.5px;font-weight:700;color:#5E6B5F;background:#F2F5EC;border:1px solid var(--line);border-radius:999px;padding:3px 10px;display:inline-block;align-self:flex-start;margin-top:2px}
   @media(min-width:720px){.cats{flex-wrap:wrap;justify-content:flex-start;gap:22px;overflow:visible;padding:12px 2px 16px}.stats{grid-template-columns:repeat(4,1fr)}}
 
@@ -508,8 +510,10 @@
         <p data-t="catSub">যা খুঁজছেন, সেখান থেকেই শুরু করুন</p>
       </div>
     </div>
-    <div class="cats" id="cats"></div>
-    <div class="promos" id="promos"></div>
+    <div class="panel">
+      <div class="cats" id="cats"></div>
+      <div class="promos" id="promos"></div>
+    </div>
   </section>
 
   <div class="wrap">
@@ -540,11 +544,13 @@
       </div>
       <a class="viewall" id="viewAll" href="#plants" data-t="viewAll">সব দেখুন →</a>
     </div>
-    <div class="chips" id="chips"></div>
-    <div class="grid" id="grid">
-      <div class="skel"></div><div class="skel"></div><div class="skel"></div><div class="skel"></div>
+    <div class="panel">
+      <div class="chips" id="chips"></div>
+      <div class="grid" id="grid">
+        <div class="skel"></div><div class="skel"></div><div class="skel"></div><div class="skel"></div>
+      </div>
+      <div id="plantsNote"></div>
     </div>
-    <div id="plantsNote"></div>
   </section>
 
   <section class="wrap" id="offerSec" hidden>
@@ -554,7 +560,9 @@
         <p data-t="offersSub">সীমিত সময়ের জন্য</p>
       </div>
     </div>
-    <div class="offers" id="offers"></div>
+    <div class="panel">
+      <div class="offers" id="offers"></div>
+    </div>
   </section>
 
   <section class="wrap">
