@@ -1520,20 +1520,24 @@
     }).join("");
     var promos = document.getElementById("promos");
     if (promos) {
-      var imgsOf = function (cat) {
+      var CAT_FRUIT = ["Fruit plants", "ফল"];
+      var CAT_FLOWERS = ["Flowers", "ফুল"];
+      var CAT_INDOOR = ["Indoor plants", "ইনডোর গাছ"];
+      var CAT_MED = ["Medicinal plants", "ঔষধি গাছ", "ঔষধি"];
+      var imgsOf = function (cats) {
         var out = [];
         state.products.forEach(function (p) {
-          if ((p.category || "").trim() !== cat) return;
+          if (cats.indexOf((p.category || "").trim()) < 0) return;
           var photos = (Array.isArray(p.image_urls) && p.image_urls.length ? p.image_urls : (p.image_url ? [p.image_url] : [])).filter(Boolean);
           if (photos.length) out.push(thumbUrl(photos[0]));
         });
         return out;
       };
-      var anyImg = imgsOf("Fruit plants").concat(imgsOf("Flowers"), imgsOf("Indoor plants"), imgsOf("Medicinal plants"))[0] || "";
+      var anyImg = imgsOf(CAT_FRUIT).concat(imgsOf(CAT_FLOWERS), imgsOf(CAT_INDOOR), imgsOf(CAT_MED))[0] || "";
       var used = {};
-      var pickImg = function (cats) {
-        for (var i = 0; i < cats.length; i++) {
-          var pool = imgsOf(cats[i]);
+      var pickImg = function (list) {
+        for (var i = 0; i < list.length; i++) {
+          var pool = imgsOf(list[i]);
           for (var j = 0; j < pool.length; j++) {
             if (pool[j] && !used[pool[j]]) { used[pool[j]] = 1; return pool[j]; }
           }
@@ -1541,10 +1545,10 @@
         return "";
       };
       var collections = [
-        { t: "colTerrace", cat: "Indoor plants", img: pickImg(["Indoor plants"]) },
-        { t: "colLow", cat: "Indoor plants", img: pickImg(["Indoor plants", "Medicinal plants", "Flowers"]) },
-        { t: "colExotic", cat: "Fruit plants", img: pickImg(["Fruit plants"]) },
-        { t: "colTropical", cat: "Fruit plants", img: pickImg(["Fruit plants", "Flowers"]) }
+        { t: "colTerrace", cat: "ইনডোর গাছ", img: pickImg([CAT_INDOOR]) },
+        { t: "colLow", cat: "ইনডোর গাছ", img: pickImg([CAT_INDOOR, CAT_MED, CAT_FLOWERS]) },
+        { t: "colExotic", cat: "ফল", img: pickImg([CAT_FRUIT]) },
+        { t: "colTropical", cat: "ফল", img: pickImg([CAT_FRUIT, CAT_FLOWERS]) }
       ];
       promos.innerHTML = collections.map(function (c) {
         var hasCat = tiles.some(function (tl) { return tl.cat === c.cat; });
