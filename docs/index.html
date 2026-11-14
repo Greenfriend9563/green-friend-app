@@ -38,7 +38,7 @@
     { "@type": "Question", "name": "What are the delivery charges?", "acceptedAnswer": { "@type": "Answer", "text": "Delivery is completely free on orders of ₹1000 or more. Below that the charge is shown at checkout — no hidden costs." } },
     { "@type": "Question", "name": "Are the plants really 8 feet?", "acceptedAnswer": { "@type": "Answer", "text": "Mango plants grow up to 8 feet. Every product has 3 sizes (small / medium / large), with the price and height listed on the product page." } },
     { "@type": "Question", "name": "What if the plant arrives damaged or wrong?", "acceptedAnswer": { "@type": "Answer", "text": "Send a photo or video on WhatsApp within 24 hours of delivery. After checking, we replace it free of cost." } },
-    { "@type": "Question", "name": "How can I pay?", "acceptedAnswer": { "@type": "Answer", "text": "Cash on delivery, UPI (12-digit UTR) or bank transfer. Ordering in the app is even easier." } },
+    { "@type": "Question", "name": "How can I pay?", "acceptedAnswer": { "@type": "Answer", "text": "Cash on delivery, UPI (12-digit UTR) or bank transfer." } },
     { "@type": "Question", "name": "Where is the nursery?", "acceptedAnswer": { "@type": "Answer", "text": "Our own gardens are in Malda and Murshidabad. No middlemen, so prices stay low." } }
   ]
 }
@@ -175,9 +175,6 @@
     .search{order:9;flex-basis:100%;max-width:none;margin:0}
     .search input{height:40px;font-size:13px}
     .qres{top:46px}
-    .band{padding:16px 18px;gap:12px;margin:0 auto 26px}
-    .band .grow{min-width:0;flex:1 1 100%}
-    .band > .btn{width:100%}
     .sec-head{flex-wrap:wrap;gap:6px}
     .grid{gap:8px}
     .card-body{padding:8px 8px 10px;gap:4px}
@@ -250,12 +247,6 @@
     .pill{font-size:11.5px;padding:7px 12px}
     #waHero{display:none}
   }
-
-  .band{background:#F6FAF4;color:#1B241B;border-radius:18px;padding:22px 24px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin:0 auto 34px;position:relative;z-index:5;box-shadow:var(--shadow);border:1px solid #DCEAD9}
-  .band .ico{width:52px;height:52px;border-radius:14px;background:var(--green);color:#F5C965;display:flex;align-items:center;justify-content:center;font-size:24px;flex:none}
-  .band b{display:block;font-size:16px;letter-spacing:-.2px;color:#2A2416}
-  .band small{display:block;color:#8A7440;font-size:12.5px;margin-top:3px}
-  .band .grow{min-width:180px}
 
   section{padding:8px 0 34px}
   .sec-head{display:flex;align-items:flex-end;gap:12px;margin:6px 0 16px}
@@ -346,14 +337,6 @@
   .stars{color:var(--gold);font-size:12px;letter-spacing:1px}
   .rev p{margin:0;font-size:13px;color:#4E544A}
 
-  .steps{display:grid;grid-template-columns:1fr;gap:12px}
-  @media(min-width:720px){.steps{grid-template-columns:repeat(3,1fr)}}
-  .step{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px}
-  .step .n{width:26px;height:26px;border-radius:50%;background:var(--green);color:#fff;font-weight:900;font-size:13px;display:flex;align-items:center;justify-content:center;margin-bottom:8px}
-  .step b{font-size:13.5px;display:block;margin-bottom:3px}
-  .step small{color:var(--muted);font-size:12.5px}
-  .note{background:#FFF9E9;border:1px solid #F0E0B4;color:#6E5620;border-radius:14px;padding:13px 15px;font-size:12.5px;margin-top:14px}
-
   footer{background:#132A1B;color:#C9CFC0;padding:34px 0 100px;margin-top:20px}
   footer h3{color:#FFF8E8;font-size:16px;margin:0 0 10px}
   footer a{color:#F5EFE0}
@@ -384,7 +367,6 @@
     .stat{padding:18px 14px}
     .stat b{font-size:22px}
     .stat span{font-size:12px}
-    .band{padding:26px 30px}
     .trust{padding:22px 26px}
     .rev{padding:18px}
   }
@@ -545,12 +527,10 @@
       <a href="#catSec" data-t="navCats">Categories</a>
       <a href="#offerSec" data-t="navOffers">Offers</a>
       <a href="#faqSec" data-t="navFaq">FAQ</a>
-      <a href="#install" data-t="navInstall">Install app</a>
     </nav>
     <div class="grow"></div>
     <div class="search"><span class="s-ico">🔍</span><input id="q" type="search" autocomplete="off" placeholder="গাছ খুঁজুন…" aria-label="Search"><div class="qres" id="qres"></div></div>
     <div class="lang" id="lang"><button data-l="en" class="on">EN</button><button data-l="bn">বাংলা</button><button data-l="hi">हिन्दी</button></div>
-    <a class="btn btn-gold btn-sm" id="apkTop" href="#">⬇ <span data-t="app">অ্যাপ</span></a>
   </div>
 </header>
 
@@ -582,7 +562,6 @@
     <p data-t="sub">Famous mango plants — available in <b>Malda and Murshidabad</b>. Trees are <b>8 feet tall</b>, at a <b>lower price</b>, with a <b>100% guarantee</b>. Indoor plants, flowers, fruit plants and pots too — home delivery, cash on delivery or UPI.</p>
     <div class="hero-cta">
       <a class="btn btn-solid" href="#plants" data-t="cta1">🌱 See plants</a>
-      <a class="btn btn-line" id="apkHero" href="#" data-t="install">⬇ Install the app</a>
       <a class="btn btn-line" id="waHero" href="#">💬 WhatsApp</a>
     </div>
     <div class="hero-badges">
@@ -631,17 +610,6 @@
       <div class="stat"><b data-t="st2n">১০০%</b><span data-t="st2">অরিজিনাল গ্যারান্টি</span></div>
       <div class="stat"><b data-t="st3n">২ জেলা</b><span data-t="st3">মালদা ও মুর্শিদাবাদ</span></div>
       <div class="stat"><b id="statCount">—</b><span data-t="st4">গাছের রকম</span></div>
-    </div>
-  </div>
-
-  <div class="wrap">
-    <div class="band">
-      <div class="ico">↑</div>
-      <div class="grow">
-        <b data-t="bandTitle">অ্যাপে অর্ডার করলে বাড়তি সুবিধা</b>
-        <small data-t="bandSub">বন্ধুকে পাঠিয়ে কুপন, রিভিউ দিলে কুপন, আর অর্ডার ট্র্যাকিং — সব এক অ্যাপে।</small>
-      </div>
-      <a class="btn btn-gold" id="apkBand" href="#" data-t="download">⬇ APK ডাউনলোড</a>
     </div>
   </div>
 
@@ -768,21 +736,6 @@
     </div>
     <div class="faq" id="faq"></div>
   </section>
-
-  <section class="wrap" id="install">
-    <div class="sec-head">
-      <div>
-        <h2 data-t="howTitle">অ্যাপটি কীভাবে ইনস্টল করবেন</h2>
-        <p data-t="howSub">একবারেই হবে, ৩০ সেকেন্ড</p>
-      </div>
-    </div>
-    <div class="steps">
-      <div class="step"><div class="n">1</div><b data-t="s1t">APK ডাউনলোড করুন</b><small data-t="s1s">উপরের সবুজ বাটনে চাপুন — Green-Friend.apk নামবে।</small></div>
-      <div class="step"><div class="n">2</div><b data-t="s2t">ফাইলটি খুলুন</b><small data-t="s2s">ডাউনলোড শেষে ফাইলটিতে চাপ দিয়ে Install করুন।</small></div>
-      <div class="step"><div class="n">3</div><b data-t="s3t">অনুমতি দিন</b><small data-t="s3s">"Allow from this source" চালু করুন — শুধু এই একবারই লাগবে।</small></div>
-    </div>
-    <div class="note" data-t="note">Play Protect "Unsafe app blocked" দেখালে More details → Install anyway চাপুন। অ্যাপে কোনো বিজ্ঞাপন নেই, টাকা কাটে না।</div>
-  </section>
 </main>
 
 <footer>
@@ -802,7 +755,6 @@
         <p><a href="#plants" data-t="navPlants">গাছ</a></p>
         <p><a href="#offerSec" data-t="navOffers">অফার</a></p>
         <p><a href="#faqSec" data-t="navFaq">প্রশ্ন</a></p>
-        <p><a id="apkFoot" href="#" data-t="download">⬇ APK ডাউনলোড</a></p>
       </div>
       <div class="fcol">
         <h3 data-t="fContact">যোগাযোগ</h3>
@@ -903,17 +855,16 @@
   "use strict";
   var SUPABASE_URL = "https://thiqwyltfgtluxizsaee.supabase.co";
   var KEY = "sb_publishable_5QySg5h9PeB_uROILAiSww_hfkEk12B";
-  var APK = "https://github.com/greenfriendnursery/greenfriendnursery.github.io/releases/latest/download/Green-Friend.apk";
   var WA = "919563205299";
   var LANG = localStorage.getItem("gf_lang") || "en";
   var sb = window.supabase.createClient(SUPABASE_URL, KEY);
 
   var TXT = {
     bn: {
-      app: "অ্যাপ", h1: '৮ ফুট <span>আমের গাছ</span>',
+      h1: '৮ ফুট <span>আমের গাছ</span>',
       searchPh: "গাছ খুঁজুন… (যেমন আম)", fav: "পছন্দ", favChip: "❤ পছন্দ", searchRes: "{0}টি গাছ পাওয়া গেছে", searchClear: "✕ ফলাফল মুছুন", offerCta: "অফার নিন →", viewAll: "সব দেখুন →", explore: "দেখুন →", seller: "বিক্রেতা : গ্রিন ফ্রেন্ড", colTerrace: "টেরেস গার্ডেন", colLow: "কম যত্নের গাছ", colExotic: "এক্সোটিক ফল", colTropical: "ট্রপিক্যাল ফল",
       heroKicker: "🌿 মালদা ও মুর্শিদাবাদের নার্সারি",
-      navPlants: "গাছ", navCats: "ক্যাটাগরি", navOffers: "অফার", navFaq: "প্রশ্ন", navInstall: "অ্যাপ",
+      navPlants: "গাছ", navCats: "ক্যাটাগরি", navOffers: "অফার", navFaq: "প্রশ্ন",
       topbar: "🚚 ₹১০০০+ অর্ডারে ডেলিভারি ফ্রি · ✅ ১০০% অরিজিনাল গ্যারান্টি · 💵 ক্যাশ অন ডেলিভারি",
       topbarShort: "🚚 ₹১০০০+ অর্ডারে ডেলিভারি ফ্রি",
       hs1t: "🥭 ল্যাংড়া আম", hs1s: "৮ ফুট গাছ · মালদা",
@@ -921,23 +872,15 @@
       hs3t: "🌸 বাগানবিলাস", hs3s: "ফুলের গাছ · সব রঙ",
       hs4t: "🌿 ঘৃতকুমারী", hs4s: "ইনডোর গাছ · সহজ যত্ন",
       docTitle: "Green Friend — আমের গাছ | মালদা ও মুর্শিদাবাদ | ৮ ফুট, কম দামে",
-      install: "⬇ অ্যাপ ইনস্টল করুন", download: "⬇ APK ডাউনলোড",
       sub: "আমের গাছ — <b>মালদা ও মুর্শিদাবাদের বিখ্যাত আম গাছ</b> পাওয়া যাবে। গাছের হাইট <b>৮ ফুট</b>, <b>কম দামে</b>, <b>১০০% গ্যারান্টি</b> সহ। ইনডোর গাছ, ফুল, ফল ও টবও আছে — ঘরে ডেলিভারি, ক্যাশ অন ডেলিভারি / UPI।",
       cta1: "🌱 গাছ দেখুন", b0: "🥭 ৮ ফুট আমের গাছ", b1: "✅ ১০০% গ্যারান্টি", b2: "🚚 ₹১০০০+ অর্ডারে ফ্রি ডেলিভারি", b3: "💵 ক্যাশ অন ডেলিভারি", b4: "🎁 বন্ধুকে পাঠিয়ে কুপন",
-      bandTitle: "অ্যাপে অর্ডার করলে বাড়তি সুবিধা",
-      bandSub: "বন্ধুকে পাঠিয়ে কুপন, রিভিউ দিলে কুপন, আর অর্ডার ট্র্যাকিং — সব এক অ্যাপে।",
       plants: "আমাদের গাছ", plantsSub: "দাম, ছবি ও স্টক — সব লাইভ",
       offers: "এখনকার অফার", offersSub: "সীমিত সময়ের জন্য",
       trustTitle: "১০০% অরিজিনাল গ্যারান্টি",
       trustMsg: "নকল জিনিস কিনে প্রতারিত হবেন না — আমাদের থেকে নিন ১০০% অরিজিনাল গাছ।",
       reviews: "কাস্টমারের কথা", reviewsSub: "সত্যিকারের রিভিউ",
-      howTitle: "অ্যাপটি কীভাবে ইনস্টল করবেন", howSub: "একবারেই হবে, ৩০ সেকেন্ড",
-      s1t: "APK ডাউনলোড করুন", s1s: "উপরের সবুজ বাটনে চাপুন — Green-Friend.apk নামবে।",
-      s2t: "ফাইলটি খুলুন", s2s: "ডাউনলোড শেষে ফাইলটিতে চাপ দিয়ে Install করুন।",
-      s3t: "অনুমতি দিন", s3s: '"Allow from this source" চালু করুন — শুধু এই একবারই লাগবে।',
-      note: 'Play Protect "Unsafe app blocked" দেখালে More details → Install anyway চাপুন। অ্যাপে কোনো বিজ্ঞাপন নেই, টাকা কাটে না।',
       fTag: "মালদা ও মুর্শিদাবাদের বিখ্যাত আম গাছ — ৮ ফুট, কম দামে, গ্যারান্টি সহ।",
-      fContact: "যোগাযোগ", fHours: "🕘 সকাল ৯টা – রাত ৯টা", fApp: "অ্যাপ",
+      fContact: "যোগাযোগ", fHours: "🕘 সকাল ৯টা – রাত ৯টা",
       catTitle: "ক্যাটাগরি", catSub: "যা খুঁজছেন, সেখান থেকেই শুরু করুন", catItems: "পণ্য",
       st1n: "৮ ফুট", st1: "গাছের উচ্চতা", st2n: "১০০%", st2: "অরিজিনাল গ্যারান্টি",
       st3n: "২ জেলা", st3: "মালদা ও মুর্শিদাবাদ", st4: "গাছের রকম",
@@ -949,7 +892,7 @@
       cartEmptyT: "কার্ট খালি", cartEmptyS: "একটা গাছ যোগ করুন।",
       checkoutTitle: "অর্ডার সম্পন্ন করুন", signin: "সাইন ইন", signup: "অ্যাকাউন্ট তৈরি",
       phone: "মোবাইল নম্বর", password: "পাসওয়ার্ড", name: "আপনার নাম", continue: "চালিয়ে যান",
-      authNote: "একই ফোন ও পাসওয়ার্ড দিয়ে অ্যাপেও লগইন করতে পারবেন।",
+      authNote: "ফোন ও পাসওয়ার্ড মনে রাখুন — পরের অর্ডারে আবার কাজে লাগবে।",
       address: "ডেলিভারি অ্যাড্রেস", pincode: "PIN কোড (৬ সংখ্যা)", payMethod: "পেমেন্ট পদ্ধতি",
       cod: "ক্যাশ অন ডেলিভারি", upi: "UPI", bank: "ব্যাংক ট্রান্সফার",
       upiRef: "১২-সংখ্যার UTR", bankRef: "ব্যাংক রেফারেন্স (৬–২২ অক্ষর/সংখ্যা)",
@@ -981,10 +924,10 @@
       nlMsg: "নমস্কার! আমি প্রতি সপ্তাহে গাছের টিপস পেতে চাই। আমার নাম: "
     },
     en: {
-      app: "App", h1: '8 ft <span>mango plants</span>',
+      h1: '8 ft <span>mango plants</span>',
       searchPh: "Search plants… (e.g. mango)", fav: "Favourite", favChip: "❤ Favourites", searchRes: "{0} plants found", searchClear: "✕ Clear results", offerCta: "Grab offer →", viewAll: "View All →", explore: "Explore Now →", seller: "Sold By : Green Friend", colTerrace: "Terrace Garden", colLow: "Low Maintenance", colExotic: "Exotic Fruits", colTropical: "Tropical Fruits",
       heroKicker: "🌿 Malda & Murshidabad nursery",
-      navPlants: "Plants", navCats: "Categories", navOffers: "Offers", navFaq: "FAQ", navInstall: "Install app",
+      navPlants: "Plants", navCats: "Categories", navOffers: "Offers", navFaq: "FAQ",
       topbar: "🚚 Free delivery above ₹1000 · ✅ 100% original guarantee · 💵 Cash on delivery",
       topbarShort: "🚚 Free delivery above ₹1000",
       hs1t: "🥭 Langra mango", hs1s: "8 ft plants · Malda",
@@ -992,23 +935,15 @@
       hs3t: "🌸 Bougainvillea", hs3s: "Flowering plants · all colours",
       hs4t: "🌿 Aloe vera", hs4s: "Indoor plants · easy care",
       docTitle: "Green Friend — Mango plants | Malda & Murshidabad | 8 ft, low price",
-      install: "⬇ Install the app", download: "⬇ Download APK",
       sub: "Famous mango plants — available in <b>Malda and Murshidabad</b>. Trees are <b>8 feet tall</b>, at a <b>lower price</b>, with a <b>100% guarantee</b>. Indoor plants, flowers, fruit plants and pots too — home delivery, cash on delivery or UPI.",
       cta1: "🌱 See plants", b0: "🥭 8 ft mango plants", b1: "✅ 100% guarantee", b2: "🚚 Free delivery above ₹1000", b3: "💵 Cash on delivery", b4: "🎁 Share & earn coupons",
-      bandTitle: "Get more from the app",
-      bandSub: "Invite friends for coupons, review for coupons, and track every order — all in one app.",
       plants: "Our plants", plantsSub: "Live prices, photos and stock",
       offers: "Offers right now", offersSub: "For a limited time",
       trustTitle: "100% original guarantee",
       trustMsg: "No fakes, no surprises — every plant is 100% original.",
       reviews: "What customers say", reviewsSub: "Real reviews",
-      howTitle: "How to install the app", howSub: "Once only, about 30 seconds",
-      s1t: "Download the APK", s1s: "Tap the green button above — Green-Friend.apk will download.",
-      s2t: "Open the file", s2s: "After the download, tap the file and press Install.",
-      s3t: "Allow the install", s3s: 'Turn on "Allow from this source" — you only need this once.',
-      note: 'If Play Protect says "Unsafe app blocked", tap More details → Install anyway. No ads, no charges.',
       fTag: "Mango plants across Malda & Murshidabad — 8 ft, lower price, guaranteed.",
-      fContact: "Contact", fHours: "🕘 9 AM – 9 PM", fApp: "App",
+      fContact: "Contact", fHours: "🕘 9 AM – 9 PM",
       catTitle: "Categories", catSub: "Start from what you are looking for", catItems: "items",
       st1n: "8 ft", st1: "plant height", st2n: "100%", st2: "original guarantee",
       st3n: "2 districts", st3: "Malda & Murshidabad", st4: "plant varieties",
@@ -1020,7 +955,7 @@
       cartEmptyT: "Cart is empty", cartEmptyS: "Add a plant to get started.",
       checkoutTitle: "Complete your order", signin: "Sign in", signup: "Create account",
       phone: "Mobile number", password: "Password", name: "Your name", continue: "Continue",
-      authNote: "Use the same phone & password to log in to the app.",
+      authNote: "Keep this phone & password — you will need it for your next order.",
       address: "Delivery address", pincode: "PIN code (6 digits)", payMethod: "Payment method",
       cod: "Cash on delivery", upi: "UPI", bank: "Bank transfer",
       upiRef: "12-digit UTR", bankRef: "Bank reference (6–22 chars)",
@@ -1052,10 +987,10 @@
       nlMsg: "Hello! I want weekly plant care tips. My name: "
     },
     hi: {
-      app: "ऐप", h1: '8 फीट <span>आम के पौधे</span>',
+      h1: '8 फीट <span>आम के पौधे</span>',
       searchPh: "पौधे खोजें… (जैसे आम)", fav: "पसंदीदा", favChip: "❤ पसंदीदा", searchRes: "{0} पौधे मिले", searchClear: "✕ परिणाम हटाएँ", offerCta: "ऑफ़र लें →", viewAll: "सभी देखें →", explore: "अभी देखें →", seller: "विक्रेता : ग्रीन फ्रेंड", colTerrace: "टेरेस गार्डन", colLow: "कम देखभाल वाले पौधे", colExotic: "एक्सोटिक फल", colTropical: "ट्रॉपिकल फल",
       heroKicker: "🌿 मालदा और मुर्शिदाबाद की नर्सरी",
-      navPlants: "पौधे", navCats: "श्रेणियाँ", navOffers: "ऑफ़र", navFaq: "सवाल", navInstall: "ऐप",
+      navPlants: "पौधे", navCats: "श्रेणियाँ", navOffers: "ऑफ़र", navFaq: "सवाल",
       topbar: "🚚 ₹1000+ पर डिलीवरी फ्री · ✅ 100% असली की गारंटी · 💵 कैश ऑन डिलीवरी",
       topbarShort: "🚚 ₹1000+ पर डिलीवरी फ्री",
       hs1t: "🥭 लंगड़ा आम", hs1s: "8 फीट पौधे · मालदा",
@@ -1063,23 +998,15 @@
       hs3t: "🌸 बोगनवेलिया", hs3s: "फूलों के पौधे · सभी रंग",
       hs4t: "🌿 एलोवेरा", hs4s: "इनडोर पौधे · आसान देखभाल",
       docTitle: "Green Friend — आम के पौधे | मालदा और मुर्शिदाबाद | 8 फीट, कम दाम",
-      install: "⬇ ऐप इंस्टॉल करें", download: "⬇ APK डाउनलोड",
       sub: "आम के पौधे — <b>मालदा और मुर्शिदाबाद के मशहूर आम के पौधे</b> मिलते हैं। पौधे की ऊँचाई <b>8 फीट</b>, <b>कम दाम</b> में, <b>100% गारंटी</b> के साथ। इनडोर पौधे, फूल, फल और गमले भी हैं — घर डिलीवरी, कैश ऑन डिलीवरी / UPI।",
       cta1: "🌱 पौधे देखें", b0: "🥭 8 फीट आम के पौधे", b1: "✅ 100% गारंटी", b2: "🚚 ₹1000+ ऑर्डर पर फ्री डिलीवरी", b3: "💵 कैश ऑन डिलीवरी", b4: "🎁 दोस्त को भेजें, कूपन पाएँ",
-      bandTitle: "ऐप में ऑर्डर करने पर ज़्यादा फायदा",
-      bandSub: "दोस्त को भेजकर कूपन, रिव्यू देकर कूपन, और ऑर्डर ट्रैकिंग — सब एक ऐप में।",
       plants: "हमारे पौधे", plantsSub: "दाम, फोटो और स्टॉक — सब लाइव",
       offers: "अभी के ऑफर", offersSub: "सीमित समय के लिए",
       trustTitle: "100% असली की गारंटी",
       trustMsg: "नकली सामान खरीदकर ठगे न जाएँ — हमसे लें 100% असली पौधे।",
       reviews: "ग्राहकों की बात", reviewsSub: "सच्चे रिव्यू",
-      howTitle: "ऐप कैसे इंस्टॉल करें", howSub: "सिर्फ़ एक बार, 30 सेकंड",
-      s1t: "APK डाउनलोड करें", s1s: "ऊपर के हरे बटन पर दबाएँ — Green-Friend.apk डाउनलोड होगा।",
-      s2t: "फाइल खोलें", s2s: "डाउनलोड पूरा होने पर फाइल पर दबाकर Install करें।",
-      s3t: "अनुमति दें", s3s: '"Allow from this source" चालू करें — यह सिर्फ़ एक बार चाहिए।',
-      note: 'Play Protect "Unsafe app blocked" दिखाए तो More details → Install anyway दबाएँ। ऐप में कोई विज्ञापन नहीं, पैसे नहीं कटते।',
       fTag: "मालदा और मुर्शिदाबाद के मशहूर आम के पौधे — 8 फीट, कम दाम, गारंटी के साथ।",
-      fContact: "संपर्क", fHours: "🕘 सुबह 9 – रात 9", fApp: "ऐप",
+      fContact: "संपर्क", fHours: "🕘 सुबह 9 – रात 9",
       catTitle: "श्रेणियाँ", catSub: "जो चाहिए वहीं से शुरू करें", catItems: "आइटम",
       st1n: "8 फीट", st1: "पौधे की ऊँचाई", st2n: "100%", st2: "असली की गारंटी",
       st3n: "2 जिले", st3: "मालदा और मुर्शिदाबाद", st4: "पौधों की किस्में",
@@ -1091,7 +1018,7 @@
       cartEmptyT: "कार्ट खाली है", cartEmptyS: "एक पौधा जोड़ें।",
       checkoutTitle: "ऑर्डर पूरा करें", signin: "साइन इन", signup: "अकाउंट बनाएँ",
       phone: "मोबाइल नंबर", password: "पासवर्ड", name: "आपका नाम", continue: "आगे बढ़ें",
-      authNote: "वही फोन और पासवर्ड ऐप में भी लॉगिन के लिए काम करेगा।",
+      authNote: "फोन और पासवर्ड याद रखें — अगले ऑर्डर में फिर काम आएगा।",
       address: "डिलीवरी पता", pincode: "PIN कोड (6 अंक)", payMethod: "पेमेंट तरीका",
       cod: "कैश ऑन डिलीवरी", upi: "UPI", bank: "बैंक ट्रांसफर",
       upiRef: "12 अंकों का UTR", bankRef: "बैंक रेफरेंस (6–22 अक्षर/अंक)",
@@ -1132,27 +1059,27 @@
       { q: "ডেলিভারি চার্জ কত?", a: "₹১০০০ বা তার বেশি অর্ডারে ডেলিভারি সম্পূর্ণ ফ্রি। কম হলে চেকআউটে চার্জ দেখানো হয় — কোনো লুকানো খরচ নেই।" },
       { q: "গাছ কি সত্যিই ৮ ফুট?", a: "আমের চারা ৮ ফুট পর্যন্ত হয়। প্রতিটি পণ্যে ৩টি সাইজ (ছোট / মাঝারি / বড়) আছে — দাম ও উচ্চতা পণ্যের পেজে লেখা থাকে।" },
       { q: "গাছ নষ্ট বা ভুল এলে কী করব?", a: "ডেলিভারির ২৪ ঘণ্টার মধ্যে WhatsApp-এ গাছের ছবি বা ভিডিও পাঠান। যাচাই করে বিনা খরচে রিপ্লেসমেন্ট দেওয়া হয়।" },
-      { q: "পেমেন্ট কীভাবে করব?", a: "ক্যাশ অন ডেলিভারি, UPI (১২ সংখ্যার UTR) অথবা ব্যাংক ট্রান্সফার। অ্যাপে অর্ডার করলে আরও সহজ।" },
+      { q: "পেমেন্ট কীভাবে করব?", a: "ক্যাশ অন ডেলিভারি, UPI (১২ সংখ্যার UTR) অথবা ব্যাংক ট্রান্সফার।" },
       { q: "নার্সারি কোথায়?", a: "আমাদের নিজের বাগান মালদা ও মুর্শিদাবাদে। কোনো মধ্যস্বত্বভোগী নেই — তাই দাম কম রাখা যায়।" },
-      { q: "অর্ডার ট্র্যাক করব কীভাবে?", a: "অ্যাপে My Orders-এ দেখুন, অথবা WhatsApp-এ অর্ডার নম্বর পাঠান — সাথে সাথে আপডেট পাবেন।" }
+      { q: "অর্ডার ট্র্যাক করব কীভাবে?", a: "WhatsApp-এ অর্ডার নম্বর পাঠান — সাথে সাথে আপডেট পাবেন।" }
     ],
     en: [
       { q: "How long does delivery take?", a: "2–3 days in Malda and Murshidabad, 4–5 days elsewhere in West Bengal, and 5–7 days to other states. Tracking is sent on WhatsApp." },
       { q: "What are the delivery charges?", a: "Delivery is completely free on orders of ₹1000 or more. Below that the charge is shown at checkout — no hidden costs." },
       { q: "Are the plants really 8 feet?", a: "Mango plants grow up to 8 feet. Every product has 3 sizes (small / medium / large), with the price and height listed on the product page." },
       { q: "What if the plant arrives damaged or wrong?", a: "Send a photo or video on WhatsApp within 24 hours of delivery. After checking, we replace it free of cost." },
-      { q: "How can I pay?", a: "Cash on delivery, UPI (12-digit UTR) or bank transfer. Ordering in the app is even easier." },
+      { q: "How can I pay?", a: "Cash on delivery, UPI (12-digit UTR) or bank transfer." },
       { q: "Where is the nursery?", a: "Our own gardens are in Malda and Murshidabad. No middlemen, so prices stay low." },
-      { q: "How do I track my order?", a: "Open My Orders in the app, or send your order number on WhatsApp for an instant update." }
+      { q: "How do I track my order?", a: "Send your order number on WhatsApp for an instant update." }
     ],
     hi: [
       { q: "डिलीवरी में कितने दिन लगते हैं?", a: "मालदा और मुर्शिदाबाद में 2–3 दिन, पश्चिम बंगाल के बाकी जिलों में 4–5 दिन, दूसरे राज्यों में 5–7 दिन। ट्रैकिंग WhatsApp पर भेजी जाती है।" },
       { q: "डिलीवरी चार्ज कितना है?", a: "₹1000 या उससे ज़्यादा के ऑर्डर पर डिलीवरी पूरी तरह फ्री। कम होने पर चेकआउट में चार्ज दिखता है — कोई छिपा खर्च नहीं।" },
       { q: "क्या पौधे सच में 8 फीट के हैं?", a: "आम के पौधे 8 फीट तक होते हैं। हर उत्पाद में 3 साइज़ (छोटा / मध्यम / बड़ा) हैं — दाम और ऊँचाई उत्पाद पेज पर लिखी है।" },
       { q: "पौधा खराब या गलत मिले तो क्या करें?", a: "डिलीवरी के 24 घंटे के भीतर WhatsApp पर पौधे की फोटो या वीडियो भेजें। जाँच के बाद बिना खर्च बदल दिया जाता है।" },
-      { q: "पेमेंट कैसे करें?", a: "कैश ऑन डिलीवरी, UPI (12 अंकों का UTR) या बैंक ट्रांसफर। ऐप में ऑर्डर करना और आसान है।" },
+      { q: "पेमेंट कैसे करें?", a: "कैश ऑन डिलीवरी, UPI (12 अंकों का UTR) या बैंक ट्रांसफर।" },
       { q: "नर्सरी कहाँ है?", a: "हमारे अपने बाग़ मालदा और मुर्शिदाबाद में हैं। कोई बिचौलिया नहीं — इसलिए दाम कम हैं।" },
-      { q: "ऑर्डर ट्रैक कैसे करें?", a: "ऐप में My Orders में देखें, या WhatsApp पर ऑर्डर नंबर भेजें — तुरंत अपडेट मिलेगा।" }
+      { q: "ऑर्डर ट्रैक कैसे करें?", a: "WhatsApp पर ऑर्डर नंबर भेजें — तुरंत अपडेट मिलेगा।" }
     ]
   };
 
@@ -1204,7 +1131,6 @@
   function phoneEmailLegacy(phone) { return "gf" + String(phone || "").replace(/\D/g, "") + "@phone.greenfriend.invalid"; }
 
   document.getElementById("yr").textContent = new Date().getFullYear();
-  ["apkTop", "apkHero", "apkBand", "apkFoot"].forEach(function (id) { var el = document.getElementById(id); if (el) el.href = APK; });
   document.getElementById("waHero").href = wa(t("waMsg"));
   document.getElementById("fab").href = wa(t("waMsg"));
   var spotWaEl = document.getElementById("spotWa");
