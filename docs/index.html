@@ -209,7 +209,9 @@
   .heroSlide img{width:100%;height:100%;object-fit:cover;object-position:center}
   .heroSlide.on img{transform:none}
   .heroShade{position:absolute;inset:0;z-index:2;pointer-events:none;background:none}
-  .heroTextSec{padding-top:40px;padding-bottom:14px}
+  .heroTextSec{padding-top:40px;padding-bottom:14px;display:grid;grid-template-columns:minmax(0,1fr);gap:24px}
+  .heroMain{min-width:0}
+  .heroSide img{width:100%;height:auto;display:block;border-radius:18px;box-shadow:var(--shadow)}
   .heroKicker{display:inline-flex;align-items:center;gap:7px;background:#FDF3DF;border:1px solid #F0DDB2;color:#8A5E12;border-radius:999px;padding:8px 16px;font-size:12.5px;font-weight:900;letter-spacing:.45px;text-transform:uppercase;margin-bottom:18px}
   .heroTextSec h1{font-size:clamp(34px,5.6vw,64px);line-height:1.05;margin:0 0 18px;letter-spacing:-1.8px;color:#1B1F1A}
   .heroTextSec h1 span{color:var(--gold)}
@@ -358,6 +360,7 @@
   @media(min-width:1024px){
     section{padding:10px 0 46px}
     .sec-head{margin:8px 0 20px}
+    .heroTextSec{grid-template-columns:minmax(0,1fr) 430px;gap:40px;align-items:center}
     .grid{gap:20px}
     .cats{gap:14px}
     .cat-tile{width:104px}
@@ -380,17 +383,19 @@
   .pinbar .btn{padding:12px 20px}
   @media(max-width:719px){.pinbar{gap:8px;padding:10px}.pinbar input{flex-basis:100%;order:3}.pinbar .btn{flex:1;order:4}}
 
-  .fruitgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  @media(min-width:720px){.fruitgrid{gap:16px}}
-  .fc{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:4/3;display:flex;flex-direction:column;justify-content:flex-end;padding:14px;background:linear-gradient(140deg,var(--green),#2F9E5B);box-shadow:var(--shadow);transition:transform .18s,box-shadow .18s;text-decoration:none}
-  .fc:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(23,64,39,.2)}
-  .fc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-  .fc .fc-veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,26,16,0) 30%,rgba(10,26,16,.82))}
-  .fc .fc-tag{align-self:flex-start;position:relative;background:linear-gradient(135deg,#FFD35C,#F2B33D);color:#2A2210;font-size:10px;font-weight:900;letter-spacing:.6px;text-transform:uppercase;border-radius:999px;padding:4px 10px;margin-bottom:auto}
-  .fc .fc-t{position:relative;font-size:17px;font-weight:900;color:#fff;letter-spacing:-.3px;line-height:1.2}
-  .fc .fc-s{position:relative;font-size:11.5px;color:#D9F2D0;font-weight:800;margin-top:2px}
-  .fc .fc-cta{position:relative;margin-top:8px;display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.4);color:#fff;font-size:11px;font-weight:900;padding:5px 12px;border-radius:999px;align-self:flex-start}
-  @media(min-width:720px){.fc{aspect-ratio:16/10;padding:18px}.fc .fc-t{font-size:21px}}
+  .fruitgrid{display:grid;grid-template-columns:1fr;gap:12px}
+  @media(min-width:720px){.fruitgrid{grid-template-columns:1fr 1fr;gap:16px}}
+  .fc{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;box-shadow:var(--shadow);transition:transform .18s,box-shadow .18s;text-decoration:none}
+  .fc:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(23,64,39,.12)}
+  .fc .fc-thumb{flex:0 0 92px;width:92px;height:92px;border-radius:12px;overflow:hidden;background:#EDF2E4;display:flex;align-items:center;justify-content:center}
+  .fc .fc-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+  .fc .fcemoji{font-size:44px}
+  .fc .fc-body{display:flex;flex-direction:column;align-items:flex-start;gap:4px;min-width:0}
+  .fc .fc-tag{background:linear-gradient(135deg,#FFD35C,#F2B33D);color:#2A2210;font-size:9.5px;font-weight:900;letter-spacing:.6px;text-transform:uppercase;border-radius:999px;padding:3px 9px}
+  .fc .fc-t{font-size:16px;font-weight:900;color:var(--ink);letter-spacing:-.3px;line-height:1.2}
+  .fc .fc-s{font-size:12px;color:var(--muted);font-weight:700}
+  .fc .fc-cta{margin-top:6px;display:inline-flex;align-items:center;gap:5px;background:var(--green);color:#fff;font-size:11px;font-weight:900;padding:6px 13px;border-radius:999px}
+  @media(min-width:720px){.fc{padding:16px;gap:16px}.fc .fc-thumb{flex-basis:122px;width:122px;height:122px}.fc .fc-t{font-size:19px}}
 
   .mstrip{display:flex;gap:12px;overflow-x:auto;padding:4px 2px 12px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
   .mstrip::-webkit-scrollbar{display:none}
@@ -557,25 +562,30 @@
   </div>
 
   <section class="wrap heroTextSec">
-    <span class="heroKicker" data-t="heroKicker">🌿 Malda &amp; Murshidabad nursery</span>
-    <h1 data-t="h1">8 ft <span>mango plants</span></h1>
-    <p data-t="sub">Famous mango plants — available in <b>Malda and Murshidabad</b>. Trees are <b>8 feet tall</b>, at a <b>lower price</b>, with a <b>100% guarantee</b>. Indoor plants, flowers, fruit plants and pots too — home delivery, cash on delivery or UPI.</p>
-    <div class="hero-cta">
-      <a class="btn btn-solid" href="#plants" data-t="cta1">🌱 See plants</a>
-      <a class="btn btn-line" id="waHero" href="#">💬 WhatsApp</a>
+    <div class="heroMain">
+      <span class="heroKicker" data-t="heroKicker">🌿 Malda &amp; Murshidabad nursery</span>
+      <h1 data-t="h1">8 ft <span>mango plants</span></h1>
+      <p data-t="sub">Famous mango plants — available in <b>Malda and Murshidabad</b>. Trees are <b>8 feet tall</b>, at a <b>lower price</b>, with a <b>100% guarantee</b>. Indoor plants, flowers, fruit plants and pots too — home delivery, cash on delivery or UPI.</p>
+      <div class="hero-cta">
+        <a class="btn btn-solid" href="#plants" data-t="cta1">🌱 See plants</a>
+        <a class="btn btn-line" id="waHero" href="#">💬 WhatsApp</a>
+      </div>
+      <div class="hero-badges">
+        <span class="pill" data-t="b0">🥭 8 ft mango plants</span>
+        <span class="pill" data-t="b1">✅ 100% guarantee</span>
+        <span class="pill" data-t="b2">🚚 Free delivery above ₹1000</span>
+        <span class="pill" data-t="b3">💵 Cash on delivery</span>
+        <span class="pill" data-t="b4">🎁 Share &amp; earn coupons</span>
+      </div>
+      <form class="pinbar" id="pinForm">
+        <span class="pinlab">📍<span><b data-t="pinT">ডেলিভারি চেক করুন</b><small data-t="pinS">আপনার PIN কোডে ডেলিভারি হয় কিনা</small></span></span>
+        <input id="pinIn" type="text" inputmode="numeric" maxlength="6" placeholder="PIN কোড (৬ সংখ্যা)" aria-label="PIN code">
+        <button class="btn btn-solid" type="submit" data-t="pinBtn">চেক করুন</button>
+      </form>
     </div>
-    <div class="hero-badges">
-      <span class="pill" data-t="b0">🥭 8 ft mango plants</span>
-      <span class="pill" data-t="b1">✅ 100% guarantee</span>
-      <span class="pill" data-t="b2">🚚 Free delivery above ₹1000</span>
-      <span class="pill" data-t="b3">💵 Cash on delivery</span>
-      <span class="pill" data-t="b4">🎁 Share &amp; earn coupons</span>
-    </div>
-    <form class="pinbar" id="pinForm">
-      <span class="pinlab">📍<span><b data-t="pinT">ডেলিভারি চেক করুন</b><small data-t="pinS">আপনার PIN কোডে ডেলিভারি হয় কিনা</small></span></span>
-      <input id="pinIn" type="text" inputmode="numeric" maxlength="6" placeholder="PIN কোড (৬ সংখ্যা)" aria-label="PIN code">
-      <button class="btn btn-solid" type="submit" data-t="pinBtn">চেক করুন</button>
-    </form>
+    <aside class="heroSide">
+      <img src="guarantee-banner.jpg" alt="100% Money-Back if the mango variety does not match upon fruiting — Green Friend guarantee" width="3168" height="1344" loading="lazy" decoding="async">
+    </aside>
   </section>
 
   <section class="wrap" id="catSec">
@@ -1782,12 +1792,13 @@
       var price = Number(p.offer_price || p.price) || 0;
       var img = photos.length ? '<img loading="lazy" decoding="async" src="' + esc(thumbUrl(photos[0])) + '" alt="' + esc(productName(p)) + '">' : "";
       return '<a class="fc" href="' + esc(href) + '" data-c="' + esc(slug ? "" : (p.category || "")) + '">' +
-        (img || '<span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:52px">' + esc(p.emoji || "🥭") + "</span>") +
-        '<div class="fc-veil"></div>' +
+        '<span class="fc-thumb">' + (img || '<span class="fcemoji">' + esc(p.emoji || "🥭") + "</span>") + "</span>" +
+        '<span class="fc-body">' +
         '<span class="fc-tag">' + esc(catLabel(p.category).toUpperCase()) + "</span>" +
         '<span class="fc-t">' + esc(productName(p)) + "</span>" +
         '<span class="fc-s">' + money(price) + " · " + esc(t("b1")) + "</span>" +
-        '<span class="fc-cta">' + esc(t("fruitCta")) + "</span></a>";
+        '<span class="fc-cta">' + esc(t("fruitCta")) + "</span>" +
+        "</span></a>";
     }).join("");
     box.querySelectorAll(".fc").forEach(function (a) {
       if (a.getAttribute("data-c")) a.addEventListener("click", goCat);
