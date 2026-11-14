@@ -389,6 +389,97 @@
     .rev{padding:18px}
   }
 
+  /* ---------- PaudheWale-style additions ---------- */
+  .pinbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px 14px;margin:0 0 24px;box-shadow:0 4px 14px rgba(23,64,39,.06)}
+  .pinbar .pinlab{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:900;color:#3C423A;white-space:nowrap}
+  .pinbar .pinlab small{display:block;font-size:11px;color:var(--muted);font-weight:700}
+  .pinbar input{flex:1;min-width:150px;height:42px;border:1.5px solid var(--line);border-radius:999px;padding:0 16px;font-family:inherit;font-size:14px;outline:none}
+  .pinbar input:focus{border-color:var(--green)}
+  .pinbar .btn{padding:12px 20px}
+  @media(max-width:719px){.pinbar{gap:8px;padding:10px}.pinbar input{flex-basis:100%;order:3}.pinbar .btn{flex:1;order:4}}
+
+  .fruitgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(min-width:720px){.fruitgrid{gap:16px}}
+  .fc{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:4/3;display:flex;flex-direction:column;justify-content:flex-end;padding:14px;background:linear-gradient(140deg,var(--green),#2F9E5B);box-shadow:var(--shadow);transition:transform .18s,box-shadow .18s;text-decoration:none}
+  .fc:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(23,64,39,.2)}
+  .fc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .fc .fc-veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,26,16,0) 30%,rgba(10,26,16,.82))}
+  .fc .fc-tag{align-self:flex-start;position:relative;background:linear-gradient(135deg,#FFD35C,#F2B33D);color:#2A2210;font-size:10px;font-weight:900;letter-spacing:.6px;text-transform:uppercase;border-radius:999px;padding:4px 10px;margin-bottom:auto}
+  .fc .fc-t{position:relative;font-size:17px;font-weight:900;color:#fff;letter-spacing:-.3px;line-height:1.2}
+  .fc .fc-s{position:relative;font-size:11.5px;color:#D9F2D0;font-weight:800;margin-top:2px}
+  .fc .fc-cta{position:relative;margin-top:8px;display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.4);color:#fff;font-size:11px;font-weight:900;padding:5px 12px;border-radius:999px;align-self:flex-start}
+  @media(min-width:720px){.fc{aspect-ratio:16/10;padding:18px}.fc .fc-t{font-size:21px}}
+
+  .mstrip{display:flex;gap:12px;overflow-x:auto;padding:4px 2px 12px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .mstrip::-webkit-scrollbar{display:none}
+  .mcard{flex:none;width:190px;background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 4px 14px rgba(23,64,39,.07);display:flex;flex-direction:column;transition:transform .15s}
+  .mcard:hover{transform:translateY(-3px)}
+  .mcard .mimg{aspect-ratio:4/3.4;background:var(--green-3);display:flex;align-items:center;justify-content:center;font-size:40px;overflow:hidden}
+  .mcard .mimg img{width:100%;height:100%;object-fit:cover}
+  .mcard .mbody{padding:10px 11px 12px;display:flex;flex-direction:column;gap:5px;flex:1}
+  .mcard .mname{font-size:13px;font-weight:900;line-height:1.3;letter-spacing:-.2px}
+  .mcard .mprice{font-size:15px;font-weight:900;color:var(--green)}
+  .mcard .mbtn{background:var(--green);color:#fff;border-radius:10px;padding:8px;font-weight:900;font-size:11.5px;font-family:inherit;cursor:pointer;text-decoration:none}
+  .mcard a{text-decoration:none;color:inherit}
+  @media(min-width:720px){.mcard{width:230px}}
+
+  .medband{position:relative;border-radius:20px;overflow:hidden;background:linear-gradient(120deg,#123B22,#1E7A3C 55%,#2F9E5B);color:#fff;display:flex;align-items:center;gap:16px;padding:22px;margin-bottom:36px;box-shadow:var(--shadow)}
+  .medband .mimg{position:absolute;inset:0;opacity:.22;background-size:cover;background-position:center}
+  .medband > *{position:relative}
+  .medband .grow{flex:1;min-width:0}
+  .medband b{display:block;font-size:clamp(16px,2.6vw,21px);letter-spacing:-.3px;color:#FFF6D9}
+  .medband small{display:block;font-size:12.5px;color:#D9F2D0;margin-top:4px}
+  .medband .mbtn{background:linear-gradient(135deg,#FFD35C,#F2B33D);color:#2A2210;border-radius:999px;padding:11px 18px;font-weight:900;font-size:13px;white-space:nowrap;text-decoration:none}
+  @media(max-width:719px){.medband{flex-wrap:wrap;padding:18px 14px}.medband .mbtn{width:100%;text-align:center}}
+
+  .askgrid{display:grid;grid-template-columns:1fr;gap:10px}
+  @media(min-width:720px){.askgrid{grid-template-columns:repeat(3,1fr);gap:14px}}
+  .asktile{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px;box-shadow:0 4px 12px rgba(23,64,39,.05);text-decoration:none;transition:transform .15s}
+  .asktile:hover{transform:translateY(-2px)}
+  .asktile .a-ico{width:44px;height:44px;border-radius:12px;background:var(--green-3);display:flex;align-items:center;justify-content:center;font-size:21px;flex:none}
+  .asktile b{font-size:13.5px;display:block}
+  .asktile small{font-size:11.5px;color:var(--muted)}
+  .asktile .a-go{margin-left:auto;color:var(--green);font-weight:900;font-size:12px;white-space:nowrap}
+
+  .spot{display:flex;gap:16px;align-items:flex-start;background:linear-gradient(150deg,#123B22,#1E7A3C);color:#EAF6EA;border-radius:20px;padding:22px;box-shadow:var(--shadow);margin-bottom:36px}
+  .spot .s-ico{flex:none;width:58px;height:58px;border-radius:16px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:28px}
+  .spot .grow{flex:1;min-width:0}
+  .spot b{font-size:17px;color:#FFF6D9;display:block;letter-spacing:-.2px}
+  .spot p{margin:5px 0 0;font-size:12.5px;color:#CBE5D4}
+  .spot ul{margin:10px 0 0;padding:0;list-style:none;display:grid;gap:5px}
+  .spot li{font-size:12.5px;display:flex;gap:7px;align-items:flex-start}
+  .spot li::before{content:"✓";color:#F2B33D;font-weight:900;flex:none}
+  .spot .mbtn{background:linear-gradient(135deg,#FFD35C,#F2B33D);color:#2A2210;border-radius:999px;padding:11px 18px;font-weight:900;font-size:13px;white-space:nowrap;align-self:center;text-decoration:none}
+  @media(max-width:719px){.spot{flex-wrap:wrap;padding:18px 14px}.spot .mbtn{width:100%;text-align:center}}
+
+  .nls{background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:0 4px 16px rgba(23,64,39,.05);margin-bottom:36px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  .nls .n-ico{flex:none;width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,var(--gold-2),var(--gold));display:flex;align-items:center;justify-content:center;font-size:24px}
+  .nls .grow{flex:1;min-width:180px}
+  .nls b{font-size:16px;display:block;letter-spacing:-.2px}
+  .nls small{font-size:12.5px;color:var(--muted)}
+  .nls form{display:flex;gap:8px;flex:1;min-width:260px}
+  .nls input{flex:1;height:42px;border:1.5px solid var(--line);border-radius:999px;padding:0 16px;font-family:inherit;font-size:13.5px;outline:none}
+  .nls input:focus{border-color:var(--green)}
+  @media(max-width:719px){.nls form{flex-basis:100%}.nls .btn{width:100%}}
+
+  .topbtn{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;z-index:59;display:none;align-items:center;gap:6px;background:#173D25;color:#F6E7C8;border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:9px 16px;font-size:12px;font-weight:900;cursor:pointer;font-family:inherit;box-shadow:0 8px 22px rgba(0,0,0,.25)}
+  .topbtn.on{display:flex}
+  @media(max-width:719px){.topbtn{bottom:84px}}
+
+  .coupop{position:fixed;inset:0;z-index:150;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(16,26,16,.55);backdrop-filter:blur(3px)}
+  .coupop.on{display:flex}
+  .coupopCard{position:relative;width:100%;max-width:380px;background:#fff;border-radius:22px;overflow:hidden;box-shadow:0 26px 60px rgba(10,30,20,.35);animation:cup .35s ease}
+  @keyframes cup{from{transform:translateY(14px) scale(.97);opacity:0}to{transform:none;opacity:1}}
+  .coupopHead{background:linear-gradient(135deg,#123B22,#2F9E5B);color:#FFF6D9;padding:20px 20px 16px;text-align:center}
+  .coupopHead b{display:block;font-size:19px;letter-spacing:-.3px}
+  .coupopHead span{font-size:12.5px;color:#D9F2D0;display:block;margin-top:3px}
+  .coupopBody{padding:16px 18px 18px;text-align:center}
+  .coupopBody .c-t{font-size:14.5px;font-weight:900;color:var(--ink)}
+  .coupopBody .c-m{font-size:12.5px;color:var(--muted);margin-top:5px;line-height:1.55}
+  .coupopBody .btn{width:100%;margin-top:13px}
+  .coupopSkip{display:block;margin:11px auto 0;background:none;border:0;color:var(--muted);font-size:12px;font-weight:800;cursor:pointer;font-family:inherit;text-decoration:underline}
+  .coupopX{position:absolute;top:10px;right:10px;z-index:2;width:30px;height:30px;border-radius:50%;border:0;background:rgba(255,255,255,.18);color:#fff;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+
   /* ---------- modal / drawer ---------- */
   .overlay{position:fixed;inset:0;background:rgba(16,30,18,.55);z-index:80;display:none;align-items:flex-end;justify-content:center;padding:0}
   .overlay.on{display:flex}
@@ -501,6 +592,11 @@
       <span class="pill" data-t="b3">💵 Cash on delivery</span>
       <span class="pill" data-t="b4">🎁 Share &amp; earn coupons</span>
     </div>
+    <form class="pinbar" id="pinForm">
+      <span class="pinlab">📍<span><b data-t="pinT">ডেলিভারি চেক করুন</b><small data-t="pinS">আপনার PIN কোডে ডেলিভারি হয় কিনা</small></span></span>
+      <input id="pinIn" type="text" inputmode="numeric" maxlength="6" placeholder="PIN কোড (৬ সংখ্যা)" aria-label="PIN code">
+      <button class="btn btn-solid" type="submit" data-t="pinBtn">চেক করুন</button>
+    </form>
   </section>
 
   <section class="wrap" id="catSec">
@@ -513,6 +609,19 @@
     <div class="panel">
       <div class="cats" id="cats"></div>
       <div class="promos" id="promos"></div>
+    </div>
+  </section>
+
+  <section class="wrap" id="fruitSec">
+    <div class="sec-head">
+      <div>
+        <h2 data-t="fruitT">জনপ্রিয় ফল গাছ</h2>
+        <p data-t="fruitSub">গ্রাফটেড, ফল-ধরা গাছ</p>
+      </div>
+      <a class="viewall" href="#plants" data-c="" id="fruitAll" data-t="viewAll">সব দেখুন →</a>
+    </div>
+    <div class="panel">
+      <div class="fruitgrid" id="fruitgrid"></div>
     </div>
   </section>
 
@@ -535,6 +644,19 @@
       <a class="btn btn-gold" id="apkBand" href="#" data-t="download">⬇ APK ডাউনলোড</a>
     </div>
   </div>
+
+  <section class="wrap" id="mangoSec">
+    <div class="sec-head">
+      <div>
+        <h2 data-t="mangoT">হটসেলিং আম গাছ</h2>
+        <p data-t="mangoSub">মালদার বিখ্যাত আম — সেরা দামে</p>
+      </div>
+      <a class="viewall" href="#plants" data-c="" id="mangoAll" data-t="viewAll">সব দেখুন →</a>
+    </div>
+    <div class="panel">
+      <div class="mstrip" id="mstrip"></div>
+    </div>
+  </section>
 
   <section class="wrap" id="plants">
     <div class="sec-head">
@@ -565,6 +687,27 @@
     </div>
   </section>
 
+  <div class="wrap">
+    <div class="medband" id="medband">
+      <div class="mimg" id="medImg"></div>
+      <div class="grow">
+        <b data-t="medT">ঔষধি গাছ</b>
+        <small data-t="medS">তুলসী, নিম, অ্যালোভেরা — প্রতিটি বাড়িতে দরকার। সস্তায়, গ্যারান্টি সহ।</small>
+      </div>
+      <a class="mbtn" href="#plants" id="medGo" data-t="medCta">দেখুন →</a>
+    </div>
+  </div>
+
+  <section class="wrap" id="askSec">
+    <div class="sec-head">
+      <div>
+        <h2 data-t="askT">আরও যা চাই</h2>
+        <p data-t="askS">নিচের জিনিস চাইলে WhatsApp করুন — দাম ও ছবি পাঠিয়ে দেব</p>
+      </div>
+    </div>
+    <div class="askgrid" id="askgrid"></div>
+  </section>
+
   <section class="wrap">
     <div class="trust">
       <div class="seal">🏅</div>
@@ -583,6 +726,37 @@
       </div>
     </div>
     <div class="reviews" id="reviews"></div>
+  </section>
+
+  <section class="wrap" id="spotSec">
+    <div class="spot">
+      <div class="s-ico">🌿</div>
+      <div class="grow">
+        <b data-t="spotT">আমাদের নার্সারি</b>
+        <p data-t="spotS">নিজের বাগান, নিজের হাতে গ্রাফটিং — তাই দাম কম, গাছ আসল।</p>
+        <ul>
+          <li data-t="spotB1">মালদা ও মুর্শিদাবাদে নিজস্ব নার্সারি — কোনো মধ্যস্বত্বভোগী নেই</li>
+          <li data-t="spotB2">৮ ফুট পর্যন্ত গ্রাফটেড আম, লিচু, পেয়ারা ও ফুলের গাছ</li>
+          <li data-t="spotB3">১০০% অরিজিনাল গ্যারান্টি — নষ্ট এলে বিনা খরচে রিপ্লেসমেন্ট</li>
+          <li data-t="spotB4">ক্যাশ অন ডেলিভারি, UPI — আপনার সুবিধামতো</li>
+        </ul>
+      </div>
+      <a class="mbtn" id="spotWa" href="#">💬 <span data-t="spotCta">WhatsApp-এ কথা বলুন</span></a>
+    </div>
+  </section>
+
+  <section class="wrap" id="nlSec">
+    <div class="nls">
+      <div class="n-ico">📩</div>
+      <div class="grow">
+        <b data-t="nlT">প্রতি সপ্তাহে গাছের টিপস</b>
+        <small data-t="nlS">নতুন স্টক, অফার আর গাছের যত্নের টিপস — সরাসরি WhatsApp-এ</small>
+      </div>
+      <form id="nlForm">
+        <input id="nlName" type="text" placeholder="আপনার নাম" aria-label="Name">
+        <button class="btn btn-solid" type="submit" data-t="nlBtn">টিপস নিন</button>
+      </form>
+    </div>
   </section>
 
   <section class="wrap" id="faqSec">
@@ -617,16 +791,24 @@
       <div class="fcol">
         <h3>🌿 Green Friend</h3>
         <p data-t="fTag">মালদা ও মুর্শিদাবাদের বিখ্যাত আম গাছ — ৮ ফুট, কম দামে, গ্যারান্টি সহ।</p>
+        <p data-t="fAddr">📍 মালদা ও মুর্শিদাবাদ, পশ্চিমবঙ্গ</p>
+      </div>
+      <div class="fcol">
+        <h3 data-t="fCats">ক্যাটাগরি</h3>
+        <div id="fCats"></div>
+      </div>
+      <div class="fcol">
+        <h3 data-t="fQuick">কুইক লিংক</h3>
+        <p><a href="#plants" data-t="navPlants">গাছ</a></p>
+        <p><a href="#offerSec" data-t="navOffers">অফার</a></p>
+        <p><a href="#faqSec" data-t="navFaq">প্রশ্ন</a></p>
+        <p><a id="apkFoot" href="#" data-t="download">⬇ APK ডাউনলোড</a></p>
       </div>
       <div class="fcol">
         <h3 data-t="fContact">যোগাযোগ</h3>
-        <p>💬 WhatsApp: <a href="https://wa.me/919563205299">WhatsApp</a></p>
+        <p>💬 <a href="https://wa.me/919563205299">WhatsApp</a></p>
         <p>✉️ <a href="mailto:mobasserhoque@gmail.com">mobasserhoque@gmail.com</a></p>
         <p data-t="fHours">🕘 সকাল ৯টা – রাত ৯টা</p>
-      </div>
-      <div class="fcol">
-        <h3 data-t="fApp">অ্যাপ</h3>
-        <p><a id="apkFoot" href="#" data-t="download">⬇ APK ডাউনলোড</a></p>
         <p><a href="admin.html" rel="nofollow">🔐 Admin panel</a></p>
       </div>
     </div>
@@ -637,6 +819,20 @@
 
 <a class="fab" id="fab" href="#" aria-label="WhatsApp">💬</a>
 <button class="cartfab" id="cartFab" onclick="openCart()">🛒 <span data-t="cart">কার্ট</span> <span class="badge" id="cartCount">0</span></button>
+<button class="topbtn" id="topBtn" type="button" aria-label="Back to top"><span data-t="backTop">↑ উপরে</span></button>
+
+<div class="coupop" id="coupop" role="dialog" aria-modal="true" aria-label="Offer">
+  <div class="coupopCard">
+    <button class="coupopX" id="coupopX" type="button" aria-label="Close">✕</button>
+    <div class="coupopHead"><b data-t="popT">স্বাগতম অফার!</b><span data-t="popS">শুধু আজকের জন্য</span></div>
+    <div class="coupopBody">
+      <div class="c-t" id="popTitle" data-t="popTitle">গাছ কিনুন, অফার নিন</div>
+      <div class="c-m" id="popMsg" data-t="popMsg">অর্ডারের আগে WhatsApp করুন — আজকের সেরা অফারটা নিয়ে নিন।</div>
+      <a class="btn btn-solid" id="popCta" href="#offerSec"><span data-t="popCta">অফার দেখুন</span></a>
+      <button class="coupopSkip" id="coupopSkip" type="button" data-t="popSkip">পরে দেখব</button>
+    </div>
+  </div>
+</div>
 
 <!-- ---------- CART DRAWER ---------- -->
 <div class="overlay" id="cartOverlay" onclick="if(event.target===this)closeCart()">
@@ -763,7 +959,26 @@
       emptyT: "গাছের তালিকা এইমাত্র সাজানো হচ্ছে",
       emptyS: "তালিকা দেখতে না পেলে সরাসরি WhatsApp করুন — আমরা ছবি ও দাম পাঠিয়ে দেব।",
       waMsg: "নমস্কার! আমি Green Friend-এ অর্ডার করতে চাই",
-      waProduct: "নমস্কার! আমি এই গাছটি নিতে চাই: {0} — দাম {1}"
+      waProduct: "নমস্কার! আমি এই গাছটি নিতে চাই: {0} — দাম {1}",
+      pinT: "ডেলিভারি চেক করুন", pinS: "আপনার PIN কোডে ডেলিভারি হয় কিনা", pinPh: "PIN কোড (৬ সংখ্যা)", pinBtn: "চেক করুন",
+      fruitT: "জনপ্রিয় ফল গাছ", fruitSub: "গ্রাফটেড, ফল-ধরা গাছ", fruitCta: "দেখুন →",
+      mangoT: "হটসেলিং আম গাছ", mangoSub: "মালদার বিখ্যাত আম — সেরা দামে",
+      medT: "ঔষধি গাছ", medS: "তুলসী, নিম, অ্যালোভেরা — প্রতিটি বাড়িতে দরকার। সস্তায়, গ্যারান্টি সহ।", medCta: "দেখুন →",
+      askT: "আরও যা চাই", askS: "নিচের জিনিস চাইলে WhatsApp করুন — দাম ও ছবি পাঠিয়ে দেব",
+      askSeed: "বীজ", askSeedS: "ফুল, সবজি ও ফলের বীজ", askFert: "সার ও মাটি", askFertS: "ভার্মিকম্পোস্ট, কোকোপিট", askSucc: "সাকুলেন্ট ও ক্যাকটাস", askSuccS: "ছোট, সুন্দর, কম যত্ন", askGo: "চাই →",
+      spotT: "আমাদের নার্সারি", spotS: "নিজের বাগান, নিজের হাতে গ্রাফটিং — তাই দাম কম, গাছ আসল।",
+      spotB1: "মালদা ও মুর্শিদাবাদে নিজস্ব নার্সারি — কোনো মধ্যস্বত্বভোগী নেই",
+      spotB2: "৮ ফুট পর্যন্ত গ্রাফটেড আম, লিচু, পেয়ারা ও ফুলের গাছ",
+      spotB3: "১০০% অরিজিনাল গ্যারান্টি — নষ্ট এলে বিনা খরচে রিপ্লেসমেন্ট",
+      spotB4: "ক্যাশ অন ডেলিভারি, UPI — আপনার সুবিধামতো",
+      spotCta: "WhatsApp-এ কথা বলুন",
+      nlT: "প্রতি সপ্তাহে গাছের টিপস", nlS: "নতুন স্টক, অফার আর গাছের যত্নের টিপস — সরাসরি WhatsApp-এ", nlPh: "আপনার নাম", nlBtn: "টিপস নিন",
+      backTop: "↑ উপরে", popT: "স্বাগতম অফার!", popS: "শুধু আজকের জন্য",
+      popTitle: "গাছ কিনুন, অফার নিন", popMsg: "অর্ডারের আগে WhatsApp করুন — আজকের সেরা অফারটা নিয়ে নিন।",
+      popCta: "অফার দেখুন", popSkip: "পরে দেখব",
+      fCats: "ক্যাটাগরি", fQuick: "কুইক লিংক", fAddr: "📍 মালদা ও মুর্শিদাবাদ, পশ্চিমবঙ্গ",
+      askMsg: "নমস্কার! আমি Green Friend থেকে {0} চাই — দাম ও ছবি পাঠান",
+      nlMsg: "নমস্কার! আমি প্রতি সপ্তাহে গাছের টিপস পেতে চাই। আমার নাম: "
     },
     en: {
       app: "App", h1: '8 ft <span>mango plants</span>',
@@ -815,7 +1030,26 @@
       emptyT: "The plant list is being arranged",
       emptyS: "If you cannot see the list, message us on WhatsApp — we will send photos and prices.",
       waMsg: "Hello! I would like to order from Green Friend",
-      waProduct: "Hello! I would like this plant: {0} — {1}"
+      waProduct: "Hello! I would like this plant: {0} — {1}",
+      pinT: "Check delivery", pinS: "Is delivery available at your PIN?", pinPh: "PIN code (6 digits)", pinBtn: "Check",
+      fruitT: "Popular fruit plants", fruitSub: "Grafted, fruit-bearing plants", fruitCta: "See more →",
+      mangoT: "Hotselling mango plants", mangoSub: "Malda's famous mangoes — best price",
+      medT: "Medicinal plants", medS: "Tulsi, neem, aloe vera — every home needs them. Cheap, with guarantee.", medCta: "See more →",
+      askT: "Want more?", askS: "If you need these, message us on WhatsApp — we will send price and photos",
+      askSeed: "Seeds", askSeedS: "Flower, vegetable & fruit seeds", askFert: "Soil & fertilizer", askFertS: "Vermicompost, cocopeat", askSucc: "Succulents & cactus", askSuccS: "Small, pretty, low care", askGo: "Want →",
+      spotT: "Our nursery", spotS: "Our own gardens, our own grafting — so prices stay low, plants stay real.",
+      spotB1: "Our own nursery in Malda & Murshidabad — no middlemen",
+      spotB2: "Grafted mango, lychee, guava & flowering plants up to 8 ft",
+      spotB3: "100% original guarantee — free replacement if damaged",
+      spotB4: "Cash on delivery, UPI — whatever suits you",
+      spotCta: "Chat on WhatsApp",
+      nlT: "Plant tips every week", nlS: "New stock, offers and care tips — straight on WhatsApp", nlPh: "Your name", nlBtn: "Get tips",
+      backTop: "↑ Back to top", popT: "Welcome offer!", popS: "Today only",
+      popTitle: "Buy plants, grab the offer", popMsg: "Message us on WhatsApp before ordering — take today's best offer.",
+      popCta: "See offers", popSkip: "Later",
+      fCats: "Categories", fQuick: "Quick links", fAddr: "📍 Malda & Murshidabad, West Bengal",
+      askMsg: "Hello! I want {0} from Green Friend — please send price and photos",
+      nlMsg: "Hello! I want weekly plant care tips. My name: "
     },
     hi: {
       app: "ऐप", h1: '8 फीट <span>आम के पौधे</span>',
@@ -868,6 +1102,25 @@
       emptyS: "सूची न दिखे तो सीधे WhatsApp करें — हम फोटो और दाम भेज देंगे।",
       waMsg: "नमस्ते! मैं Green Friend से ऑर्डर करना चाहता हूँ",
       waProduct: "नमस्ते! मुझे यह पौधा चाहिए: {0} — {1}",
+      pinT: "डिलीवरी चेक करें", pinS: "आपके PIN कोड पर डिलीवरी होगी?", pinPh: "PIN कोड (6 अंक)", pinBtn: "चेक करें",
+      fruitT: "लोकप्रिय फल के पौधे", fruitSub: "ग्राफ्टेड, फल देने वाले पौधे", fruitCta: "और देखें →",
+      mangoT: "हॉटसेलिंग आम के पौधे", mangoSub: "मालदा के मशहूर आम — सबसे अच्छे दाम",
+      medT: "औषधीय पौधे", medS: "तुलसी, नीम, एलोवेरा — हर घर की ज़रूरत। सस्ते में, गारंटी के साथ।", medCta: "और देखें →",
+      askT: "और क्या चाहिए?", askS: "ये चाहिए तो WhatsApp करें — दाम और फोटो भेज देंगे",
+      askSeed: "बीज", askSeedS: "फूल, सब्ज़ी और फल के बीज", askFert: "मिट्टी और खाद", askFertS: "वर्मीकम्पोस्ट, कोकोपीट", askSucc: "सक्यूलेंट और कैक्टस", askSuccS: "छोटे, सुंदर, कम देखभाल", askGo: "चाहिए →",
+      spotT: "हमारी नर्सरी", spotS: "अपना बाग़, अपनी ग्राफ्टिंग — इसलिए दाम कम, पौधे असली।",
+      spotB1: "मालदा और मुर्शिदाबाद में अपनी नर्सरी — कोई बिचौलिया नहीं",
+      spotB2: "8 फीट तक ग्राफ्टेड आम, लीची, अमरूद और फूलों के पौधे",
+      spotB3: "100% असली की गारंटी — खराब मिले तो बिना खर्च बदलाव",
+      spotB4: "कैश ऑन डिलीवरी, UPI — जैसा आपको सुविधा हो",
+      spotCta: "WhatsApp पर बात करें",
+      nlT: "हर हफ्ते पौधों की टिप्स", nlS: "नया स्टॉक, ऑफर और देखभाल की टिप्स — सीधे WhatsApp पर", nlPh: "आपका नाम", nlBtn: "टिप्स लें",
+      backTop: "↑ ऊपर जाएँ", popT: "स्वागत ऑफर!", popS: "सिर्फ़ आज के लिए",
+      popTitle: "पौधे खरीदें, ऑफर लें", popMsg: "ऑर्डर से पहले WhatsApp करें — आज का सबसे अच्छा ऑफर लें।",
+      popCta: "ऑफर देखें", popSkip: "बाद में",
+      fCats: "श्रेणियाँ", fQuick: "क्विक लिंक", fAddr: "📍 मालदा और मुर्शिदाबाद, पश्चिम बंगाल",
+      askMsg: "नमस्ते! मुझे Green Friend से {0} चाहिए — दाम और फोटो भेजें",
+      nlMsg: "नमस्ते! मुझे हर हफ्ते पौधों की टिप्स चाहिए। मेरा नाम: ",
       number: "नंबर", plant: "पौधा"
     }
   };
@@ -954,6 +1207,8 @@
   ["apkTop", "apkHero", "apkBand", "apkFoot"].forEach(function (id) { var el = document.getElementById(id); if (el) el.href = APK; });
   document.getElementById("waHero").href = wa(t("waMsg"));
   document.getElementById("fab").href = wa(t("waMsg"));
+  var spotWaEl = document.getElementById("spotWa");
+  if (spotWaEl) spotWaEl.href = wa(t("waMsg"));
   loadPaySettings();
 
   // ---------- cart ----------
@@ -1294,6 +1549,13 @@
     if (qbox) qbox.placeholder = t("searchPh");
     document.querySelectorAll("#lang button").forEach(function (b) { b.classList.toggle("on", b.getAttribute("data-l") === LANG); });
     renderChips(); renderProducts(); renderOffers(); renderReviews(); renderCart(); renderCats(); renderFaq();
+    renderFruit(); renderMango(); renderMed(); renderAsk(); renderFooterCats();
+    var sw = document.getElementById("spotWa");
+    if (sw) sw.href = wa(t("waMsg"));
+    var pi = document.getElementById("pinIn");
+    if (pi) pi.placeholder = t("pinPh");
+    var ni = document.getElementById("nlName");
+    if (ni) ni.placeholder = t("nlPh");
     try { localStorage.setItem("gf_lang", LANG); } catch (e) {}
   }
   function renderFaq() {
@@ -1577,6 +1839,112 @@
     };
   })();
 
+  function renderFruit() {
+    var sec = document.getElementById("fruitSec");
+    var box = document.getElementById("fruitgrid");
+    if (!sec || !box) return;
+    var list = state.products.filter(function (p) {
+      var c = (p.category || "").trim();
+      return c === "Fruit plants" || c === "ফল";
+    }).slice(0, 4);
+    if (!list.length) { sec.hidden = true; return; }
+    sec.hidden = false;
+    box.innerHTML = list.map(function (p) {
+      var photos = (Array.isArray(p.image_urls) && p.image_urls.length ? p.image_urls : (p.image_url ? [p.image_url] : [])).filter(Boolean);
+      var slug = state.slugs && state.slugs[p.id];
+      var href = slug ? "product/" + slug + ".html" : "#plants";
+      var price = Number(p.offer_price || p.price) || 0;
+      var img = photos.length ? '<img loading="lazy" decoding="async" src="' + esc(thumbUrl(photos[0])) + '" alt="' + esc(productName(p)) + '">' : "";
+      return '<a class="fc" href="' + esc(href) + '" data-c="' + esc(slug ? "" : (p.category || "")) + '">' +
+        (img || '<span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:52px">' + esc(p.emoji || "🥭") + "</span>") +
+        '<div class="fc-veil"></div>' +
+        '<span class="fc-tag">' + esc(catLabel(p.category).toUpperCase()) + "</span>" +
+        '<span class="fc-t">' + esc(productName(p)) + "</span>" +
+        '<span class="fc-s">' + money(price) + " · " + esc(t("b1")) + "</span>" +
+        '<span class="fc-cta">' + esc(t("fruitCta")) + "</span></a>";
+    }).join("");
+    box.querySelectorAll(".fc").forEach(function (a) {
+      if (a.getAttribute("data-c")) a.addEventListener("click", goCat);
+    });
+  }
+
+  function renderMango() {
+    var sec = document.getElementById("mangoSec");
+    var box = document.getElementById("mstrip");
+    if (!sec || !box) return;
+    var list = state.products.filter(function (p) {
+      var hay = ((p.bn || "") + " " + (p.name || "")).toLowerCase();
+      if (hay.indexOf("আম") < 0 && hay.indexOf("mango") < 0) return false;
+      return !/(আমলকী|আমড়া|amla|jamun|জাম)/.test(hay);
+    }).slice(0, 12);
+    if (!list.length) { sec.hidden = true; return; }
+    sec.hidden = false;
+    box.innerHTML = list.map(function (p) {
+      var photos = (Array.isArray(p.image_urls) && p.image_urls.length ? p.image_urls : (p.image_url ? [p.image_url] : [])).filter(Boolean);
+      var img = photos.length ? '<img loading="lazy" decoding="async" src="' + esc(thumbUrl(photos[0])) + '" alt="' + esc(productName(p)) + '">' : esc(p.emoji || "🥭");
+      var price = Number(p.offer_price || p.price) || 0;
+      var slug = state.slugs && state.slugs[p.id];
+      var href = slug ? "product/" + slug + ".html" : "";
+      var nameHtml = href ? '<a class="mname" href="' + esc(href) + '">' + esc(productName(p)) + "</a>" : '<div class="mname">' + esc(productName(p)) + "</div>";
+      var btn = href
+        ? '<a class="mbtn" style="display:block;text-align:center" href="' + esc(href) + '">' + esc(t("fruitCta")) + "</a>"
+        : '<a class="mbtn" style="display:block;text-align:center" href="' + wa(fmt(t("waProduct"), productName(p), money(price))) + '">💬 ' + esc(t("order")) + "</a>";
+      return '<div class="mcard">' +
+        (href ? '<a class="mimg" href="' + esc(href) + '" style="background:' + esc(p.tint || "#F1F3ED") + '">' + img + "</a>" : '<div class="mimg" style="background:' + esc(p.tint || "#F1F3ED") + '">' + img + "</div>") +
+        '<div class="mbody">' + nameHtml + '<div class="mprice">' + money(price) + "</div>" + btn + "</div></div>";
+    }).join("");
+  }
+
+  function renderMed() {
+    var box = document.getElementById("medband");
+    if (!box) return;
+    var list = state.products.filter(function (p) {
+      var c = (p.category || "").trim();
+      return c === "Medicinal plants" || c === "ঔষধি";
+    });
+    var img = "";
+    list.concat(state.products).forEach(function (p) {
+      if (img) return;
+      var photos = (Array.isArray(p.image_urls) && p.image_urls.length ? p.image_urls : (p.image_url ? [p.image_url] : [])).filter(Boolean);
+      if (photos.length) img = thumbUrl(photos[0]);
+    });
+    var medImg = document.getElementById("medImg");
+    if (medImg && img) medImg.style.backgroundImage = 'url("' + img.replace(/"/g, "%22") + '")';
+    var go = document.getElementById("medGo");
+    if (go) {
+      if (list.length) go.setAttribute("data-c", list[0].category || "");
+      else go.removeAttribute("data-c");
+      go.onclick = goCat;
+    }
+  }
+
+  function renderAsk() {
+    var box = document.getElementById("askgrid");
+    if (!box) return;
+    var items = [
+      { t: t("askSeed"), s: t("askSeedS"), e: "🌰" },
+      { t: t("askFert"), s: t("askFertS"), e: "🪴" },
+      { t: t("askSucc"), s: t("askSuccS"), e: "🌵" }
+    ];
+    box.innerHTML = items.map(function (it) {
+      return '<a class="asktile" href="' + wa(fmt(t("askMsg"), it.t)) + '">' +
+        '<span class="a-ico">' + it.e + "</span>" +
+        '<span style="flex:1;min-width:0"><b>' + esc(it.t) + "</b><small>" + esc(it.s) + "</small></span>" +
+        '<span class="a-go">' + esc(t("askGo")) + "</span></a>";
+    }).join("");
+  }
+
+  function renderFooterCats() {
+    var box = document.getElementById("fCats");
+    if (!box) return;
+    var seen = [];
+    state.products.forEach(function (p) { var c = (p.category || "").trim(); if (c && seen.indexOf(c) < 0) seen.push(c); });
+    box.innerHTML = seen.slice(0, 6).map(function (c) {
+      return '<p><a href="#plants" data-c="' + esc(c) + '">' + esc(catLabel(c)) + "</a></p>";
+    }).join("");
+    box.querySelectorAll("a").forEach(function (a) { a.onclick = goCat; });
+  }
+
   function renderOffers() {
     var sec = document.getElementById("offerSec");
     var box = document.getElementById("offers");
@@ -1649,6 +2017,22 @@
       state.slugs = mapRes.ok ? await mapRes.json() : {};
     } catch (e) { state.slugs = {}; }
     renderChips(); renderProducts(); renderOffers(); renderReviews(); renderCats(); renderFaq();
+    renderFruit(); renderMango(); renderMed(); renderAsk(); renderFooterCats();
+    var pop = document.getElementById("coupop");
+    if (pop) {
+      if (state.offers.length) {
+        var o = state.offers[0];
+        var pt = document.getElementById("popTitle");
+        if (pt) pt.textContent = o.title || pt.textContent;
+        var pm = document.getElementById("popMsg");
+        if (pm) pm.textContent = o.message || pm.textContent;
+        var pc = document.getElementById("popCta");
+        if (pc) pc.href = "#offerSec";
+      } else {
+        var pc2 = document.getElementById("popCta");
+        if (pc2) pc2.href = wa(t("waMsg"));
+      }
+    }
     var sc = document.getElementById("statCount");
     if (sc) sc.textContent = (state.products.length ? state.products.length + "+" : "—");
     deepLinkAdd();
@@ -1680,6 +2064,54 @@
         if (window.__gfOpenCart) { window.__gfOpenCart = false; setTimeout(openCart, 220); }
       };
     });
+  })();
+
+  // back-to-top button
+  (function () {
+    var b = document.getElementById("topBtn");
+    if (!b) return;
+    function onScroll() { b.classList.toggle("on", (window.scrollY || document.documentElement.scrollTop) > 600); }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    b.onclick = function () { try { window.scrollTo({ top: 0, behavior: "smooth" }); } catch (e) { window.scrollTo(0, 0); } };
+  })();
+
+  // pincode strip, weekly-tips form, view-all links, welcome coupon popup
+  (function () {
+    var pin = document.getElementById("pinForm");
+    if (pin) pin.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      var v = (document.getElementById("pinIn").value || "").trim();
+      if (!/^\d{6}$/.test(v)) { toast("PIN কোড ৬ সংখ্যার লিখুন"); return; }
+      window.open(wa("নমস্কার! আমার এলাকার PIN কোড " + v + " — এখানে ডেলিভারি হয়?"), "_blank");
+    });
+    var nl = document.getElementById("nlForm");
+    if (nl) nl.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      var nm = (document.getElementById("nlName").value || "").trim() || "—";
+      window.open(wa(t("nlMsg") + nm), "_blank");
+    });
+    ["fruitAll", "mangoAll"].forEach(function (id) {
+      var a = document.getElementById(id);
+      if (a) a.onclick = goCat;
+    });
+    var pop = document.getElementById("coupop");
+    if (pop) {
+      function dismiss() { pop.classList.remove("on"); try { localStorage.setItem("gf_popup", new Date().toDateString()); } catch (e) {} }
+      var x = document.getElementById("coupopX"), skip = document.getElementById("coupopSkip");
+      if (x) x.onclick = dismiss;
+      if (skip) skip.onclick = dismiss;
+      pop.addEventListener("click", function (ev) { if (ev.target === pop) dismiss(); });
+      var shown;
+      try { shown = localStorage.getItem("gf_popup"); } catch (e) {}
+      if (shown !== new Date().toDateString()) {
+        setTimeout(function () {
+          var gate = document.getElementById("langGate");
+          if (gate && !gate.classList.contains("off")) return;
+          pop.classList.add("on");
+        }, 1600);
+      }
+    }
   })();
 
   // toast
